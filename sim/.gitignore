@@ -1,0 +1,12 @@
+# Questa/ModelSim compiled libraries
+work/
+modelsim.ini
+
+# Simulation outputs
+*.log
+transcript
+*.wlf
+*.vstf
+
+# Generated DO files (created by batch files)
+*_wave.do
