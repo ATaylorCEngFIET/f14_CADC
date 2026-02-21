@@ -82,6 +82,10 @@ ARCHITECTURE rtl OF control_rom_sequencer IS
   --   [7]     pdu_start- Start PDU division
   --   [3:0]   io_ctrl  - I/O control (1=READ_PS, 6=WRITE_MACH)
   --
+  -- Key insight: TMP is loaded ONLY from current ACC (not mux input).
+  -- Keep TMP=X throughout and use ADD with sel_acc=5(CONST) to add
+  -- data ROM coefficients directly to ACC.
+  --
   -- Data ROM addresses:
   --   0: a3 coefficient (0x10000 = 0.125)
   --   1: a2 coefficient (0x20000 = 0.25)
@@ -90,105 +94,80 @@ ARCHITECTURE rtl OF control_rom_sequencer IS
   ---------------------------------------------------------------------------
   SIGNAL s_ctrl_rom : t_ctrl_rom := (
     -- Addr 0: Issue IO read for sensor Ps (latch data)
-    --         io_ctrl=1(READ_PS), no ACC write yet
     0  => x"000000000001",
 
     -- Addr 1: Load latched IO data (X) into ACC
-    --         sel_acc=4(IO), ALU=D(LOAD), acc_wr=1, io_ctrl=0(NOP)
+    --         sel_acc=4(IO), ALU=D(LOAD), acc_wr=1
     1  => x"0000D8040000",
 
-    -- Addr 2: Copy ACC (X) to TMP for PMU operand B
-    --         sel_acc=7(ACC), ALU=E(STORE_TMP), tmp_wr=1
-    --         Bits: ALU=E, tmp_wr=1 -> [31:24]=E4, sel_acc=7 -> [18:16]=111
-    2  => x"0000E4070000",
+    -- Addr 2: Copy ACC (X) to TMP - TMP stays X throughout!
+    --         ALU=E(STORE_TMP), tmp_wr=1
+    2  => x"0000E4000000",
 
-    -- Addr 3: Store X in RAS[0] for later use
+    -- Addr 3: Store X in RAS[0] for backup
     --         ras_addr=0, ras_wr=1, sel_ras=0(ACC)
     3  => x"000000800000",
 
     -- Addr 4: Load a3 coefficient from Data ROM[0] into ACC
-    --         NEXTADR=0 (data addr), sel_acc=5(CONST), ALU=D(LOAD), acc_wr=1
+    --         data_addr=0, sel_acc=5(CONST), ALU=D(LOAD), acc_wr=1
     4  => x"0000D8050000",
 
-    -- Addr 5: Start PMU: a3 * X (ACC * TMP)
-    --         pmu_start=1
+    -- Addr 5: Start PMU: a3 * X (ACC=a3, TMP=X)
     5  => x"000000000800",
 
     -- Addr 6: Wait for PMU completion
-    --         NEXTCTL=07(WAIT_PMU)
     6  => x"070000000000",
 
     -- Addr 7: Load PMU result (a3*X) into ACC
     --         sel_acc=1(PMU), ALU=D(LOAD), acc_wr=1
     7  => x"0000D8010000",
 
-    -- Addr 8: Load a2 from Data ROM[1], store to TMP
-    --         NEXTADR=1, sel_acc=5(CONST), ALU=E(STORE_TMP), tmp_wr=1
-    8  => x"0001E4050000",
+    -- Addr 8: ADD a2 directly from Data ROM[1] to ACC
+    --         data_addr=1, sel_acc=5(CONST), ALU=1(ADD), acc_wr=1
+    --         ACC = (a3*X) + a2
+    8  => x"000118050000",
 
-    -- Addr 9: Add: ACC = (a3*X) + a2
-    --         sel_acc=6(TMP), ALU=1(ADD), acc_wr=1
-    9  => x"000018060000",
+    -- Addr 9: Start PMU: (a3*X + a2) * X
+    9  => x"000000000800",
 
-    -- Addr 10: Copy X from RAS[0] to TMP for next multiply
-    --          sel_acc=0(RAS), ALU=E(STORE_TMP), tmp_wr=1, ras_addr=0
-    10 => x"0000E4000000",
+    -- Addr 10: Wait for PMU
+    10 => x"070000000000",
 
-    -- Addr 11: Start PMU: (a3*X + a2) * X
-    --          pmu_start=1
-    11 => x"000000000800",
+    -- Addr 11: Load PMU result into ACC
+    --          ACC = (a3*X + a2)*X
+    11 => x"0000D8010000",
 
-    -- Addr 12: Wait for PMU
-    --          NEXTCTL=07(WAIT_PMU)
-    12 => x"070000000000",
+    -- Addr 12: ADD a1 directly from Data ROM[2] to ACC
+    --          data_addr=2, sel_acc=5(CONST), ALU=1(ADD), acc_wr=1
+    --          ACC = (a3*X + a2)*X + a1
+    12 => x"000218050000",
 
-    -- Addr 13: Load PMU result into ACC
-    --          sel_acc=1(PMU), ALU=D(LOAD), acc_wr=1
-    13 => x"0000D8010000",
+    -- Addr 13: Start PMU: ((a3*X + a2)*X + a1) * X
+    13 => x"000000000800",
 
-    -- Addr 14: Load a1 from Data ROM[2], store to TMP
-    --          NEXTADR=2, sel_acc=5(CONST), ALU=E(STORE_TMP), tmp_wr=1
-    14 => x"0002E4050000",
+    -- Addr 14: Wait for PMU
+    14 => x"070000000000",
 
-    -- Addr 15: Add: ACC = ((a3*X + a2)*X) + a1
-    --          sel_acc=6(TMP), ALU=1(ADD), acc_wr=1
-    15 => x"000018060000",
+    -- Addr 15: Load PMU result into ACC
+    --          ACC = ((a3*X + a2)*X + a1)*X
+    15 => x"0000D8010000",
 
-    -- Addr 16: Copy X from RAS[0] to TMP for next multiply
-    --          sel_acc=0(RAS), ALU=E(STORE_TMP), tmp_wr=1, ras_addr=0
-    16 => x"0000E4000000",
+    -- Addr 16: ADD a0 directly from Data ROM[3] to ACC
+    --          data_addr=3, sel_acc=5(CONST), ALU=1(ADD), acc_wr=1
+    --          ACC = E = full polynomial result
+    16 => x"000318050000",
 
-    -- Addr 17: Start PMU: ((a3*X + a2)*X + a1) * X
-    --          pmu_start=1
-    17 => x"000000000800",
-
-    -- Addr 18: Wait for PMU
-    --          NEXTCTL=07(WAIT_PMU)
-    18 => x"070000000000",
-
-    -- Addr 19: Load PMU result into ACC
-    --          sel_acc=1(PMU), ALU=D(LOAD), acc_wr=1
-    19 => x"0000D8010000",
-
-    -- Addr 20: Load a0 from Data ROM[3], store to TMP
-    --          NEXTADR=3, sel_acc=5(CONST), ALU=E(STORE_TMP), tmp_wr=1
-    20 => x"0003E4050000",
-
-    -- Addr 21: Add: ACC = (((a3*X + a2)*X + a1)*X) + a0 = Final result E
-    --          sel_acc=6(TMP), ALU=1(ADD), acc_wr=1
-    21 => x"000018060000",
-
-    -- Addr 22: Store result in RAS[1] for reference
+    -- Addr 17: Store result in RAS[1] for reference
     --          ras_addr=1, ras_wr=1, sel_ras=0(ACC)
-    22 => x"000000900000",
+    17 => x"000000900000",
 
-    -- Addr 23: Write result to MACH output
+    -- Addr 18: Write result to MACH output
     --          io_ctrl=6(WRITE_MACH), sel_io=0(ACC)
-    23 => x"000000000006",
+    18 => x"000000000006",
 
-    -- Addr 24: Halt (jump to self)
-    --          NEXTCTL=01(JUMP), NEXTADR=24
-    24 => x"011800000000",
+    -- Addr 19: Halt (jump to self)
+    --          NEXTCTL=01(JUMP), NEXTADR=19
+    19 => x"011300000000",
 
     -- Remaining addresses: NOP
     OTHERS => (OTHERS => '0')

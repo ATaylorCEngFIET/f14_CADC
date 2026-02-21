@@ -182,13 +182,14 @@ BEGIN
         REPORT "TOP-T-004: Polynomial with X = 0.25 (0x20000)" SEVERITY NOTE;
         test_count <= test_count + 1;
 
+        -- Set input BEFORE reset to ensure microprogram reads correct value
+        sensor_ps <= x"20000";  -- X = 0.25
+        
         -- Reset to restart microprogram
         rst <= '1';
         WAIT FOR 5 * CLK_PERIOD;
         rst <= '0';
         WAIT FOR 2 * CLK_PERIOD;
-
-        sensor_ps <= x"20000";  -- X = 0.25
 
         -- Wait for computation
         FOR i IN 0 TO 199 LOOP
@@ -214,12 +215,13 @@ BEGIN
         REPORT "TOP-T-005: Polynomial with X = 0.75 (0x60000)" SEVERITY NOTE;
         test_count <= test_count + 1;
 
+        -- Set input BEFORE reset to ensure microprogram reads correct value
+        sensor_ps <= x"60000";  -- X = 0.75
+        
         rst <= '1';
         WAIT FOR 5 * CLK_PERIOD;
         rst <= '0';
         WAIT FOR 2 * CLK_PERIOD;
-
-        sensor_ps <= x"60000";  -- X = 0.75
 
         FOR i IN 0 TO 199 LOOP
             WAIT UNTIL rising_edge(clk_master);
