@@ -80,8 +80,25 @@ ARCHITECTURE structural OF cadc_top IS
   SIGNAL s_io_ready       : STD_LOGIC;
   SIGNAL s_data_rom_data  : STD_LOGIC_VECTOR(19 DOWNTO 0);
 
+  ---------------------------------------------------------------------------
+  -- Data ROM: Stores polynomial coefficients and constants
+  -- Format: Q1.19 signed fractional (-1.0 to +0.999998)
+  --
+  -- Polynomial: E = a3*X^3 + a2*X^2 + a1*X + a0
+  -- Example coefficients (from Section 2 documentation):
+  --   Addr 0: a3 = 0.125  = 0x10000
+  --   Addr 1: a2 = 0.25   = 0x20000
+  --   Addr 2: a1 = 0.375  = 0x30000
+  --   Addr 3: a0 = 0.0625 = 0x08000
+  ---------------------------------------------------------------------------
   TYPE t_data_rom IS ARRAY(0 TO 511) OF STD_LOGIC_VECTOR(19 DOWNTO 0);
-  SIGNAL s_data_rom : t_data_rom := (OTHERS => (OTHERS => '0'));
+  SIGNAL s_data_rom : t_data_rom := (
+    0      => x"10000",  -- a3 = 0.125
+    1      => x"20000",  -- a2 = 0.25
+    2      => x"30000",  -- a1 = 0.375
+    3      => x"08000",  -- a0 = 0.0625
+    OTHERS => (OTHERS => '0')
+  );
 
 BEGIN
 

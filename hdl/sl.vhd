@@ -38,19 +38,21 @@ BEGIN
 
   -----------------------------------------------------------------------------
   -- ACC input source mux (8:1)
+  -- Allows routing data to ACC from various sources including ACC itself
+  -- for operations like TMP = ACC via STORE_TMP with sel_acc_src=7
   -----------------------------------------------------------------------------
   acc_mux_proc: PROCESS(i_sel_acc_src, i_src_ras, i_src_pmu, i_src_pdu_q,
-                        i_src_pdu_r, i_src_io_in, i_src_const, i_src_tmp)
+                        i_src_pdu_r, i_src_io_in, i_src_const, i_src_tmp, i_src_acc)
   BEGIN
     CASE i_sel_acc_src IS
-      WHEN "000"  => o_acc_in <= i_src_ras;
-      WHEN "001"  => o_acc_in <= i_src_pmu;
-      WHEN "010"  => o_acc_in <= i_src_pdu_q;
-      WHEN "011"  => o_acc_in <= i_src_pdu_r;
-      WHEN "100"  => o_acc_in <= i_src_io_in;
-      WHEN "101"  => o_acc_in <= i_src_const;
-      WHEN "110"  => o_acc_in <= i_src_tmp;
-      WHEN "111"  => o_acc_in <= (OTHERS => '0');
+      WHEN "000"  => o_acc_in <= i_src_ras;      -- RAS read data
+      WHEN "001"  => o_acc_in <= i_src_pmu;      -- PMU result
+      WHEN "010"  => o_acc_in <= i_src_pdu_q;    -- PDU quotient
+      WHEN "011"  => o_acc_in <= i_src_pdu_r;    -- PDU remainder
+      WHEN "100"  => o_acc_in <= i_src_io_in;    -- I/O input data
+      WHEN "101"  => o_acc_in <= i_src_const;    -- Data ROM constant
+      WHEN "110"  => o_acc_in <= i_src_tmp;      -- TMP register
+      WHEN "111"  => o_acc_in <= i_src_acc;      -- ACC (loopback for TMP store)
       WHEN OTHERS => o_acc_in <= (OTHERS => '0');
     END CASE;
   END PROCESS acc_mux_proc;
