@@ -1,0 +1,22 @@
+Reading pref.tcl
+
+# 2025.3
+
+# ** Note: (vsim-220) 'C:/questa_base64_2025.3/win64/../modelsim.ini' is used as the ini file.
+# vsim -c -do "run -all; quit -f" work.cadc_top_tb 
+# Start time: 12:08:41 on Feb 21,2026
+# ** Note: (vsim-3812) Design is being optimized...
+# ** Note: (vopt-220) 'C:/questa_base64_2025.3/win64/../modelsim.ini' is used as the ini file.
+# ** Error: (vopt-1935) Unable to rename temporary file C:/Users/aptay/Dropbox/adiuvo/f14-CADC/sim/work/_infoz0f2ji to C:/Users/aptay/Dropbox/adiuvo/f14-CADC/sim/work/_info.
+# ** Fatal: (vopt-9) Problem while writing info file "C:/Users/aptay/Dropbox/adiuvo/f14-CADC/sim/work/_info".
+# ** Warning: (vopt-133) Unable to remove directory "C:/Users/aptay/Dropbox/adiuvo/f14-CADC/sim/work/@_opt1".
+# ** Error: (vopt-1935) Unable to rename temporary file C:/Users/aptay/Dropbox/adiuvo/f14-CADC/sim/work/_infozdg24i to C:/Users/aptay/Dropbox/adiuvo/f14-CADC/sim/work/_info.
+# Access is denied. (GetLastError() = 5)
+# ** Fatal: (vopt-9) Problem while writing info file "C:/Users/aptay/Dropbox/adiuvo/f14-CADC/sim/work/_info".
+# Access is denied. (GetLastError() = 5)
+# Error loading design
+# End time: 12:08:42 on Feb 21,2026, Elapsed time: 0:00:01
+# Errors: 0, Warnings: 0
+
+STDERR:
+Error loading design

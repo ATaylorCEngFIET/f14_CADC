@@ -1,0 +1,214 @@
+--- Page 1 ---
+INTRODUCTION
+This paper describes the architecture of che CPU and Memory for the Central Air Data Computer (CADC) System used in the Gruman/ Navy Fl4A carrier-based fighter aircraft. The CADC performs specialized computerational functions in response to input stimuli such as pressure sensors , temperature sensors and closed loop feedback inputs Outputs from the CADC system are used to drive pilot visual displays (such a8 , altimeter temperature indicator, mach number indicator, etc : and to provlde control inputs for other aircraft systems _ The outputs from the CADC are in the form of digital and analog g1gnals . Figure 1 illustrates a block diagram  for the CADC _ Being in a flight enviroment meant that certain constraints must greatly reflect the architecture of the CPL and Memory. These constraints were size, power, real-time computing capability and cost, not necessarily in that order _ Other constraints such acceleration and mechanical shock affected the a8 temperature, overall design of the CADC . The size of the CPU-Memory was limited to a maxinum of 40 square inches _ This included the arithmetic section, read-only memory, and read /write memory _ Since the unit was to be packaged on a printed circuit card the number of layers of the P.c . card was an important consideration_ The power consumption had a limit of 10 watts at ambient 25'C . This was principally a function pf the capabilities of the Pac , card to withstand the heat . The required coputing capacity for the CPU was not defined at the beginning _ This meant that the system had ta be gomewhat Elexible to changes in computational load _ Qf course limits had to be set to be able to work within the other constraints _ What was known about the computation was the form of the equations to be implemenLed _ This included polynominal evaluations data limit-
+
+--- Page 2 ---
+ing, data comparison and discrete or flag inputs and outputs. Tbis meant that the arithmetic and logical functions pf the 8ystem had td handle at least the Eollowing operations: Multiply Divide Add Subtract Limits Square Root And Or Conditional Transfer Unconditipnal Transfer Recelve Discrete Data Receive Digital Data Output Discrete Data Qucput Digital Data The last constraint of cost wa6 certainly important since the system would eventually g0 into high volume production_
+FUNCT IONS TO BE IMPLEMENTED Before we proceed, a better understanding of the functiong be implemented 18 necessary . The function that most often to occurred wag the polynomial, ) 6 4 2 F(x) = + a5*5 + &4* + 23*3 + 86% a2* + a1* + a0 where X was the input, either from outside the CPU (sensors) or from its OwTI memory . In order to save arithmetic time the polynomial was implemented in its "nested" Eprm 48 follows: F(x) = ((((((xe6) + 85) x + 24) X + 43) % + 82) * + &1) x,+ a0 The data limit function was one that would accept 3 binary an limit (I) a lower limit (L) and 4 parameter (P) . inputs , tpper } The output would then pe 25 follows; P if W > P > L L if P < L U if P > I
+
+--- Page 3 ---
+2 e 1 0 8 @m 1 1 9 1 2 1 g
+1
+; T
+8 0 8
+J 8 1 1
+5 `
+0 8 M D 1 1 4VY H 1  02 8 8
+
+--- Page 4 ---
+could be programed in software, it Even though such a function it in hardware since it was used often W28 decided to build enough . and gcaling also had to be accomplished. Data conditioning involved the following 8imple expressions : This A + B F =
+F = 4+8
+these Were frequent enough to warrent Again the occurence of becone apparent later when the hardware consideration_ This will hardware 18 discugsed, consumption was of the ultimate importance, Since size and power 25 the meang of circuit implementation_ MOS technology wag chogen to be obtained chat This allowed greater packaging densities glowness 0f MOS devices and the high otherwise would not be_ The design that was virtually inlne to thresho ld5 used allowed 1 transmitted from packages within electrical noise 0n the ground or higher supply voltages required resulted in close proximity. The 8 more efficient power supply design_
+NUMBER   SYSTEM
+fixed point machine with the mos t The CPU ig 8 fractional the other bits reprebenting data. significant bit 2 8ign bit and are represented in two 5 complement notation_ Negative numbers to avoid the ambiguity of double Twa 8 complementation was chosen zeros for the system was 20 bits; 19 bits The word length chosen This Length wab chosen after 1 thorough of data and 1 bit for sign- the accuracy required for certain throughput calculation: analysis of of change of altitude function. such 4s the rate
+
+--- Page 5 ---
+Early in the architecture study it was realized thac package size and quantity should be kept to a minimu if we were to meet the size constraints established: With minimum packaging space requirements it W29 necessary to use packages wich the fewest possible leads_ This would minimize the complex P-c. card interconnect which wab inevitable_ Because of this the processor wa8 designed to trangfer data Se rially throughout the entire system _
+PROCESSOR FARALELLISM
+As 18 known by all computer designer8 } 8eriel machines are ugually not the best way to g0 if computational speed ig needed_ To get around this it was decided to have geveral arithmetic or processing unics working at the same time This regulted in 4 technique known a8 "pipeline processing" or "pipeline concurrency 1 As defined by Bell and Newell "pipeline concurrency 18 the nae given to 4 sygtem of multiple functianal uni ES, each of which is responslble for partial interpretational and executipn of the instruction stream _ This system use8 multiple functional unit: each dedicated for & specific task. These functional units are ; 1. Parallel Multiplier Unit (PMU) 2 . Parallel Divider Unit (PDU) 3. Special Logic Function (SLF) 4 . Data Steering Unit (SL) 5 Random Access Storage (Read /write} (RAs) 6, Read-Only Memary Unlt (ROM) Figure 2 shows a block diagram of the functional units 48 chey would work together in 2 typical sys tem. Each unit wag designed 48 a separate entity and could be uged without the need to operate of any of the other tinits This wa8 done to provide maximum expandibility with minimum additional hardware, Each func tional unit is controlled by it8 own micro-instruction ROM The micro- instructiong are als0 trang ferred serially to minimize Package pin count_ Temporary data storage 18 provided in the for of read/write memory . and Allen Newell Computer Structures Readings 1 Gordon G, Bell, McGraw Hill Book Co., KY , 1971, Pg. 8844 and_Examples,
+
+--- Page 6 ---
+23 1 17
+1
+1 2 9 9 1 8 2 2 2 3 # 1 3 p 5 3 2 2 8 3 6 k 6 %3 1 1 3 2 2 N m 2 7 1 7 2 3 1 2 1 1 1 2 1 3 3 CDl @ e8 1 < 5i 2 3 " 28 7 ^ 7OULNO? JiIInjaX3 waLSAS 2 0 @ 1 TIF
+
+--- Page 7 ---
+Before looking at the functions of each of these tnits 1 brief Look ab the timing is needed; Figure 3 illustrates this timing. The CPU-Memory clock 18 37SKHz , One complete clock period, defined 48 1 bit time 13 2.66usec . Every 20 congecutive bit times are defined 28 8 Word, The first bit time of a word 18 called TO, and the last time of che word is called Tl9. Two types of words are used in che system, WA and wo" In Ha ' the arithetical algorithms operate and instruction words are shifted serially into each functional unit_ In Wo; coputatlonal input8 and out- are Shifted serially among the units 4 word mark used puts to distinguish word times 18 2 8ignal coincident with Tl8 of every word time _ Two consecutive word times WA and Wo' 15 called an operation  (Op) time . Ta distinguish the final operation time a frae mark is generated in the 8y8tem executive control, The time between frame marks is called 1 frame_ frame includes one complete cycle of computations _ The frame mark 18 micro- programmed to ellow the uber to restart the computational cycle when all previous computationg are complete Since this system must operate In real time it was therefore neceagary to obtain the most computation fron each functional unlt during each frame time
+ARITHMETIC UNITS
+The Parallel Multipller Tnit accepts two serial inputs  multiplicand and multiplier, in one word time (Wo) and produces their properly rounded product by means of 8 parallel algorithm in one more word time_ The Product 19 shifted out in the next Wo' while Inputs fpr the nert operation are simultaneously shifted in. The multiplication operation 18 achieved using Booth 8 algorithm?_ The PMU does not need an instruction word to operate, but 1s capable of operating continuously in this manner_ The Parallel Divider Tnit accepts two serial inputs $ dividend and divisor, 1n one word tlme (Wo) and produces the proper quotlent
+2.
+Yoahan Chu , Digital Conputer' _Degign_Fundementals, McGrawHill Book Co . N.Y., 1962 , Pg, 32.
+
+--- Page 8 ---
+ 1 2
+4 1
+h
+< 1 M 2
+1 0 3 1 8 % 2 8 ! 2 L
+
+--- Page 9 ---
+of a parallel algorithm in one more word time (WA) = The by means 18 shifted oub in the next Wo' while inputs for the next quotient operation are simultaneous Ly shifted in _ The division peration achieved by using 4 non-res toring division algorithm _ An 18 actual photograph of the PDU chip is shown in Figure 43 The Special Logic FuncEion performs logical operations and generates specific data and logic outputs _ The unit accepts an instruction word which Bpecifies details of the operation _ fundamental logical operation of this unit 1s the limit The funetion It consists of three registers (U,P, and L) whoge Inputs arrive in One of these registers 19 picked at the end of Wo wo" by associated comparigon logic _ Other logic functions guch 28 AND ' 8 , OR ' $ , GRAY CODE (8pecial) Conditional, and Uncondltional data branching 18 &l30 included in this logic - The Data Steering Unit operates 18 1 chree channel serial data multiplexer. Inforation is shifted Berially through digital device 4 15 bit instruction word the is accepted during Wo- that specifies which input or input combinations (Add during WJ A gubtract) 15 to be "gteered" to each Df three data outputs _ or ingtruction word for thia unit 18 the last 15 bits of the The instruction word_ From the least 8ignificant end , che 20-bit four bits specifie8 the selection for Output 1 The next first bits specifies the gelection for Output 2 and the last four bits 8pecifies che selection for Output 3 _ Addition or seven 18 performed by specifying that output combination subtraction "gteered" to the output _ By performing additions and to be subtractions in this manner the programer can obtain the sun difference during the same word time that the data is being and trangferred. This transfer nay be either to or from the memory or arithmetic units . Specific ingtruction codes are interpreted a9 follows:
+3_
+Yoahan Chu , Digital Computer Degign_Fundamentalg, McGrawHill Book Cp '> N.Y,, 1962, PB. 39 _
+
+--- Page 10 ---
+LSB 6 9 Selected to Output 1 0 0 EXT 1 0 0 EXT 2 0 ; EXT 3 0 8 EXT 4 0 ExT 5 1 0 1 EI ; 0 ; EXT EXT 9 0 EXT 10 EXT 13 8 EXT 11 M EXT !ot+EEX_L4 ; EXT 4 + EXT & EXT 2 5 EXT 8
+10 11 12 13 Selected to Output 2 0 0 EXT 1 ; ; 0 0 ExI 3 0 0 EXT 4 0 EXT 5 8 8 EXT 6 EXT 7 0 1 EXT 8 1 ; E3nny (T19) (Maximum EXT 11 Positive Number) 1 ; EXI 2o++EEX44 ; EXT 4 + EXT 8 1 EXT 2 EXT 8
+
+--- Page 11 ---
+14 15 16 12 Selected to Output 3 0 0 EXT 1 ; 0 EXT 2 EXT 3 0 EXT 4 0 EXT 5 0 8 EXT 6 0 1 EXI 9 1 ; 21 (controlled by bics 18-20) 42 EXT 11 1 EXT 2 + EXT EXT 2 EXT 8 ; 1 EXT 2 5 EXT 4 EXT 4 ~ EXT 2 EXT 4 + EXT 8
+18 1
+EXT 12 + EXT 8 =
+MSP
+19 20 0 21 + EXT 2 = 22 41 EXT 2 = ; 22 ; 21 + EXT 4 = 22 z 1 EXT 4 = 22
+21
+
+--- Page 12 ---
+each SL hag three ouEputb the capability is there Since to three additions and/or subtractions during one word perfoz rm 3 has the added feature of performing two additions time. Output 9am2 data tranafer, This would be A + R + C. This during the incorporated to handle the many ca9e8 of concluding feature was end adding another va lue to it. This 4 polynomial evaluation lopk like + %. As the product of A1* 18 being would (Ai*tAo) the constant and Y value can be added trans Eerred to memory Ao As can be seen the additlon and gubtraction, if it. uaed t take "zero" time 8ince transferring of data bas properly, can to be accomplished anyway . Thege four units comprise Ehe hardware that can perform Ag shown in Figure 2 each PMI , PDU and arithmetic operationg Data Steering Unit asbociated with them As will be SLF has a discussed later this allows many data paths to be operating Thus  computatlonal power 18 greatly increased. consecutively.
+MEMORY UNITS
+two memory units , Read-Only Memory (ROM) for There are and Random Access (Read Write) Storage (RAs) instruction storage for intermediate data 8torage The ROM cperates a8 a 2560-bit randon access/sequential acce88 device: It internally atores of 128 words of 20 bit length for serial readout_ fixed patterns are specified by the uber The ROM has Provision The patterns 20-bit gerial binary word address The first seven to accept 2 which of the 128 words is to be eccessed, and bits indicates three bits specifies, by manufacture mask decoding, the nert of 8 po8glble eight ROM group should have it8 which ROM out output enabled . 18 accomplished by 0 register counter The addres8 management contained within Lhe ROM Thig counter has the following cap- (1) resettable, (2) 8teppab Le such that the memory can ability: the 128-word field, (3) accepts a retain be sequenced through address comand and holdb che present address , and (4) accepts for independent address modifying or loading  a numerical input
+
+--- Page 13 ---
+the above address management, six logic inputs To accomplish increment, load, add, sub) and one address (reset (R) retain, data input are pravided, field is defined 25 follows the first beven The address Df 128 20-bit words _ The next three will LSB 8 will select one of eight ROM' $, the remaining ten will be be uged to select one select field will determine, by mask decod- zero. The three-bit (ROM) 19 to be enabled. ROM' 8 that ing, which chip' 8 output the chip select field have disabled their are not enabled by The particular application described in this paper outputs the ROM Ln che sequential access mode only . u8e8 48 a 16-word random access read- The RAS memory operateg device Information 18 shifted 8e rially into write storage selected registers during Memory readolt 1g and out 0f Wo' if 2 register 1s gelected to be read i.e., only, nondestructive, are als0 rewritten into the belected register_ then the data Ingtruction word of 5 bits during Ap The The RAS accepts an four bics of the instruction word specifies least significant 20-bit serial registers_ The contents 0f the one of sixceen 13 shifted out to the data output serially gelected register and At the Wo time, information from during the next Wo 4p written into the selected regis ter if the the data input i8 is a "1" If the fifth bit 1s a "0I _ bit the fifth control contents remain unaffected. An external logic input reglster 18 provided Co inhibit writing _ The instruction "inhibit write" selects registerg according to the following configuration: word
+
+--- Page 14 ---
+M 5
+Belected Register
+4
+3 2 1 16 ; ; ; ; W 9 1 % 2 13 14 15 Read 1 Read & Write An actual photograph of the RAS chip 1g shown in Figure 5 .
+
+--- Page 15 ---
+SYSTEM OPERATION AND INSTRUCTION FORMAT
+This processor uses a total of 28 circuits . The breakdown 18 a8 follows : 1 Parallel Multiplier Unit (PMU) 1 Parallel Divider Unit (PDU) 1 Special Logic Function (SLF) 3 Rendom Access Storage Units (RAS) 3 Data Steering Units (SL) 19 E Read-Only Memory Units (ROM) An actual photograph of the processor is shown in Figure 6  The system has been divided into three modules, each module identi- fied by its arithmetic unit. The module: are 45 followg: Multiply Divide Special Logic Module Module 2 Module 3 1 PMU 1 PDU 1 SLF 1 SL 1 SL 1 SL 1 RAS 1 RAS 1 RAS 3 Data ROM' S L Data ROM 2 Data  ROM' 8 3 Instruction Instruction Instruction ROM 6 ROM 9 ROM 3
+Each arithetic unit has an associabed steering unit and RAS tnit_ This 18 not an absolutely necessary a8sociation put 1s chosen co add flexibility to the Programning. Figure 7 illubtrates another possibility of 4 circuit arrangement. It 18 important to note thab the hardware  arrangement is flexible to the given problem statement If many multiplies are needed in a given Prob Lem then two Or more Iu _ ltiplier units could be used instead of one The same can be true for any of the other circuits_ Each module 48 shown in Figure 2 18 a specialized CPU with its own data and instruction storage and readlwrite storage. Each operates a6 told by its Ingtruction word. All of the modules are operating conge= cutively, each doing what it wa6 dedicated for. The interconnection of the modules determines how the units work together The timing pulses to the (nit: provide synchronization between them ,
+
+--- Page 16 ---
+9
+2
+9
+1 3 F 3 1 6 1 R 21
+2
+2
+2
+5
+3
+6
+2
+
+--- Page 17 ---
+from 2 source the output of the source For 4 uniE to accept data 0f the steering unlt for that module must be connected to the input from module to module 1s 1 function of the The transfer of data instruction word_ Every WA cime a new instruc- interconnect and the from each instruction ROM group to the tion word is transferred Thege ingtruction words define the data units in each module _ of each steering unit during the path to be selected to each output operation continues in this manner , System Wp next #0 cycle . fetch) (data fetch) until the system executive (instruction Wo ingtruction ROM' $ Data storage ROM 5 can be con trol resets the from the other circuits_ They are treated like the outputs of the steering units_ The total number connected to the inputs 18 1 function of the total amount of of ROM' 8 uged in each group update rate of the system_ The number 8 torage required and the function of the amount of calculation and of arithmetic units 1s 1 Ag shown _ the hardware 1s flexible the update rate of the system_ 7 directions: compuEational load and tO handle changes in two flexibilicy 18 required to handle the varioug update rate. This of systems to be imp- lemented,. types illustra ting the Elexibility A general hardware arrangement 15 shown in Figure 8 _ The final con figuration of the hardware the must depend On the total Bystem programing chosen by user requirements  2 the following would be its three For the system in Figure instruction word formats.
+
+--- Page 18 ---
+D 27
+( zw
+9
+7 05 N 03 7 J 8 3 1 2 8 0 11 2 32 6 32 6 3
+E5;
+3
+3 6
+
+--- Page 19 ---
+Module 1 Ingtruction Word
+LSB
+Selects PMU RAS Registers
+To PMU RAs
+Write
+Selects Multiplicand Data
+Out 1
+Out 2
+| Selefpiier Data To PMU Steering Selects RAS Out 3 1 storage Data MSB 20
+Module 2 Ingtruction Word
+LSB
+; 0 Out L 7 Qut 2 0 Out 3 18 19 MSB 20
+Selects PDU RAS Registers Write
+To PDIJ RAS
+Selects Divisor Data
+Selects Dividend Data
+To PDI Steering
+Selects RAS Storage Data
+
+--- Page 20 ---
+Module 3 Instruction Word
+LSB
+; 4 Out 1 Out 2 | Qut 3 18 MSB 20
+Select: SLF RAS Register
+Also Selects SLF Functions
+To SLF and SLF RAS
+Write
+Selects Lower Limit Data
+Sele€CDatpper
+To SLF Steering
+Selects Paraneter Data and RAS Storage Data
+
+--- Page 21 ---
+SYSTEM EXECUTIVE CONTROL
+The system executive control 1s used to control many parts 0f the total systena In general, 1t is used to control the inputs (A/D, discrel tes , sensor input;) the outputs (DIA, digital data, discrete) 9 and the processor modules
+The system executive control consisEs of an asgociated group of ROM' 8, supplying a 20-bit control word every operation time _ Each bit has 4 preassigned task baged upon the hardware con figura- tion. The assignment for each of the bits might be 48 follows:
+MSB 20 19 18 17 16 15 14 13 12 11 10 9 8 7 6 5 3 2 LSB 1
+Enables Discrete Inputs to Processor SLD Control ROM Enable SLU Data ROM-2 Enable SLUJ Data ROM-1 Enable PDU Control ROM Enable PDU Data ROM Enable PMU Control ROM Enable PMU Data ROM Enable Enableg System Self Test Analog to Digital Converter Control
+Output Digital
+to
+Analog Control
+Digital Sensor Input Control
+Control of System Sync and Control Counters
+
+--- Page 22 ---
+SysLem executive control bits 13 through 19 are assigned to control the processor modules The reason for having such a control is to minimize the storage requirements in the ROM' & by disabling their operation when they are not being uged.
+SOFTWARE COMMENTS The goftware for this system 18 closely ag8ociated with the hardware arrangement _ To program such a sy8tem efficiently requires complete knowledge of the hardware, At the present time there 1s no asbembler avallable to properly handle Ehe multiple ingtruction Bet and data path considerations to yleld 9n efficient program, Present programing requires hand coding at the machine code level. This 18 certainly tedious but it resplts in a more efficient circuit interconnect and minimum total ingtruction words_ All of this reflects the number of arithmetic modules and ROM 5 necessary to handle 1 particular prob lem,
+ADVANTAGES AND DISADVANTAGES The advantages of such 4 system are determined by the constrint; under which system design was accomplished. The size of che circuit packages were guch tbat the original size constraint wa3 met. The sizes are indicated below :
+Multiplier Unlt Divider Unit Special Logic Unit Steering Unit R.O.M. R.A.S,
+28 pin dual in-line package 28 28 28 14 14
+The  flezibility of the hardware to adapt to a great number of problem statenenbg along with itg RO.M. reprogramming capa- bility i8 certainly 4 feature desirable in all systems of thig kind _ The fact that the software and hardware can be used in conjunction with each other helps to reduce the total parts cotnt in the system_ When total parts are redueed then power congumption and cost Mill be reduced. Fower consumption for the CPU-Memory
+
+--- Page 23 ---
+discuased in this paper exceeded the original 10 watts This wag due to the Large quantity oE read-only memory needed to implement the Prob Lem statement. With present day technology the cost of such a comerclal CPU-Memory system could be less than  $2000 in Iarge quantities _ Thig 1s based on 4 price of less than 865 Per cireuit type. The disadvantages f thi8 sy8tem 18 reflected in the software. To hand code che entire program in 1 nachine such a8 this 18 9 time conguming and tedious effort_ To u8e an aggembler or trans _ lator to perform the coding would result in 2 less efficient program &nd possibly more hardware. To obtain the minimal hardware configuration 2 person with both hardware and software knowledge of the syatem 13 needed _ Future designs of this nature meed to be worked closer with the goftware requirements in order to minimize the effort required for programing_
+SUMMA RY 4 CPU-Memory system ha; been pregented that watisfied the requirements 0f a particular application_ The "pipelined" approach regulted in 1 system with enough flexibility to satisfy the present requirenent and to adapt to other areas of applica- tion_ MOS technology provided "state Df the art" power dis - sipaELons and packaging densitie: obtainable in no other wey. This system proved to be the most effective in meeting the given requirements_
+
+--- Page 24 ---
+BIBLIOGRAPHY
+1
+Staff of American Micro-systems Inc. , Engineering_Course in MS Techno logX, American Micro-systens , Inc. , Santa Clara, Calif., 1970
+2
+Thona8 C . Bartee, Irwin L. Lebow and  Irving 5, Reed, Theory end Design of _Digital_Machines , McGraw Hill Book Coupany , N.Y., 1962
+3
+Lee L Boysel and Joseph P Murphy , "Four-Phase LSI Logic Offers New Approach to Computer Degigner: IT Computer Design, April 1970 , PP + 141-146
+Chen, "Parallellsm, Pipelining &nd Computer Efficiency, II T C. Computer Design, Jan _ 1971 , P. 69
+5_
+Robert W_ Cook and Michael J. Flynn, "System Degign of a M1 Dynamic Mcroprocessor IEEE Transactions on Computers , Vol. 19 No . 3, March 1970 , PP . 213-222
+0V
+6 _
+William Ra Grahan . 3 "The Parallel and the Pipeline Computers Datanation, April 1970 , Pa 68
+7 .
+D CS Gunderson, "Some Effects of Advances In   Memory System Technology On Computer Organization, It IEEE Computer Group Computer, Nov. [Dec . 1970 , PP . 7-11
+Faces of Microprogramming , I[ RoberE C. Haavind, "The Many Computer Decisions_ Sept. 1971, PP , 6-10
+8
+"MOS For the Fl4A CADC , It Raymond M. Holt, Processor Garrett AiRegearch Corp . Torrance, Calif., Technical Report No _ 1 71-7266 April 1971
+9
+
+--- Page 25 ---
+10_
+Samir 5. Husson, Microprogram ing; Principles and PractLces, Prentice-Hall, New Jersey, 1970
+11_
+R. Le Kleir and C. V Ramamoorthy , "Op timization Strategies for Microprograms 1i 7 IEEE Transactions on Computers , Vol 20 , July 1971, Pp . 783-794
+12 _
+Frank J. Langley, "Small Computer Design Using Microprogramming and Multifunction LSI Arrays_ TI Computer Des ignt , April 1970, Pp . 151-157
+13_
+William J, Patzer and Gilbert C. Vandling, "Sys tems Impli- cation8 of Microprogranming, MT Computer Design, December 1967, PP . 62-66
+14_
+Mntgomery Phister, Jr . Logicel_ Design Qf DigItel Computers, Wiley and Sons N.Y:, 1963
+15 _
+Stephen R. Redfield, "A study 1n Microprogratmed Processors; A Medium Sized Microprograumed Processor_ 1I IEEE Transactions on Computers , Vol 20 , July 1971, PP . 743-750
+16 _
+Robert F . Rosin, "Contemporary Concepts of Microprogramming and  Emulation, Computer Surveys 7 Vol. 1, No , 4, Dec . 1969 PP . 197-212
+17_
+"Design of Microprogramable Systems Signetics Memory Systems Application Note SM S005 2AN
+"Economic Advantages of Microprogranming" IT Signetics Memory Systems Application Note SM S0053AN
+18 _
+
+--- Page 26 ---
+19_
+Donald E. Wa ldecker "Comparison of 2 Microprogramed and 1 Non-Microprogramed Computer J1 Computer Design, June 1970, PP . 73-77
+20_
+Thomas M; Whitney, "A Test Procedure for Microprogrammed Systemg Presented at the 3rd Annual Works hop on  Micro- prograning, Buffalo, N.Y-, October 1970
+21_
+M, V Wilkes , "The Growth of Interest in Microprogramming: 4 Literature Survey, I Computer Surveys _ 3 Vol. 1, No. 3 , Sept. 1969 , PP . 139-145

@@ -1,0 +1,41 @@
+[N
+5
+4
+10 ADDR_WIDTH
+3
+3 rtl
+1
+47 c:/Users/aptay/Dropbox/adiuvo/f14-CADC/sim/work
+2
+3 ras
+5
+10 DATA_WIDTH
+]
+[G
+1
+2
+3
+1
+5
+1
+0
+20
+0
+0 0
+0
+0
+]
+[G
+1
+2
+3
+1
+4
+1
+0
+6
+0
+0 0
+0
+0
+]

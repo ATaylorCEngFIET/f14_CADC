@@ -1,0 +1,102 @@
+IP is stored and managed in BitBucket.  All IP can be found within the Bitbucket IP project.
+
+Individual IPs are managed within their own repositories within the above Bitbucket project.  Two types of repository exist within the IP library:
+
+Common Libraries (CL) repositories - these are collections of smaller re-use elements that do not form major IPs in their own right.  Collections of related common library components are managed in a shared repository.  These repositories can be identified by the prefix “cl_”
+
+Intellectual Property (IP) blocks - major design units that perform a significant function are managed within their own repository.  These repositories can be identified by the prefix “ip_”.
+
+
+IP Creation
+
+Creating IP
+When creating a new block the designer should ask themselves whether the block could be useful to future projects.  If the answer to this question is yes then the block should likely be configured as an IP.
+
+The process for creating a new IP is as follows:
+
+A candidate IP block is identified
+
+Create a repository for the IP:
+
+For full IP blocks a new IP repository is setup in the IP project with the prefix IP.  
+
+For common library (CL) blocks existing repositories should be assessed to see if a suitable repository already exists.  If not, then a new CL repository will need to be created.
+
+The folder structure for the IP is setup in line with the guidance below.
+
+Create or update the IP Confluence page:
+
+For a full IP an IP Confluence page will need to be setup based on the IP Confluence template. This will contain the IP documentation.  
+
+For common library (CL) blocks either the existing Confluence page will need to be updated (for an existing repository) or a new Confluence page created (for a new CL repository).
+
+The IP code is created and configured in the IP repository.
+
+The minimum requirements for IP creation are addressed as per the below.
+
+An owner is identified for the IP.
+
+This page is updated to list the IP, the location of its documentation, the maturity of the IP, and the owner of the IP.
+
+
+
+IP Folder Structure
+IP repositories will use the following folder structure:
+
+docs - folder for holding documentation related to the IP.  A link should be provided to the IP confluence page.
+
+scripts - folder for holding scripts such as compilation scripts and simulation run scripts.
+
+src - the source folder for the IP code or models.
+
+test - the IP test-bench code.
+
+xgui - IP-XACT XGUI folder for holding the Xiling XGUI files.
+
+drivers - folder for holding software drivers for the IP.
+
+All IPs shall use the same folder structure as the above.
+
+Common library repositories shall have one folder per block type within them.  All code related to that block type shall reside within the appropriate folder.
+
+Minimum IP Standard
+At a minimum all IP shall meet the following basic standard when it is created:
+
+The IP shall compile with no errors
+
+The IP shall have a compile script
+
+The IP shall have a test bench that proves its basic design features
+
+All IP code shall be configured in the IP repository
+
+All IP code shall align to the company coding standard
+
+All IP files shall have suitable commentary and headers
+
+The IP shall have a Confluence documentation page created based on the standard template
+
+The IP shall be listed on this page with links provided to its documentation page
+
+An IP owner shall be nominated
+
+
+IP is to be documented in Confluence.  In general two types of Confluence page are defined:
+
+IP documentation page for full IPs.  This page will provide a datasheet level of description for the IP. The IP documentation template should be used for these IPs.
+
+A common library documentation page for common libraries.  This will provide a summary of the common library components.  The CL Documentation Template should be used for documenting common libraries.
+
+All IP documentation is to be contained within Conflunece.
+
+The Confluence page shall be based on the standard IP Confluence template.
+
+
+
+All IP blocks shall have a basic test-bench that proves their primary features.  The test-bench shall be configured along with the IP.  Where possible test scripts should be included with the test bench.  Test benches should be self checking where possible to support regression testing.
+
+All IP shall include a questa compilation script that allows the IP to be compiled.  Compile scripts should support compilation of IP from any location and should not use absolute paths.  Relative paths with suitable path parameters should be used to support compilation from arbitrary locations.
+
+
+
+

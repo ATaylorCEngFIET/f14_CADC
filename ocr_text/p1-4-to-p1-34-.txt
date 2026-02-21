@@ -1,0 +1,664 @@
+--- Page 1 ---
+5
+Supp Ix_ Voltage
+Convent ional integrated circuits must be powered by supp ly voltages rang ng from 3 to 5 V , At these votages ) the des i gn of efficient power supp] ies that can provi de the required power is difficult_ MOS devices_ the on other hand, typical ly are powered by supp ly voltages rang ing from |0 30 to V At these vo] tages 2 supp ly des ign is easier and efficiency is higher. SYSTEM TIMING
+The CADC system clock is a 5-MHz osci  lator Th i s is divided down to produce two clocks_ phase one (01 ) and phase two (62) at a frequency of 375 kHz _ One comp Iete clock period ( 62 to 02) is def ned as a bit time see Figure |-2) 9 which i s 2.666 Asec _ Every 20 consecut ive bit times are def ined as a word_ The first bit t ime of a word is cal led TO , and the last bit time of the word is called Ti9 Two types of words in the system are WA and Wo' In Wa? the parallel arithmet ical algorithms operate and control (instruc- tion) words are shifted serially into the units In Wo' computat ional inputs and outputs are shifted serially among the units A word mark used to dis- tingu ish word times is a s i gna | coincident with Ti8 of every word time_ Two consecutive word t imes , WA and Wo' is called an operat ion (OP) t ime. The tota] number of operations used in the CADC is 512.
+To distingu ish the final OP  t ime, a frame mark is generated. This is a s i gna] coinc ident with Ti 8 of the final word time of the final OP_ The time between frame marks is called a frame, A frame includes one comp lete Compu- tationa] cycle.
+Barret
+AIRESEARCH MANUFACTURING COMPANY Los Angeles; California
+71-7266 Page -4
+
+--- Page 2 ---
+T 1 8
+8 2 8 3 { 8 0 3 8 k8a " 1 I23 2 23 +7 3
+; 1 1 1 2 71 +/ 8 2 29 1 8 8 2 2 1 8 7 1 3 1 I. 8 2 p & 8 8 5 ~ 7 + > 1 1 3 17 : 1 ~ { 1 0 J6 8 1 1 1 1 = !F mi 0 =7 e8 : 6 I3 2 7 7 1 4 8 1 38 3 ; T 23 8 1 V 1 1 Jh 6 4 # #- 3 > 5 8 1{ 097 z? + ~ 5 4p E Z 4 2 0 3 0 6V x 2 67 2 2 6 In2
+71-7266 Page 1-5
+Carret
+AIRESEARCH MANUFACTURING COMPANY Los Angeles, California
+
+--- Page 3 ---
+The processor is a fractional fixed point machine with the most s ignif icant b it 3 s i gn bit (0 = plus_ 9 = minus) and the other 19 bits represent ing data. Negat ive numbers are represented in 2 ' s comp ] ement notat ion.
+S
+2 3 | 4| 5 | 6 | 7 | 8 9 10
+12 13 14 15 16 17 18 19
+DATA BITS
+SiGN BIT Fractional equivalent of each bit: S = 0 (plus) (minus ) = 0.50o0o00
+2 = 0.25000000 3 = 0 1 2500000
+4 = 0. 06250000
+5 = 0.03125000
+6 = 0.01562500
+7 = 0. 0078/250 8 = 0. 00390625 9 = 0, 00195312
+10 = 0. 00097656
+= 0. 00048828
+12 = 0.00024414
+13 = 0. 000/2207
+14 = 0. 00006103
+15 = 0. 0000305/
+16 = 0,00001525
+17 = 0. 00000762
+1 8 = 0, 0000038|
+19 = 0. 00000/91
+Dannev
+AIRESEARCH MANUFACTURING COMPANY Los Angeles, California
+71-7266 Page 1-6
+
+--- Page 4 ---
+Examp Tes;
+S M
++.5 0 | 0 0 0 0 0
+",5
+0 0 0 0 0 0
++.375
+~ 375
+J 0 0 0 0
++ 00000/91
+00000/91
++.99999809 0
+max pos tive number)
+99999809
+) 0 0 0 /
+max negat ive number)
+During bit time TO , informat ion in the computer registers is oriented, properly i,e, 2 all the bits of a data word are contained in properly spond corre- ng regi ster pos it ions _ Control words are shifted serially into the log i c ch ips from ROM' s during WA of every OP_ and thereby spec i fy various detai ]s of the present and subsequent operat ions. Meaningful data transfers into and out of the log i c ch ips and registers occur during Wo of every OP_ The LSB is transferred first and the MSB (si gn bit) Tast. The funct ions of each circuit are defined be low .
+CIRCUIT FUNCTIONS
+Parallel Multiplier Unit PMU `
+PN_944L
+The PMU accepts two serial inputs , mu lt ipl icand and mult ipl ier, in one word t ime (W and Cha) produces thei r properly rounded product by means of 1el a paral= algori in one more word time (WA) The product is shifted out in the next Wo' whi le inputs for the next operation are s imultaneous ly shifted in.
+Darret
+AIRESEARCH MANUFACTURING COMPANY Los Angeles, California
+71-7266 Page 1-7
+
+--- Page 5 ---
+1 OP Time
+WA2
+Woz
+WA3
+MI RI
+PI
+MZ M2
+PZ
+M3 R3 , etc.
+where
+=
+wol Operands for the first multiply are shifted into the PMU . Wa2 Product of Ml and RI is produced by the PMU  Wo? Product of MI and RI shifted out of PMU and also the operands for the second mu It iply are sh ifted into the PMU . Wab = Product of M2 and R2 is produced by the PMU. The contents of the M register are also shifted out the same time as the Product _ The mult iplication operat ion i s achieved by us ing Booth' s algori thm see Appendix A) The PMU does not need a contro] word to operate, but i s capable of operating cont i nuous Iy in the predescr i bed manner_
+The inputs to the PMU are MIN (mult iplicand input) , R (mu tiplier) , 61_ > 62 , TI 8 , Wo' Vdd (-I4V) and ground. The two outputs are Ko (multip]icand out) and P (product) _ The package pin ass i gnments are shown in Figure 1 -3. The PMU is packaged in a 24-pin dua1 in-]ine package as shown in Figure L-4.
+MiN R
+18
+PMU
+9
+Mo
+8
+7
+02
+7
+Ti8
+19
+PN 944|11
+Wo V DD Grd
+4
+20
+Figure 1-3.
+PMU I/0
+Carrrt"
+AIRESEARCH MANUFACTURING COMPANY Los Angeles; California
+71-7266 Page -8
+Wal
+wol
+Wob
+
+--- Page 6 ---
+4 33
+3
+2
+9 S=
+2 4 28 a3 X 38
+8
+8
+1 3
+22 5 3 Ok] 8 0
+a
+m
+1 [ 2 y L 2[
+2 1 8 Ee
+3 72 2 3 3 32
+8
+ceret
+AIRESEARCH MANUFACTURING COMPANY Los Angeles, California
+71-7266 Page 1-9
+
+--- Page 7 ---
+When uS ing the PMU in a system, there are certain t iming and propagation delay cons i derat ions _ These cons i derations will be discussed later under Software System and Cons iderations_
+Electrica] characteristics and Iogic diagrams of the PMU can be obtained from Source Contro] Drawing 94411 _
+The PMU contains 1063 active MOS devices and has a chip s ize of 150 by 53 MILS, A photograph of an actua] chip is shown in Figure 1-5,
+Paralel Divider Unit
+PDU) PN 944112
+The PDU accepts two serial inputs_ 9 dividend and divisor, in one word time (wo) and produces the proper truncated quot ient by means of a parallel algori thm in one more word t ime (WA). The quotient i s shifted out in the next Wo' wh i Je inputs for the next operat ion are s imultaneous Iy shifted in.
+OP Time
+Wol D E Zi
+Wo2
+WA3
+D2 22
+Q2
+D3 23, etc
+where
+Wol = Operands for the first divide are shifted into the PMU.
+WA2 Quot ient of D and 2| is produced by the PDU.
+Wo2 Product of DI and zi shifted out of PDU and also the operands for the second divide are shifted into the PDU,
+Quotient of D2 and 22 is produced by the PDU.
+Wa? The division operat ion is achieved by us i ng a nonrestoring divis ion algori thm see Append ix B ) _ The PDU does not need 3 cont ro] word to operate but is capable of operat ng cont inuously in the predescribed manner.
+The nputs to the PDU are D (dividend) ) 2 (divisor) , $1 , 02 , Ti 8 , wo' VDD (-I4V) , and ground, The only output is the quot ient (Q) _ The package pin ass i gnments are shown in Figure 1-6, The PDU i s packaged in a 24-pin dua1 in-1 ne package as shown in Figure 1-7.
+GArREt
+AIRESEARCH MANUFACTURING COMPANY Los Angeles_ California
+71-7266 Page I-10
+Wai
+Wa?
+Wo?
+
+--- Page 8 ---
+X4X80
+F- 13226
+Figure I-5_
+Parallel Multiplier Unit PN 9441|1 , 1063 Dev i ces
+Garret AIRESEARCH MANUFACTURING COMPANY Los Angeles; California
+71-7266 Page 1-V1
+
+--- Page 9 ---
+PDU
+17
+20
+6
+23
+02
+21
+PN 944112
+Ti8
+18
+W
+8
+6
+Grd
+22
+Figure 1-6.
+PDU I/0
+When us ing the PDU in a system, there are certain t iming and ion delay cons derat ions_ These cons i derations wi11 be discussed iadepronagat Software System and Cons derat ions _
+Electrical characterist ics and log i c diagrams of the PDU can be obtained from Source Contro] Drawing 944112.
+The PDU contains 241 act ive MOS devices and has a ch ip s ize of 141 15/ MILS, A by photograph of an actual chip is shown in Figure 1-8 . Special Logic Funct ion (SLE) PN 944113
+The SLF performs logi ca] operations and generates spec if ic data and Iogi c outputs _ The unit accepts a control word of 4 bits. Th i s contro] fies word speci - detai ls of the operat ion as described be low.
+The fundamental Iogi cal operation of this unit is the imit funct ion. It cons ists of three registers (U, P , and L) whose inputs arrive in Wo via corresponding input pins, One of these registers is picked at the end of by 4o assoc i ated comparison logic as fo] ]ows =
+Pick L if P < L (algebraicaly) Pick U if P > U and not < L (algebraically) Otherwise, pick P if U 2 P 2 L (algebraically) The contents of the picked reg i ster are del ivered to the output (Line I ) the in next Wo (whi le new U, P , and L inputs arrive) , unless overridden by par- ticular Iog i cal combinations
+GaRRET
+AIRESEARCH MANUFACTURING COMPANY Los Angeles California
+71-7266 Page 1-12
+
+--- Page 10 ---
+0 7 3 6 8
+2
+3 ~ 3 3 8 0 3 X S 83
+8
+8
+?" @: 5 3 8 0
+3 3
+3e
+4 3 [ 2 : 
+FFF S 8 8 2 T |
+3 S8 72 8 8 9 2 3 3 <
+Arre
+AIRESEARCH MANUFACTURING COMPANY Los Angeles, California
+71-7266 Page 1-/5
+
+--- Page 11 ---
+F-1323 |
+Figure 1 -8 . Parallel Divider Unit PN 9441 |2 , 1241 Dev i ces
+Garret AIRESEARCH MANUFACTURING COMPANY Los Angeles, California
+71 -7266 Page 1-14
+
+--- Page 12 ---
+The 5 ing |e logic  input to the unit is the D input. It needs to be val id during TI 8 of the WA word_ Th i s input is used in conjunction with the word control to determine var ious output combinat ions_ The unit cons ists of five outputs , two data outputs_ 2 and three log ic outputs_ The two data outputs are Line and Line 2 , and the three Iogic outputs are B , B , and C. Data outputs deliver 20 bits of data every Yo word t ime. Log ic outputs del iver a sing le bit of data for a comp lete word t for ime (Wo C output and WA for B , B output). The B Iogi c output is true in WA if P has been picked at the end of the immed iately preceding wo" It i s a Iways false in Wo The B output is the comp | ement of B in W A and always false in Wo" The C output is true in Wo if certain log ical comb inat ions (described below) are recognized at the end of the immed iately preceding Xp It is false a Iways during Wp The fo]owing describes actions that occur in response to various words contro] and D input combinations _ This descr ipt ion wil] refer to actions in response to the fohowing t iming.
+OP Timet
+WA2
+Wo3
+A contro] word entered during WA? will affect Line 1, Line 2, and C outputs during Wo2 and B and B outputs during Was" Input
+CW
+0 0 0 (WA2' 1 or 0 (Wa2' Output_Action
+(a) Data entering on the P input (Woz) wi be delivered to Line during Wo2" (b) Data in the P regi ster (entered at some prev ious OP) wi1l be delivered to Line 2 during Woz' (c) If U was picked at the end of Wol' the C output wil] be set true during wo2" (d) The B and B outputs during W_ A3 win1 be as previous y def ined.
+Garret
+AIRESEARCH MANUFACTURING COMPANY Los Angalos, Calitoraia
+71-7266 Page "|5
+WaI
+wol
+woz Was
+
+--- Page 13 ---
+2 _
+Input
+M
+CW
+0 0 0 | (WA2) or 0 (WA2) Qutput_Action (a) The   Iogical product of the P and U inputs (Woz) wi1l be del ivered to Line (Wo2) . (b) The log ical product of the P and L inputs (Wo2) wi1 be delivered to Line 2 (Woz) . (c) The C output wil1 be false during Wo2" (d) The B and B outputs during W A3 will be as previous Iy def ined. Input
+3
+CW
+0 0 | 0 (WA2' or 0 (waz) Qutput_Action (a) The contents of the register picked at the end of Wol wi11 be del ivered to Line 1 during wo2' (b) The Gray code conversion (see Appendix €) of the data entering on the P input during Wo2 wi ] be del ivered to Line 2 during Wo2' (c) The C output will be false during Woz' (4) The B and B outputs during wA? wi 11 be as previously def ined. Input
+4
+M
+CW
+0 0 | | (WA2) (WA2'
+Garret
+AIRESEARCH MANUFACTURING COMPANY Los Angeles, California
+71-7266 Page 1-16
+
+--- Page 14 ---
+Qutput Act ion
+(a) The contents of the P regi ster at the end of Woi wil1 be del ivered to Line 1 during Woz with a Iogic "1" in the LSB pos it ion.
+(b) Line 2 during Woz wi1 contain al1 zeros, (c) The C output wiu be false during wo2' (d) The B and B outputs during W A3 wi [1 be as Prev ious Iy def ined, Input
+5.
+CW
+0 0 | 1 (WA2' ) (Wa2' Qutpyt Action
+(a) The contents of the P regi ster_ at the end of Wol wi ]1 be del ivered to Line during Woz with a logi c 11 1" i n the LSB pos it ion and also a Togic "|" in the MSB pos it ion if P was p icked during Wol (b) Line 2 during Woz will contain al1 zeros. (c) The C output wil be false during Wo2' (d) The B and B outputs during W wi A3 be as Previously def ned. Input
+6_
+CW
+0 | 0 0, 0 | 0 /, 0 | | 0, 0 | | 1, | 0 0 0, | 0 0 !, | 0 | 0, 0 (wA2) (wA2) Qutput_Action (a) The contents of the picked register at the end of del ivered Wol wi1l be to Line during Wo2' (b) Line 2 during Woz wi 11 contain al1 zeros .
+GARRet AIRESEARCH MANUFACTURING COMPANY Los Angeles, California
+71-7266 Page 1-17
+
+--- Page 15 ---
+(c) Line C output wil be false during wo2" (d) The B and B outputs during W A3 wi 11 be as PreviousIy def ined, Input
+7 .
+CW
+0 | 0 0, 0 | 0 /, 0 | | 0, 0 | | 1, | 0 0 0, | 0 0 I, | 0 | 0, 0 | | (WA2) (WA2) Output Action
+(a) The contents of the picked reg ister at the end of Wol wil] be del ivered to Line during Woz" (b) Line 2 during Wo2 wi]1 contain a] zeros. (c) The C output wi 11 be true during Wo2" (d) The B and B outputs during wa? wil be as prev iously def i ned. Input
+8_
+M
+CW
+1C | 0 0, | | 0 I _ 1 | | 0_ 1 | | | (w A2 0 (WA2) Output_Action
+(a) The contents of the picked register at the end of Wol will be del ivered to Line during Woz and also to the P register nput during Wo2' (b) The contents of the P reg ister at the end of Wol wi 11 be delivered to Line 2 during Woz" (c) The C output will be false during Wo2 " (d) The B and B outputs during WA? wi11 be as previous]y def ined. Input
+9_
+CW
+1C7[ 0 0, | | 0 /, | / 1 (WA2)
+(w A2
+carreT AIRESEARCH MANUFACTURING COMPANY Los Angeles; California
+71-7266 Page -18
+
+--- Page 16 ---
+Output
+(a) The data entering the P input during wo? wi1] be del i vered to Line during wo2' (b) The contents of the P reg i ster at the end of wol wi 11 be del ivered to Line 2 during Wo2' (c) The C output wi1 be false during wo2' (d) The B and B outputs during Wa? wi] be as previously def ined. The SLF is a very useful unit when programming a variety of functions_ How this unit is programmed from a mathemat ical funct ion point of view, along with examp es , is discussed under Software.
+The inputs to the SLF are U upper |imit) P (parameter) , L ( Tower Timit) , D (discrete) CW (control word) $l 62 , TI 8 , Wo V DD ? ground_ The outputs are Line 1 , Line 2 , C, B , and B Figure 1-9 shows the package pin arrange- ments , and Figure I-10 shows the 24-pin dua] in-]ine package outh ine.
+16
+0
+Line
+5
+D
+20
+Line 2
+Cw
+19
+21
+PN 944113
+02
+22
+TI 8
+18
+Wo Vod_ Grd
+7
+13
+B
+Figure 1-9 , SLF I/0
+When uS ing the SLF in a system, there are certain timing and Propagat ion delay cons i derat ions . These wi1 be discussed later under Software System and Cons i derations_
+Electrical characterist ics and Iog i c diagrams of the SLF can be obtained from Source Control Drawing 944113_
+The SLF contains 743 active MOS devices and has a chip s ize of 120 30 by MILS. A photograph of an actual chip is shown in Figure -l.
+CARRET
+AIRESEARCH MANUFACTURING COMPANY Los Angeles; California
+71-7266 Page 1-19
+SLF
+
+--- Page 17 ---
+1 2 38
+A
+2 4 2 :38 X S 0 3 3
+22 Is 5 /3
+8
+8
+3 3
+9 3 1 0 { 2
+3
+18 Be 1 L
+3 13 72 8 2 8 3 4
+carhet
+AIRESEARCH MANUFACTURING COMPANY Los Angeles, California
+71-7266 Page 1-20
+
+--- Page 18 ---
+Mv
+02R4**4***3 }86
+1 L
+00
+L L 
+"
+X
+~8**04- *4*44 Coocl XX
+XA
+4444
+84- *****88884*X
+X4
+097 XX- 884202444424#44WMM4464/4mM XR*XX4XXX8X *4
+COloo 
+F_13229
+Figure I-1
+Special Logic Function PN 944|13, 743 Devi ces
+Carret
+AIRESEARCH MANUFACTURING COMPANY Los Angeles, California
+71-7266 Page 1-21
+
+--- Page 19 ---
+Random_Access_Storage (RAS
+PN 944114
+The RAS operates as a I6-word random access read-write storage device_ Informat ion is shifted serially into and out of selected registers during Wo. Memory readout is nondestruct i ve, i,e., if a register is selected to be read only, then the data are also rewritten into the selected reg ister_ The RAS accepts a contro] word of 5 bits during Xp The east signif icant four bits of the contro] word specif ies one of s ixteen 20-bit serial registers. The contents of the selected register is sh ifted out to the data output serially during the next 6 and WA" At the Wo t i me , information from the data input is written into the selected register i f the fifth control bit is a " ," If the fifth bit is a "0, 01 the regi ster contents remai n unaffected_ An externa] log i c i nput inhibit write ff i s provi ded to inhibit writ ing. This wim1 occur when the inhibit wr i te" input is true. The inhibit write" shou ld be true during and false during Wp" The "g contro] selects regi sters according to the fo] lowi confi guration:
+Selected Register 16
+3  9 10
+7 2
+13
+[4
+15
+Read
+Read and Wr ite
+CArrET 
+AIRESEARCH MANUFACTURING COMPANY Los Angeles California
+71-7266 Page ~22
+
+--- Page 20 ---
+OP Time
+Woz
+where
+Enter contro] word
+Wai Wol = Contents of selected regi ster from CW-W is shifted AI out
+= If the [ write" bit is true, a new data wi]] also be written into the selected register provi ding the M Iw" s i gnal i s not true.
+WA2 Contents of selected reg ister from CW-W is shifted AI out
+=
+Enter new contro] card,
+The inputs to the RAS are DI (data in)_ 2 DW (cont ro] word) } Iw ( inhibit write) , Ti8 , Wo' 01 } 02 , VDd' and ground. The only output is DO (data out) _ Figure 1-12 shows the package Pin as5 ignment , and Figure 1-13 shows the 14 ~pin dual in-line package out ]ine.
+DI
+4
+RAS
+02
+13
+D
+Ti8
+Wo CW_
+PN 9441|4
+IW Vdd Grd
+2
+5
+8
+Figure 1-12.
+RAS I/0
+When 4S ing the RAS i n a system, there are certain t iming and propagation delay cons i derat ions. These wi]1 be discussed later in this report under Software System and Cons i derat ions.
+Electrical characterist ics and logic diagrams of the RAS can be obtained from Source Contro] Drawing 944114 .
+Garret
+AIRESEARCH MANUFACTURING COMPANY Los Angeles, California
+71-7266 Page "23
+Wai
+#ol
+Wa?
+
+--- Page 21 ---
+J
+32
+3
+9 2 L 2
+A 88
+88 x 33 J L
+1 
+8 6
+S +7 E
+31 9 2
+3 3
+33
+8
+0 8 3 6 3 % 8 6
+Garret
+AIRESEARCH MANUFACTURING COMPANY Loe Angelce_ California
+71-7266 Page -24
+
+--- Page 22 ---
+The RAS contains 2330 active MOS devices and has a ch ip S ize of 115 by 30 MILS. A photograph of an actual chip is shown in Fi gure { -14.
+Steering Logic_(SL) PN_944448
+The steering Iogi c operates as a three-channel serial di gi tal data multi- p lexer _ Information is shifted serially through the device during Wo A 15-bit control word is accepted during WA that spec i - fies which input or input comb ination is to be steered to each of three data outputs_ The contro] word is the Tast 15 bits of the 20-bit control word_ From the east s i gni ficant end , the first four bits spec if ies the selection for Output 1 The next four bits specifies the select ion for Output 2 and the last seven bits spec i f ies the select ion for Output 3. Spec ific codes are interpreted as fo ]ows
+LSB
+Selected to Output EXT
+EXT 2
+EXT 3
+EXT 4
+EXT 5
+EXT 6
+EXT 7
+EXT 8
+EXT 9
+EXT I0
+EXT 13
+EXT
+EXT 9 + EXT 4
+EXT 10 + EXT 4
+EXT 4 + EXT 8
+EXT 2
+EXT 8
+RRCT
+AIRESEARCH MANUFACTURING COMPANY Los Angeles, Catifornia
+71-7266 Page -25
+
+--- Page 23 ---
+63
+F_13230
+Figure 1-/4.
+Random Access Storage PN 944114, 2330 Dev i ces
+Darret 
+AIRESEARCH MANUFACTURING COMPANY Los Angeles, California
+71-7266 Page 1-26
+
+--- Page 24 ---
+I0
+12
+L3
+Selected to Output 2 EXT
+0 0 0 0
+EXT 2
+EXT 3
+EXT 4
+EXT 5
+EXT 6
+EXT 7
+EXT 8
+EXT
+EXT 10
+0_
+Ti9)
+EXT
+EXT 9 + EXT 4
+EXT 10 t EXT 4
+EXT 4 + EXT 8
+EXT 2
+EXT 8
+14
+15
+16
+17
+Selected to Output 3 EXT
+EXT 2
+EXT 3
+EXT 4
+EXT 5
+EXT 6
+EXT 7
+EXT 9
+EXT 2i EXT Z2 EXT EXT 2 + EXT 4
+EXT 2
+EXT 8
+EXT 2
+EXT 4
+EXT 4 5 EXT 2
+EXT 4 + EXT 8
+Dadret
+AIRESEARCH MANUFACTURING COMPANY Los Angeles, California
+71-7266 Page 1-27
+
+--- Page 25 ---
+L8
+EXT 12 + EXT 8 = Zi
+MSB 20
+19
+0
+Z1 + EXT 2 = 22 2i EXT 2 = Z2 2i + EXT 4 = 22 2q EXT 4 = Z2
+The nputs to the steering are EXT through EXT 13 (13 data inputs) Ti8 , Wo' cW, $1 02 , VDD (-ILV) , and ground, Four outputs are provi ded, three data outputs M/D (Output 1) , D/Z (Output 2) , STOR (Output 3)_ and one contro] word output The w output contains the input Cw delayed by 15 bits_ Figure 1-/5 shows the package pin assi gnments for the SL, and Figure 1-16 shows the 24-pin dua] in-]ine package outline.
+EXT
+18
+EXT 2
+6
+EXT 3
+8
+STEERING
+EXT 4
+7
+0
+Out
+EXT 5
+7
+12
+Out 2
+EXT
+9
+PN 9441 | 8
+Out 3
+EXT 7
+16
+EXT 8
+[9
+CW Out
+EXT 9
+15
+EXT 10-
+4
+EXT
+2 [
+EXT 2
+5
+EXT 13
+20
+Cw
+2
+Ti8
+3
+Wo 01
+24
+22
+02 Vod Grd
+23
+13
+Figure 1-15 _
+SL I/0
+GARRET 
+AIRESEARCH MANUFACTURING COMPANY Los Angeles, California
+71-7266 Page 1-28
+
+--- Page 26 ---
+2 33
+3
+A
+2 ~ 28 38 3 X 6 38
+128 8 3 3 Ol
+8
+8 8
+3 3
+2 2 L 3 3 !
+8#
+2 gz 8 L H 72
+] 2 3 3
+84
+8
+3 6 3
+71-7266 Page 1-29
+Serret
+AIRESEARCH MANUFACTURING COMPANY Los Angeles, California
+
+--- Page 27 ---
+When us ing the SL in a system, there are certain timing and propagat ion delay cons i derations_ These wi be discussed later under Software Sys tem and Cons iderat ions.
+Electrical characterist ics and log i c diagrams of the SL can be obtained rom Source Control Drawing 9441|8 .
+The SL contains 771 act ive MOS devices and has a chip s ize of 128 by 33 MILS, A photograph 0f an actua] chip is Shown in Figure T-[7.
+Read-Only_Memory_ ROM"
+PN 944425
+The ROM operates as a 2560-bit random access/sequent ial access device_ It internally stores fixed patterns of 28 words of 20 bit Iength for seria] readout_ The patterns are spec i fied by the user. The format for the patterns is described under Computer Aids. The ROM has prov is ion to accept a 20-bit serial binary word address _ The first seven bits indicates wh ich of the 128 words is to be accessed, and the next three bits spec i fies_ 9 by manufacture mask decoding, wh ich ROM out of a possib]e ei ght ROM group should have its output enabled_ The present hardware imit for a ROM group is four. This i s due to Timi ted output buffer drive capabi Tity. )
+The address management is accomp I i shed by a reg ister counter contained within the ROM, Thi s counter has the fol lowing capabi lity: (1) resettable, (2) S teppab le such that the memory can be sequenced through the I 28-word field, (3) accepts a retain address command and holds the present address , and (4) accepts a numerical input for independent address mod ifying or loading. To accomp / i sh the above address management_ s iX logi c nputs reset (R) _ ) retain, increment_ 9 Ioad , add , sub) and one address data input are provided. The Iogic of their operat ion is as fo] lows :
+The address field is defined as fol lows : the first seven LSB' s will select one of 128 20-bi t words The next three wi ]] be used to select one of ei ght ROM' $ , the rema ining ten wih be Zero  The three-bit select field wiM1 determi ne , by mask decod i ng, which chip' s (Rom) output is to be enabled_ ROM' s that are not enabled by the ch ip select field have disabled their outputs _ The access period (WAcc) is def ined as the period during which none of the fo] owing is at a log i cal " |" retain) increment, Ioad, add, subtract,
+The reset, increments , Ioad, and retain inputs are mutualy exc Iusi ve.
+The R nput , on its negat ive trans t ion, resets the bits of the address register to all zeros. If the R s i gnal occurs during WAcc  it does not affect that data. The next state of the address counter is al1 zeros_ The R input wi 11 be coinc ident with Ti8_ The R nput win override retain, increment ) Ioad , add , and sub inputs_ The retain input holds the current address of the counter. The nature of this s igna] wi1 be such that it wi be a logical 1" during the count interval (w Acc
+Grrret
+AIRESEARCH MANUFACTURING COMPANY Los Angeles, Calitornia
+71-7266 Page -30
+
+--- Page 28 ---
+0o82
+80800m 9898
+X88X
+X73834 48288* 34244444 AXS XXX
+30804 48288
+Rxcc
+XocX
+F-13227
+Figure 1-17_
+Steering Logic PN 9441 | 8 , 771 Devi ces
+Garbett AIRESEARCH MANUFACTURING COMPANY Loe Angeles, Calfornie
+71-7266 Page 1-31
+
+--- Page 29 ---
+The increment input wi1 be a 20-bit Iogic Ievel , If M1 , this is a the Iogica] address counter is increased by one, and the shifted newly addressed out data is during the next WAcc' The Ioad input wiM be a Iog ical 1 1" when 3 new address is to be loaded into the address reg i ster. The will new address appear on the address nput coinc i dentally with the the add load is S input a ignal, When Iog i cal "1, the address [ nput wi be added of the to the prev ious contents address _ When the sub input is a logi ca] "1," 01 wiM1 the input address be subtracted from the contents of the previous address address _ The nput wi contain data to be used as commanded Valid by the inputs wi1 logi cal inputs. appear during the nonaccess (W Acc- period. The reset , increment, load , and retain The inputs add are mutually excTus and subtract ive. inputs are mutualy exc us ive. The Ioad , reset, 1 or retain ncrement, nputs override the add and subtract inputs. The ROM has two outputs data output and parity contains error. the The data 20-bit serial data output word addressed by the address output device is withgtheeou The constructed such that it may be wire of or' ed assoc iated the ROM' S , outputs there be ing normaly only one out of ori ed ROM' s a group of which wire is enabled;
+The parity error output is from a device that changes state for occurrence of state change in the enabled data output of an ROM. Durevery of every 2O-bit ng period the parity device wi 11 be " [" 0 if set for there a i s an odd output number and, of state changes on the data Tine, parity the device dur state of the ing phase one negat ive trans it ion) of Ti9 negat should go to "0" ve trans ition) and wiM1 Iast unt i 1 phase of To" A1 parity devices in an assoc iated group of ROM' s are s i gnal i , e. reading the the wire orfed same 2 2 data output S j gnal , as the point parity of takeoff on a ch ip is for the output pad; The parity error of ROM: s outputs in group an wi associated be wire ori ed together_ If the retain, add , or increment _ subtract ) Ioad , nputs i s a Iog i cal 11 1 the pari ty error "'0" output is reset to during WACC at 0l of To and Tasts to the next 61 of To" The F-|4A CADC uses only the increment address Th i s capabi ]ity of the ROM. is accomp ] i shed by grounding all data and address K ment _ nputs Increment i s except incre- then connected to the appropriate s igna| to sequent ial contro] the address i ng of the ROM. Discuss ions under trol wi h Software cons der the Execut ive Con- appropriate nature of this signa1, Figure 1-18 shows the pin ass i gnments for the ROM , the 14 and Figure 1-19 ~pin dual shows in-Tine package out] ine.
+When us ing the ROM in a system, there are certain timing and deay ion cons derat ions. These will be discussed later undeni Gofandreropsget and Cons i derations _ System
+Electrical characteristics and Iogic diagrams of the ROM from can be obtained Source Contro] Drawing 944125,
+carret
+AIRESEARCH MANUFACTURING COMPANY Los Argeles, California
+71-7266 Page 1-32
+
+--- Page 30 ---
+Add Sub Load Retain
+7
+0 2
+ROM
+Reset Increment 61- 62:
+9
+3
+Data Out Parity Out
+5
+PN 944125
+4
+3
+2
+Ti8
+Data In Vod Grd
+Figure I -18 . ROM I/o
+The ROM contains 3268 act ive MOS devices and has a chip s ize of 143 150 MILS, A by photograph of an actual chip is shown in Fi gure -20, HARDWARE SY STEM AND CONSIDERATIONS
+The F _ |4A CADC processor uses 3 total of 28 circuits. as fo lows =
+The breakdown is
+PMU
+PDU
+SLF
+3 3
+RAS' s
+3 3 5 SL' s
+19
+ROM' s
+9 Program Contro] 6 Fixed Data Storage 4 Execut ive Cont ro]
+Figure -2i shows the interconnect ion of the data and contro] between word paths the circuits. The system has been div ided into three modu module Ies 2 each ident ified by its arithmet ic unit. The modules are as fol ows_
+CARReT
+AIRESEARCH MANUFACTURING COMPANY Los Angeles, California
+71-7266 Page -33
+
+--- Page 31 ---
+{
+32
+3
+1 3 8 6 L X 8 2 3 6 J 2 L 2 2
+A 23
+9 0 | 5 9 2i 2
+0 6 1
+3 2
+33
+5
+2 8 3 3 6 3 0
+Ganret
+AIRESEARCH MANUFACTURING COMPANY Los Angeles, California
+74-7266 Page 1-34

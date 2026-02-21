@@ -1,0 +1,285 @@
+Type,Req/Test ID,Module,Requirement / Description,Priority,Criteria / Expected,Source Documents,HDL File,Testbench File
+Requirement,TIM-F-001,Timing Generator,Shall divide master clock to produce Phi1 Phi2 at 375 kHz,Must,,p1-4-to-p1-34-.txt (pp. 1-4 to 1-6); Rays-Chapter-7-System-Info.txt (pp. 5-6),timing_generator.vhd,timing_generator_tb.vhd
+Requirement,TIM-F-002,Timing Generator,Phi1 and Phi2 shall be non-overlapping,Must,,p1-4-to-p1-34-.txt (pp. 1-4 to 1-6); Rays-Chapter-7-System-Info.txt (pp. 5-6),timing_generator.vhd,timing_generator_tb.vhd
+Requirement,TIM-F-003,Timing Generator,Shall count 20 bit times per word (T0-T19),Must,,p1-4-to-p1-34-.txt (pp. 1-4 to 1-6),timing_generator.vhd,timing_generator_tb.vhd
+Requirement,TIM-F-004,Timing Generator,Shall alternate between WA and WO word types,Must,,p1-4-to-p1-34-.txt (pp. 1-4 to 1-6),timing_generator.vhd,timing_generator_tb.vhd
+Requirement,TIM-F-005,Timing Generator,Shall count 512 operations per frame,Must,,p1-4-to-p1-34-.txt (pp. 1-4 to 1-6); ap1-26-97.txt (p. 7),timing_generator.vhd,timing_generator_tb.vhd
+Requirement,TIM-F-006,Timing Generator,Shall generate word_mark at T18 of every word,Must,,p1-4-to-p1-34-.txt (pp. 1-4 to 1-6),timing_generator.vhd,timing_generator_tb.vhd
+Requirement,TIM-F-007,Timing Generator,Shall generate frame_mark at end of OP 511,Must,,p1-4-to-p1-34-.txt (pp. 1-4 to 1-6); ap1-26-97.txt (p. 15),timing_generator.vhd,timing_generator_tb.vhd
+Requirement,TIM-F-008,Timing Generator,Reset shall clear all counters and start from T0/WA/OP0,Must,,p1-4-to-p1-34-.txt (pp. 1-4 to 1-6),timing_generator.vhd,timing_generator_tb.vhd
+Requirement,TOP-F-001,CADC Top Level,Shall instantiate and interconnect all 7 modules,Must,,CADC_Module_Specification.pdf (pp. 1-4); ap1-26-97.txt (pp. 15-17),cadc_top.vhd,cadc_top_tb.vhd
+Requirement,TOP-F-002,CADC Top Level,Shall implement the timing generator,Must,,p1-4-to-p1-34-.txt (pp. 1-4 to 1-6); Rays-Chapter-7-System-Info.txt (pp. 5-6),cadc_top.vhd,cadc_top_tb.vhd
+Requirement,TOP-F-003,CADC Top Level,Shall execute 512 operations per frame,Must,,p1-4-to-p1-34-.txt (pp. 1-4 to 1-6); p1-35-to-p2-28-.txt (pp. 1-35 to 1-42),cadc_top.vhd,cadc_top_tb.vhd
+Requirement,TOP-F-004,CADC Top Level,Shall complete one frame in <= 60 ms,Must,,p1-35-to-p2-28-.txt (pp. 2-21 to 2-22),cadc_top.vhd,cadc_top_tb.vhd
+Requirement,TOP-F-005,CADC Top Level,All inter-module data paths shall be 20 bits wide,Must,,p1-4-to-p1-34-.txt (pp. 1-4 to 1-6); ap1-26-97.txt (pp. 4-5),cadc_top.vhd,cadc_top_tb.vhd
+Requirement,TOP-F-006,CADC Top Level,Shall support multiple PMU instances for parallel computation,Should,,p1-35-to-p2-28-.txt (pp. 1-35 to 1-42); ap1-26-97.txt (pp. 5-6),cadc_top.vhd,cadc_top_tb.vhd
+Requirement,TOP-F-007,CADC Top Level,Shall support redundant dual-channel operation,Should,,p2-29-to-p2-46-.txt (p. 2-46); lsistate-97.pdf (pp. 6-7),cadc_top.vhd,cadc_top_tb.vhd
+Requirement,TOP-F-008,CADC Top Level,Shall provide system reset that initializes all modules,Must,,CADC_Module_Specification.pdf (pp. 1-4),cadc_top.vhd,cadc_top_tb.vhd
+Requirement,TOP-F-009,CADC Top Level,External I/O timing shall be compatible with sensor/actuator specs,Should,,ap1-26-97.txt (pp. 1-2); lsistate-97.pdf (pp. 1-2),cadc_top.vhd,cadc_top_tb.vhd
+Requirement,TOP-F-010,CADC Top Level,FPGA resource utilization shall be documented,Should,,,cadc_top.vhd,cadc_top_tb.vhd
+Requirement,PMU-F-001,PMU,Shall perform 20x20-bit signed fractional multiplication,Must,,p1-4-to-p1-34-.txt (pp. 1-7 to 1-9); Rays-Chapter-1-944111-PMU.txt (pp. 2-4); ap1-26-97.txt (pp. 7 12),pmu.vhd,pmu_tb.vhd
+Requirement,PMU-F-002,PMU,Shall use Booth's algorithm for partial product generation,Must,,p1-4-to-p1-34-.txt (pp. 1-7 to 1-9); p3-1-to-B1-.txt (Appendix A),pmu.vhd,pmu_tb.vhd
+Requirement,PMU-F-003,PMU,Shall produce a 20-bit result from upper bits of 40-bit product,Must,,Rays-Chapter-1-944111-PMU.txt (pp. 2-4),pmu.vhd,pmu_tb.vhd
+Requirement,PMU-F-004,PMU,Shall correctly handle multiplication by zero,Must,,Rays-Chapter-1-944111-PMU.txt (pp. 2-4),pmu.vhd,pmu_tb.vhd
+Requirement,PMU-F-005,PMU,Shall correctly handle multiplication by +1 (0x3FFFF in fractional),Must,,Rays-Chapter-1-944111-PMU.txt (pp. 2-4),pmu.vhd,pmu_tb.vhd
+Requirement,PMU-F-006,PMU,Shall correctly handle multiplication by -1 (0x80000),Must,,Rays-Chapter-1-944111-PMU.txt (pp. 2-4),pmu.vhd,pmu_tb.vhd
+Requirement,PMU-F-007,PMU,Shall correctly handle the most negative x most negative case,Must,,Rays-Chapter-1-944111-PMU.txt (pp. 2-4),pmu.vhd,pmu_tb.vhd
+Requirement,PMU-F-008,PMU,Shall assert busy during computation,Must,,CADC_Module_Specification.pdf (p. 1),pmu.vhd,pmu_tb.vhd
+Requirement,PMU-F-009,PMU,Shall pulse done for exactly one clock cycle when result is valid,Must,,CADC_Module_Specification.pdf (p. 1),pmu.vhd,pmu_tb.vhd
+Requirement,PMU-F-010,PMU,Shall complete multiplication within 20 clock cycles (one word time),Should,,Rays-Chapter-1-944111-PMU.txt (pp. 2-4); p1-4-to-p1-34-.txt (p. 1-9),pmu.vhd,pmu_tb.vhd
+Requirement,PMU-F-011,PMU,Result shall be rounded to nearest (round half up),Should,,Rays-Chapter-1-944111-PMU.txt (pp. 2-4),pmu.vhd,pmu_tb.vhd
+Requirement,PDU-F-001,PDU,Shall perform 20-bit signed fractional division,Must,,p1-4-to-p1-34-.txt (pp. 1-10 to 1-14); Rays-Chapter-2-944112-PDU.txt (pp. 2-4); ap1-26-97.txt (pp. 7-9),pdu.vhd,pdu_tb.vhd
+Requirement,PDU-F-002,PDU,Shall use non-restoring division algorithm,Must,,p1-4-to-p1-34-.txt (pp. 1-10 to 1-14); p3-1-to-B1-.txt (Appendix B),pdu.vhd,pdu_tb.vhd
+Requirement,PDU-F-003,PDU,Shall produce both quotient and remainder,Must,,Rays-Chapter-2-944112-PDU.txt (pp. 2-4); CADC_Module_Specification.pdf (p. 2),pdu.vhd,pdu_tb.vhd
+Requirement,PDU-F-004,PDU,Shall handle division of zero dividend correctly (result = 0),Must,,Rays-Chapter-2-944112-PDU.txt (pp. 2-4),pdu.vhd,pdu_tb.vhd
+Requirement,PDU-F-005,PDU,Shall detect and flag divide-by-zero,Must,,Rays-Chapter-2-944112-PDU.txt (pp. 2-4),pdu.vhd,pdu_tb.vhd
+Requirement,PDU-F-006,PDU,Shall correctly handle negative dividend and positive divisor,Must,,Rays-Chapter-2-944112-PDU.txt (pp. 2-4),pdu.vhd,pdu_tb.vhd
+Requirement,PDU-F-007,PDU,Shall correctly handle positive dividend and negative divisor,Must,,Rays-Chapter-2-944112-PDU.txt (pp. 2-4),pdu.vhd,pdu_tb.vhd
+Requirement,PDU-F-008,PDU,Shall correctly handle negative dividend and negative divisor,Must,,Rays-Chapter-2-944112-PDU.txt (pp. 2-4),pdu.vhd,pdu_tb.vhd
+Requirement,PDU-F-009,PDU,Shall assert busy during computation,Must,,CADC_Module_Specification.pdf (p. 2),pdu.vhd,pdu_tb.vhd
+Requirement,PDU-F-010,PDU,Shall pulse done for exactly one clock cycle when result valid,Must,,CADC_Module_Specification.pdf (p. 2),pdu.vhd,pdu_tb.vhd
+Requirement,PDU-F-011,PDU,Shall complete division within 22 clock cycles,Should,,Rays-Chapter-2-944112-PDU.txt (pp. 2-4),pdu.vhd,pdu_tb.vhd
+Requirement,PDU-F-012,PDU,Quotient shall satisfy: dividend = quotient x divisor + remainder,Must,,p3-1-to-B1-.txt (Appendix B),pdu.vhd,pdu_tb.vhd
+Requirement,PDU-F-013,PDU,|Remainder| < |Divisor|,Must,,p3-1-to-B1-.txt (Appendix B),pdu.vhd,pdu_tb.vhd
+Requirement,SLF-F-001,SLF,Shall implement all 16 ALU operations per the opcode table,Must,,p1-4-to-p1-34-.txt (pp. 1-12 to 1-21); Rays-Chapter-3-944113-SLF.txt (pp. 2-4+),slf.vhd,slf_tb.vhd
+Requirement,SLF-F-002,SLF,Shall maintain a 20-bit accumulator register,Must,,Rays-Chapter-3-944113-SLF.txt (pp. 2-4+); CADC_Module_Specification.pdf (p. 2),slf.vhd,slf_tb.vhd
+Requirement,SLF-F-003,SLF,Shall maintain a 20-bit temporary register,Must,,Rays-Chapter-3-944113-SLF.txt (pp. 2-4+); CADC_Module_Specification.pdf (p. 2),slf.vhd,slf_tb.vhd
+Requirement,SLF-F-004,SLF,Shall generate Z N C flags from ALU result,Must,,CADC_Module_Specification.pdf (p. 2),slf.vhd,slf_tb.vhd
+Requirement,SLF-F-005,SLF,ACC shall only update when acc_write_en is asserted,Must,,CADC_Module_Specification.pdf (p. 2),slf.vhd,slf_tb.vhd
+Requirement,SLF-F-006,SLF,TMP shall only update when tmp_write_en is asserted,Must,,CADC_Module_Specification.pdf (p. 2),slf.vhd,slf_tb.vhd
+Requirement,SLF-F-007,SLF,Flags shall only update when flags_write_en is asserted,Must,,CADC_Module_Specification.pdf (p. 2),slf.vhd,slf_tb.vhd
+Requirement,SLF-F-008,SLF,ADD/SUB shall operate on signed 2s complement fractional numbers,Must,,p1-4-to-p1-34-.txt (pp. 1-4 to 1-6); ap1-26-97.txt (pp. 4-5),slf.vhd,slf_tb.vhd
+Requirement,SLF-F-009,SLF,SHR shall perform arithmetic right shift (sign extension),Must,,Rays-Chapter-3-944113-SLF.txt (pp. 2-4+),slf.vhd,slf_tb.vhd
+Requirement,SLF-F-010,SLF,SHL shall perform arithmetic left shift (sign bit preserved),Must,,Rays-Chapter-3-944113-SLF.txt (pp. 2-4+),slf.vhd,slf_tb.vhd
+Requirement,SLF-F-011,SLF,Gray-to-Binary conversion shall be correct for all 20-bit patterns,Must,,p3-1-to-B1-.txt (Appendix C); Rays-Chapter-3-944113-SLF.txt (pp. 2-4+),slf.vhd,slf_tb.vhd
+Requirement,SLF-F-012,SLF,Binary-to-Gray conversion shall be correct for all 20-bit patterns,Must,,p3-1-to-B1-.txt (Appendix C); Rays-Chapter-3-944113-SLF.txt (pp. 2-4+),slf.vhd,slf_tb.vhd
+Requirement,SLF-F-013,SLF,ABS of most negative number (0x80000) shall saturate to 0x7FFFF,Should,,Rays-Chapter-3-944113-SLF.txt (pp. 2-4+),slf.vhd,slf_tb.vhd
+Requirement,SLF-F-014,SLF,All ALU operations shall be single-cycle (combinational result),Must,,CADC_Module_Specification.pdf (p. 2),slf.vhd,slf_tb.vhd
+Requirement,SLF-F-015,SLF,alu_result output shall be purely combinational,Must,,CADC_Module_Specification.pdf (p. 2),slf.vhd,slf_tb.vhd
+Requirement,SLF-F-016,SLF,Reset shall clear ACC TMP and all flags to zero,Must,,CADC_Module_Specification.pdf (p. 2),slf.vhd,slf_tb.vhd
+Requirement,RAS-F-001,RAS,Shall provide 20-bit wide random access storage,Must,,p1-4-to-p1-34-.txt (pp. 1-21 to 1-26); Rays-Chapter-4-944114-RAS.txt (pp. 2-4+),ras.vhd,ras_tb.vhd
+Requirement,RAS-F-002,RAS,Shall support at least 64 addressable locations,Must,,Rays-Chapter-4-944114-RAS.txt (pp. 2-4+); CADC_Module_Specification.pdf (pp. 2-3),ras.vhd,ras_tb.vhd
+Requirement,RAS-F-003,RAS,Shall support simultaneous read and write to different addresses,Must,,Rays-Chapter-4-944114-RAS.txt (pp. 2-4+),ras.vhd,ras_tb.vhd
+Requirement,RAS-F-004,RAS,Write shall occur on rising clock edge when write_en is asserted,Must,,Rays-Chapter-4-944114-RAS.txt (pp. 2-4+),ras.vhd,ras_tb.vhd
+Requirement,RAS-F-005,RAS,Read shall be asynchronous (combinational) or synchronous with 1-cycle latency,Must,,Rays-Chapter-4-944114-RAS.txt (pp. 2-4+),ras.vhd,ras_tb.vhd
+Requirement,RAS-F-006,RAS,Read-during-write to same address: new data forwarded (write-first),Should,,Rays-Chapter-4-944114-RAS.txt (pp. 2-4+),ras.vhd,ras_tb.vhd
+Requirement,RAS-F-007,RAS,Reset shall clear all locations to zero,Must,,CADC_Module_Specification.pdf (pp. 2-3),ras.vhd,ras_tb.vhd
+Requirement,RAS-F-008,RAS,Data shall be retained between clock cycles when not written,Must,,Rays-Chapter-4-944114-RAS.txt (pp. 2-4+),ras.vhd,ras_tb.vhd
+Requirement,RAS-F-009,RAS,FPGA implementation should map to Block RAM or distributed RAM,Should,,Rays-Chapter-4-944114-RAS.txt (pp. 2-4+),ras.vhd,ras_tb.vhd
+Requirement,RAS-F-010,RAS,Address out of range shall have defined behavior (wrap or read zero),Should,,Rays-Chapter-4-944114-RAS.txt (pp. 2-4+),ras.vhd,ras_tb.vhd
+Requirement,SL-F-001,SL,Shall be purely combinational (no clock no registers),Must,,p1-4-to-p1-34-.txt (pp. 1-26 to 1-31); Rays-Chapter-5-944118-Steering.txt (pp. 2-4+),sl.vhd,sl_tb.vhd
+Requirement,SL-F-002,SL,Shall route one of 8 sources to ACC input per sel_acc_src,Must,,Rays-Chapter-5-944118-Steering.txt (pp. 2-4+); ap1-26-97.txt (pp. 9-12),sl.vhd,sl_tb.vhd
+Requirement,SL-F-003,SL,Shall route one of 4 sources to RAS write data per sel_ras_src,Must,,Rays-Chapter-5-944118-Steering.txt (pp. 2-4+); ap1-26-97.txt (pp. 9-12),sl.vhd,sl_tb.vhd
+Requirement,SL-F-004,SL,Shall route one of 4 sources to I/O output per sel_io_src,Must,,Rays-Chapter-5-944118-Steering.txt (pp. 2-4+); ap1-26-97.txt (pp. 9-12),sl.vhd,sl_tb.vhd
+Requirement,SL-F-005,SL,All three output muxes shall operate independently,Must,,Rays-Chapter-5-944118-Steering.txt (pp. 2-4+),sl.vhd,sl_tb.vhd
+Requirement,SL-F-006,SL,Same source may be routed to multiple destinations simultaneously,Must,,Rays-Chapter-5-944118-Steering.txt (pp. 2-4+),sl.vhd,sl_tb.vhd
+Requirement,SL-F-007,SL,Maximum propagation delay shall not exceed critical path budget,Should,,p1-35-to-p2-28-.txt (pp. 2-21 to 2-22),sl.vhd,sl_tb.vhd
+Requirement,SL-F-008,SL,Reserved select values shall output zero,Should,,Rays-Chapter-5-944118-Steering.txt (pp. 2-4+),sl.vhd,sl_tb.vhd
+Requirement,SL-F-009,SL,All 20 bits shall be routed (no bit swapping or modification),Must,,Rays-Chapter-5-944118-Steering.txt (pp. 2-4+),sl.vhd,sl_tb.vhd
+Requirement,ROM-F-001,ROM/Sequencer,Shall store the complete CADC microprogram,Must,,p1-4-to-p1-34-.txt (pp. 1-31 to 1-34); Rays-Chapter-6-944125-ROM.txt (pp. 2-4+),control_rom_sequencer.vhd,control_rom_sequencer_tb.vhd
+Requirement,ROM-F-002,ROM/Sequencer,Shall implement a micro-PC with sequential increment,Must,,Rays-Chapter-6-944125-ROM.txt (pp. 2-4+); ap1-26-97.txt (pp. 12-13),control_rom_sequencer.vhd,control_rom_sequencer_tb.vhd
+Requirement,ROM-F-003,ROM/Sequencer,Shall implement unconditional jump (micro_PC = target),Must,,Rays-Chapter-6-944125-ROM.txt (pp. 2-4+),control_rom_sequencer.vhd,control_rom_sequencer_tb.vhd
+Requirement,ROM-F-004,ROM/Sequencer,Shall implement conditional branch on Z N C flags,Must,,CADC_Module_Specification.pdf (pp. 3-4),control_rom_sequencer.vhd,control_rom_sequencer_tb.vhd
+Requirement,ROM-F-005,ROM/Sequencer,Shall implement wait-for-PMU-done hold,Must,,CADC_Module_Specification.pdf (pp. 3-4),control_rom_sequencer.vhd,control_rom_sequencer_tb.vhd
+Requirement,ROM-F-006,ROM/Sequencer,Shall implement wait-for-PDU-done hold,Must,,CADC_Module_Specification.pdf (pp. 3-4),control_rom_sequencer.vhd,control_rom_sequencer_tb.vhd
+Requirement,ROM-F-007,ROM/Sequencer,Shall decode microinstruction fields to individual control signals,Must,,CADC_Module_Specification.pdf (pp. 3-4); p1-35-to-p2-28-.txt (pp. 1-40 to 1-42),control_rom_sequencer.vhd,control_rom_sequencer_tb.vhd
+Requirement,ROM-F-008,ROM/Sequencer,Micro-PC shall reset to 0 on rst or frame_mark,Must,,Rays-Chapter-6-944125-ROM.txt (pp. 2-4+),control_rom_sequencer.vhd,control_rom_sequencer_tb.vhd
+Requirement,ROM-F-009,ROM/Sequencer,Microinstruction fetch shall be single-cycle,Must,,CADC_Module_Specification.pdf (pp. 3-4),control_rom_sequencer.vhd,control_rom_sequencer_tb.vhd
+Requirement,ROM-F-010,ROM/Sequencer,Data ROM shall provide constants to data path via SL,Must,,p1-35-to-p2-28-.txt (pp. 1-35 to 1-37); ap1-26-97.txt (pp. 12-13),control_rom_sequencer.vhd,control_rom_sequencer_tb.vhd
+Requirement,ROM-F-011,ROM/Sequencer,Control ROM should be loadable (Block RAM) for program updates,Should,,Rays-Chapter-6-944125-ROM.txt (pp. 2-4+),control_rom_sequencer.vhd,control_rom_sequencer_tb.vhd
+Requirement,ROM-F-012,ROM/Sequencer,Shall support subroutine call/return with stack,Should,,CADC_Module_Specification.pdf (pp. 3-4),control_rom_sequencer.vhd,control_rom_sequencer_tb.vhd
+Requirement,ROM-F-013,ROM/Sequencer,Stack depth shall be at least 4 levels,Should,,CADC_Module_Specification.pdf (pp. 3-4),control_rom_sequencer.vhd,control_rom_sequencer_tb.vhd
+Requirement,ROM-F-014,ROM/Sequencer,All control outputs shall be registered (synchronous),Must,,CADC_Module_Specification.pdf (pp. 3-4),control_rom_sequencer.vhd,control_rom_sequencer_tb.vhd
+Requirement,ROM-F-015,ROM/Sequencer,Branch-on-busy shall allow PMU/PDU to complete before proceeding,Must,,CADC_Module_Specification.pdf (pp. 3-4),control_rom_sequencer.vhd,control_rom_sequencer_tb.vhd
+Requirement,IO-F-001,I/O Bridge,Shall read sensor data when commanded by IOCTL,Must,,p1-35-to-p2-28-.txt (pp. 2-9 to 2-20); ap1-26-97.txt (pp. 1-2),io_bridge.vhd,io_bridge_tb.vhd
+Requirement,IO-F-002,I/O Bridge,Shall write to display/actuator outputs when commanded by IOCTL,Must,,p1-35-to-p2-28-.txt (pp. 2-9 to 2-20),io_bridge.vhd,io_bridge_tb.vhd
+Requirement,IO-F-003,I/O Bridge,Sensor read shall latch input data and present on io_data_out,Must,,p1-35-to-p2-28-.txt (pp. 2-9 to 2-20),io_bridge.vhd,io_bridge_tb.vhd
+Requirement,IO-F-004,I/O Bridge,Output writes shall latch data into holding registers,Must,,p1-35-to-p2-28-.txt (pp. 2-9 to 2-20),io_bridge.vhd,io_bridge_tb.vhd
+Requirement,IO-F-005,I/O Bridge,Output holding registers shall drive external signals continuously,Must,,p1-35-to-p2-28-.txt (pp. 2-9 to 2-20),io_bridge.vhd,io_bridge_tb.vhd
+Requirement,IO-F-006,I/O Bridge,NOP IOCTL shall not change any I/O state,Must,,CADC_Module_Specification.pdf (p. 4),io_bridge.vhd,io_bridge_tb.vhd
+Requirement,IO-F-007,I/O Bridge,Reset shall clear all output holding registers to zero,Must,,CADC_Module_Specification.pdf (p. 4),io_bridge.vhd,io_bridge_tb.vhd
+Requirement,IO-F-008,I/O Bridge,Gray-coded sensor inputs shall be passed as-is (conversion in SLF),Must,,p3-1-to-B1-.txt (Appendix C); Rays-Chapter-3-944113-SLF.txt,io_bridge.vhd,io_bridge_tb.vhd
+Requirement,IO-F-009,I/O Bridge,Output shall only drive when channel_active = 1,Must,,p2-29-to-p2-46-.txt (p. 2-46),io_bridge.vhd,io_bridge_tb.vhd
+Requirement,IO-F-010,I/O Bridge,fail_detect shall assert on detected self-test failure,Should,,p2-29-to-p2-46-.txt (p. 2-46),io_bridge.vhd,io_bridge_tb.vhd
+Requirement,IO-F-011,I/O Bridge,I/O operation shall complete in a single clock cycle,Should,,CADC_Module_Specification.pdf (p. 4),io_bridge.vhd,io_bridge_tb.vhd
+Requirement,IO-F-012,I/O Bridge,io_ready shall assert when read data is valid or write is latched,Must,,CADC_Module_Specification.pdf (p. 4),io_bridge.vhd,io_bridge_tb.vhd
+Test,PMU-T-001,PMU,Zero x Zero,,Result = 0x00000,p2-29-to-p2-46-.txt (p. 2-46 - diagnostic test operands),pmu.vhd,pmu_tb.vhd
+Test,PMU-T-002,PMU,Positive x Zero,,Result = 0x00000,p2-29-to-p2-46-.txt (p. 2-46),pmu.vhd,pmu_tb.vhd
+Test,PMU-T-003,PMU,0.5 x 0.5,,Result = 0x10000 (0.25),p3-1-to-B1-.txt (Appendix A - Booth's),pmu.vhd,pmu_tb.vhd
+Test,PMU-T-004,PMU,0.5 x -0.5,,Result = 0xF0000 (-0.25),p3-1-to-B1-.txt (Appendix A),pmu.vhd,pmu_tb.vhd
+Test,PMU-T-005,PMU,-0.5 x -0.5,,Result = 0x10000 (+0.25),p3-1-to-B1-.txt (Appendix A),pmu.vhd,pmu_tb.vhd
+Test,PMU-T-006,PMU,Max positive x Max positive,,Result ~0x3FFFF,p2-29-to-p2-46-.txt (p. 2-46),pmu.vhd,pmu_tb.vhd
+Test,PMU-T-007,PMU,Max negative x Max positive,,Result ~0x80001,p2-29-to-p2-46-.txt (p. 2-46),pmu.vhd,pmu_tb.vhd
+Test,PMU-T-008,PMU,Max negative x Max negative,,Result = 0x7FFFF (saturate/overflow case),p2-29-to-p2-46-.txt (p. 2-46),pmu.vhd,pmu_tb.vhd
+Test,PMU-T-009,PMU,Unity approximation x value,,Result ~0x40000,p3-1-to-B1-.txt (Appendix A),pmu.vhd,pmu_tb.vhd
+Test,PMU-T-010,PMU,Alternating bit pattern 0xAAAAA x 0x55555,,Tests all Booth transitions,p2-29-to-p2-46-.txt (p. 2-46),pmu.vhd,pmu_tb.vhd
+Test,PMU-T-011,PMU,All ones pattern 0xFFFFF x 0xFFFFF,,Result = -1/524288 x -1/524288,p2-29-to-p2-46-.txt (p. 2-46),pmu.vhd,pmu_tb.vhd
+Test,PMU-T-012,PMU,Single bit set in each position,,Verify each bit position contributes correctly,p2-29-to-p2-46-.txt (p. 2-46),pmu.vhd,pmu_tb.vhd
+Test,PMU-T-020,PMU,Busy signal assertion,,busy goes high on start and goes low when done,CADC_Module_Specification.pdf (p. 1),pmu.vhd,pmu_tb.vhd
+Test,PMU-T-021,PMU,Done pulse width,,done is high for exactly 1 clock cycle,CADC_Module_Specification.pdf (p. 1),pmu.vhd,pmu_tb.vhd
+Test,PMU-T-022,PMU,Start during busy,,New start during busy shall be ignored or restart,CADC_Module_Specification.pdf (p. 1),pmu.vhd,pmu_tb.vhd
+Test,PMU-T-023,PMU,Back-to-back operations,,Can start new multiply immediately after done,CADC_Module_Specification.pdf (p. 1),pmu.vhd,pmu_tb.vhd
+Test,PMU-T-024,PMU,Reset during operation,,rst during multiplication clears state and deasserts busy,CADC_Module_Specification.pdf (p. 1),pmu.vhd,pmu_tb.vhd
+Test,PDU-T-001,PDU,Zero / positive,,Result = 0x00000,p3-1-to-B1-.txt (Appendix B),pdu.vhd,pdu_tb.vhd
+Test,PDU-T-002,PDU,0.25 / 0.5,,Result = 0x40000 (+0.5),p3-1-to-B1-.txt (Appendix B),pdu.vhd,pdu_tb.vhd
+Test,PDU-T-003,PDU,0.5 / (-0.5) (invalid - |A|=|B|),,Overflow,p3-1-to-B1-.txt (Appendix B),pdu.vhd,pdu_tb.vhd
+Test,PDU-T-004,PDU,0.25 / (-0.5),,Result = 0xC0000 (-0.5),p3-1-to-B1-.txt (Appendix B),pdu.vhd,pdu_tb.vhd
+Test,PDU-T-005,PDU,(-0.25) / (-0.5),,Result = 0x40000 (+0.5),p3-1-to-B1-.txt (Appendix B),pdu.vhd,pdu_tb.vhd
+Test,PDU-T-006,PDU,(-0.25) / 0.5,,Result = 0xC0000 (-0.5),p3-1-to-B1-.txt (Appendix B),pdu.vhd,pdu_tb.vhd
+Test,PDU-T-007,PDU,Small / Large,,Result ~0x00001,p3-1-to-B1-.txt (Appendix B),pdu.vhd,pdu_tb.vhd
+Test,PDU-T-010,PDU,Divide by zero,,div_by_zero asserted; done asserted; quotient undefined,Rays-Chapter-2-944112-PDU.txt (pp. 2-4),pdu.vhd,pdu_tb.vhd
+Test,PDU-T-020,PDU,Verify remainder for all basic tests,,dividend = quotient x divisor + remainder,p3-1-to-B1-.txt (Appendix B),pdu.vhd,pdu_tb.vhd
+Test,PDU-T-021,PDU,Remainder magnitude,,|remainder| < |divisor| for all valid inputs,p3-1-to-B1-.txt (Appendix B),pdu.vhd,pdu_tb.vhd
+Test,PDU-T-030,PDU,Alternating partial remainder signs,,Exercise both add and subtract paths,p3-1-to-B1-.txt (Appendix B),pdu.vhd,pdu_tb.vhd
+Test,PDU-T-031,PDU,All positive shifts,,Dividend much smaller than divisor,p3-1-to-B1-.txt (Appendix B),pdu.vhd,pdu_tb.vhd
+Test,PDU-T-032,PDU,Maximum iterations,,Worst-case timing verification,Rays-Chapter-2-944112-PDU.txt (pp. 2-4),pdu.vhd,pdu_tb.vhd
+Test,PDU-T-040,PDU,Busy signal assertion,,busy goes high on start and low when done,CADC_Module_Specification.pdf (p. 2),pdu.vhd,pdu_tb.vhd
+Test,PDU-T-041,PDU,Done pulse width,,done high for exactly 1 clock,CADC_Module_Specification.pdf (p. 2),pdu.vhd,pdu_tb.vhd
+Test,PDU-T-042,PDU,Start during busy,,Ignored or restart,CADC_Module_Specification.pdf (p. 2),pdu.vhd,pdu_tb.vhd
+Test,PDU-T-043,PDU,Back-to-back operations,,Start new divide immediately after done,CADC_Module_Specification.pdf (p. 2),pdu.vhd,pdu_tb.vhd
+Test,PDU-T-044,PDU,Reset during operation,,Clears state and deasserts busy,CADC_Module_Specification.pdf (p. 2),pdu.vhd,pdu_tb.vhd
+Test,SLF-T-001,SLF,0 + 0,,0x00000; Z=1 N=0 C=0,Rays-Chapter-3-944113-SLF.txt (pp. 2-4+),slf.vhd,slf_tb.vhd
+Test,SLF-T-002,SLF,0.5 + 0.25,,0x60000; Z=0 N=0 C=0,Rays-Chapter-3-944113-SLF.txt (pp. 2-4+),slf.vhd,slf_tb.vhd
+Test,SLF-T-003,SLF,0.5 + 0.5 (overflow),,0x80000; Z=0 N=1 C=0,Rays-Chapter-3-944113-SLF.txt (pp. 2-4+),slf.vhd,slf_tb.vhd
+Test,SLF-T-004,SLF,-1,,0x80000; Z=0 N=1 C=1,Rays-Chapter-3-944113-SLF.txt (pp. 2-4+),slf.vhd,slf_tb.vhd
+Test,SLF-T-005,SLF,0.5 + (-0.25),,0x20000; Z=0 N=0 C=1,Rays-Chapter-3-944113-SLF.txt (pp. 2-4+),slf.vhd,slf_tb.vhd
+Test,SLF-T-010,SLF,0 - 0,,0x00000; Z=1 N=0 C=0,Rays-Chapter-3-944113-SLF.txt (pp. 2-4+),slf.vhd,slf_tb.vhd
+Test,SLF-T-011,SLF,0.5 - 0.25,,0x20000; Z=0 N=0 C=0,Rays-Chapter-3-944113-SLF.txt (pp. 2-4+),slf.vhd,slf_tb.vhd
+Test,SLF-T-012,SLF,0.25 - 0.5,,0xE0000; Z=0 N=1 C=1,Rays-Chapter-3-944113-SLF.txt (pp. 2-4+),slf.vhd,slf_tb.vhd
+Test,SLF-T-020,SLF,AND all ones,,0xFFFFF,Rays-Chapter-3-944113-SLF.txt (pp. 2-4+),slf.vhd,slf_tb.vhd
+Test,SLF-T-021,SLF,AND with zero,,0x00000,Rays-Chapter-3-944113-SLF.txt (pp. 2-4+),slf.vhd,slf_tb.vhd
+Test,SLF-T-022,SLF,OR all zeros,,0x00000,Rays-Chapter-3-944113-SLF.txt (pp. 2-4+),slf.vhd,slf_tb.vhd
+Test,SLF-T-023,SLF,OR complementary,,0xFFFFF,Rays-Chapter-3-944113-SLF.txt (pp. 2-4+),slf.vhd,slf_tb.vhd
+Test,SLF-T-024,SLF,XOR same,,0x00000,Rays-Chapter-3-944113-SLF.txt (pp. 2-4+),slf.vhd,slf_tb.vhd
+Test,SLF-T-025,SLF,NOT zero,,0xFFFFF,Rays-Chapter-3-944113-SLF.txt (pp. 2-4+),slf.vhd,slf_tb.vhd
+Test,SLF-T-030,SLF,SHL positive,,0x40000,Rays-Chapter-3-944113-SLF.txt (pp. 2-4+),slf.vhd,slf_tb.vhd
+Test,SLF-T-031,SLF,SHL negative,,0xC0000,Rays-Chapter-3-944113-SLF.txt (pp. 2-4+),slf.vhd,slf_tb.vhd
+Test,SLF-T-032,SLF,SHR positive,,0x20000,Rays-Chapter-3-944113-SLF.txt (pp. 2-4+),slf.vhd,slf_tb.vhd
+Test,SLF-T-033,SLF,SHR negative (sign extend),,0xC0000,Rays-Chapter-3-944113-SLF.txt (pp. 2-4+),slf.vhd,slf_tb.vhd
+Test,SLF-T-040,SLF,Gray->Bin: 0x00000,,0x00000,p3-1-to-B1-.txt (Appendix C),slf.vhd,slf_tb.vhd
+Test,SLF-T-041,SLF,Gray->Bin: 0x00001,,0x00001,p3-1-to-B1-.txt (Appendix C),slf.vhd,slf_tb.vhd
+Test,SLF-T-042,SLF,Gray->Bin: 0x00003,,0x00002,p3-1-to-B1-.txt (Appendix C),slf.vhd,slf_tb.vhd
+Test,SLF-T-043,SLF,Gray->Bin: known pattern,,Test with sensor encoder values,p3-1-to-B1-.txt (Appendix C),slf.vhd,slf_tb.vhd
+Test,SLF-T-044,SLF,Bin->Gray->Bin roundtrip,,Original value restored,p3-1-to-B1-.txt (Appendix C),slf.vhd,slf_tb.vhd
+Test,SLF-T-045,SLF,Gray->Bin->Gray roundtrip,,Original Gray restored,p3-1-to-B1-.txt (Appendix C),slf.vhd,slf_tb.vhd
+Test,SLF-T-050,SLF,NEG of +0.5,,0xC0000,Rays-Chapter-3-944113-SLF.txt (pp. 2-4+),slf.vhd,slf_tb.vhd
+Test,SLF-T-051,SLF,NEG of -0.5,,0x40000,Rays-Chapter-3-944113-SLF.txt (pp. 2-4+),slf.vhd,slf_tb.vhd
+Test,SLF-T-052,SLF,NEG of 0,,0x00000,Rays-Chapter-3-944113-SLF.txt (pp. 2-4+),slf.vhd,slf_tb.vhd
+Test,SLF-T-053,SLF,ABS of +0.5,,0x40000,Rays-Chapter-3-944113-SLF.txt (pp. 2-4+),slf.vhd,slf_tb.vhd
+Test,SLF-T-054,SLF,ABS of -0.5,,0x40000,Rays-Chapter-3-944113-SLF.txt (pp. 2-4+),slf.vhd,slf_tb.vhd
+Test,SLF-T-055,SLF,LOAD value,,acc_in value,Rays-Chapter-3-944113-SLF.txt (pp. 2-4+),slf.vhd,slf_tb.vhd
+Test,SLF-T-056,SLF,STORE_TMP,,TMP = 0x12345,Rays-Chapter-3-944113-SLF.txt (pp. 2-4+),slf.vhd,slf_tb.vhd
+Test,SLF-T-060,SLF,ACC hold when write disabled,,ACC unchanged after ALU op with acc_write_en=0,CADC_Module_Specification.pdf (p. 2),slf.vhd,slf_tb.vhd
+Test,SLF-T-061,SLF,TMP hold when write disabled,,TMP unchanged with tmp_write_en=0,CADC_Module_Specification.pdf (p. 2),slf.vhd,slf_tb.vhd
+Test,SLF-T-062,SLF,Flags hold when write disabled,,Flags unchanged with flags_write_en=0,CADC_Module_Specification.pdf (p. 2),slf.vhd,slf_tb.vhd
+Test,RAS-T-001,RAS,Write then read same address,,Read back matches written data,Rays-Chapter-4-944114-RAS.txt (pp. 2-4+),ras.vhd,ras_tb.vhd
+Test,RAS-T-002,RAS,Write to address 0 and read back,,Correct data at address 0,Rays-Chapter-4-944114-RAS.txt (pp. 2-4+),ras.vhd,ras_tb.vhd
+Test,RAS-T-003,RAS,Write to max address (63) and read back,,Correct data at address 63,Rays-Chapter-4-944114-RAS.txt (pp. 2-4+),ras.vhd,ras_tb.vhd
+Test,RAS-T-004,RAS,Write all ones (0xFFFFF) and read back,,All ones returned,Rays-Chapter-4-944114-RAS.txt (pp. 2-4+),ras.vhd,ras_tb.vhd
+Test,RAS-T-005,RAS,Write alternating pattern and read back,,Pattern preserved,Rays-Chapter-4-944114-RAS.txt (pp. 2-4+),ras.vhd,ras_tb.vhd
+Test,RAS-T-010,RAS,Write different data to adjacent addresses,,Each address returns its own data,Rays-Chapter-4-944114-RAS.txt (pp. 2-4+),ras.vhd,ras_tb.vhd
+Test,RAS-T-011,RAS,Write to all 64 addresses sequentially,,All values retained and independently readable,Rays-Chapter-4-944114-RAS.txt (pp. 2-4+),ras.vhd,ras_tb.vhd
+Test,RAS-T-012,RAS,Overwrite a location,,New value replaces old value,Rays-Chapter-4-944114-RAS.txt (pp. 2-4+),ras.vhd,ras_tb.vhd
+Test,RAS-T-013,RAS,Non-written locations retain initial value,,After reset unwritten locations read 0,Rays-Chapter-4-944114-RAS.txt (pp. 2-4+),ras.vhd,ras_tb.vhd
+Test,RAS-T-020,RAS,Simultaneous read/write different addresses,,Both operations succeed independently,Rays-Chapter-4-944114-RAS.txt (pp. 2-4+),ras.vhd,ras_tb.vhd
+Test,RAS-T-021,RAS,Read-during-write same address,,Defined behavior (write-first or read-old),Rays-Chapter-4-944114-RAS.txt (pp. 2-4+),ras.vhd,ras_tb.vhd
+Test,RAS-T-030,RAS,Reset after writing data,,All locations read back as 0,CADC_Module_Specification.pdf (pp. 2-3),ras.vhd,ras_tb.vhd
+Test,RAS-T-031,RAS,Reset clears all 64 locations,,Verify every address reads 0 after reset,CADC_Module_Specification.pdf (pp. 2-3),ras.vhd,ras_tb.vhd
+Test,RAS-T-040,RAS,Write disabled data unchanged,,Location retains previous value,Rays-Chapter-4-944114-RAS.txt (pp. 2-4+),ras.vhd,ras_tb.vhd
+Test,RAS-T-041,RAS,Write enabled for one cycle only,,Only targeted location changes,Rays-Chapter-4-944114-RAS.txt (pp. 2-4+),ras.vhd,ras_tb.vhd
+Test,SL-T-001,SL,Route RAS to ACC,,src_ras value (sel_acc_src=000),Rays-Chapter-5-944118-Steering.txt (pp. 2-4+); ap1-26-97.txt (pp. 9-12),sl.vhd,sl_tb.vhd
+Test,SL-T-002,SL,Route PMU to ACC,,src_pmu value (sel_acc_src=001),Rays-Chapter-5-944118-Steering.txt (pp. 2-4+); ap1-26-97.txt (pp. 9-12),sl.vhd,sl_tb.vhd
+Test,SL-T-003,SL,Route PDU quotient to ACC,,src_pdu_q value (sel_acc_src=010),Rays-Chapter-5-944118-Steering.txt (pp. 2-4+); ap1-26-97.txt (pp. 9-12),sl.vhd,sl_tb.vhd
+Test,SL-T-004,SL,Route PDU remainder to ACC,,src_pdu_r value (sel_acc_src=011),Rays-Chapter-5-944118-Steering.txt (pp. 2-4+); ap1-26-97.txt (pp. 9-12),sl.vhd,sl_tb.vhd
+Test,SL-T-005,SL,Route I/O input to ACC,,src_io_in value (sel_acc_src=100),Rays-Chapter-5-944118-Steering.txt (pp. 2-4+); ap1-26-97.txt (pp. 9-12),sl.vhd,sl_tb.vhd
+Test,SL-T-006,SL,Route constant to ACC,,src_const value (sel_acc_src=101),Rays-Chapter-5-944118-Steering.txt (pp. 2-4+); ap1-26-97.txt (pp. 9-12),sl.vhd,sl_tb.vhd
+Test,SL-T-007,SL,Route TMP to ACC,,src_tmp value (sel_acc_src=110),Rays-Chapter-5-944118-Steering.txt (pp. 2-4+); ap1-26-97.txt (pp. 9-12),sl.vhd,sl_tb.vhd
+Test,SL-T-008,SL,Reserved code 111,,0x00000,Rays-Chapter-5-944118-Steering.txt (pp. 2-4+),sl.vhd,sl_tb.vhd
+Test,SL-T-010,SL,Route ACC to RAS,,src_acc value (sel_ras_src=00),Rays-Chapter-5-944118-Steering.txt (pp. 2-4+); ap1-26-97.txt (pp. 9-12),sl.vhd,sl_tb.vhd
+Test,SL-T-011,SL,Route PMU to RAS,,src_pmu value (sel_ras_src=01),Rays-Chapter-5-944118-Steering.txt (pp. 2-4+); ap1-26-97.txt (pp. 9-12),sl.vhd,sl_tb.vhd
+Test,SL-T-012,SL,Route PDU quotient to RAS,,src_pdu_q value (sel_ras_src=10),Rays-Chapter-5-944118-Steering.txt (pp. 2-4+); ap1-26-97.txt (pp. 9-12),sl.vhd,sl_tb.vhd
+Test,SL-T-013,SL,Route I/O input to RAS,,src_io_in value (sel_ras_src=11),Rays-Chapter-5-944118-Steering.txt (pp. 2-4+); ap1-26-97.txt (pp. 9-12),sl.vhd,sl_tb.vhd
+Test,SL-T-020,SL,Route ACC to I/O,,src_acc value (sel_io_src=00),Rays-Chapter-5-944118-Steering.txt (pp. 2-4+); ap1-26-97.txt (pp. 9-12),sl.vhd,sl_tb.vhd
+Test,SL-T-021,SL,Route RAS to I/O,,src_ras value (sel_io_src=01),Rays-Chapter-5-944118-Steering.txt (pp. 2-4+); ap1-26-97.txt (pp. 9-12),sl.vhd,sl_tb.vhd
+Test,SL-T-022,SL,Route PMU to I/O,,src_pmu value (sel_io_src=10),Rays-Chapter-5-944118-Steering.txt (pp. 2-4+); ap1-26-97.txt (pp. 9-12),sl.vhd,sl_tb.vhd
+Test,SL-T-023,SL,Route PDU quotient to I/O,,src_pdu_q value (sel_io_src=11),Rays-Chapter-5-944118-Steering.txt (pp. 2-4+); ap1-26-97.txt (pp. 9-12),sl.vhd,sl_tb.vhd
+Test,SL-T-030,SL,All three muxes select different sources,,Each output reflects its selected source,Rays-Chapter-5-944118-Steering.txt (pp. 2-4+),sl.vhd,sl_tb.vhd
+Test,SL-T-031,SL,All three muxes select same source,,All outputs identical,Rays-Chapter-5-944118-Steering.txt (pp. 2-4+),sl.vhd,sl_tb.vhd
+Test,SL-T-032,SL,Change one select others stable,,Only changed output updates,Rays-Chapter-5-944118-Steering.txt (pp. 2-4+),sl.vhd,sl_tb.vhd
+Test,SL-T-040,SL,All zeros through each path,,Output = 0x00000,Rays-Chapter-5-944118-Steering.txt (pp. 2-4+),sl.vhd,sl_tb.vhd
+Test,SL-T-041,SL,All ones through each path,,Output = 0xFFFFF,Rays-Chapter-5-944118-Steering.txt (pp. 2-4+),sl.vhd,sl_tb.vhd
+Test,SL-T-042,SL,Unique pattern through each path,,All 20 bits correctly routed,Rays-Chapter-5-944118-Steering.txt (pp. 2-4+),sl.vhd,sl_tb.vhd
+Test,SL-T-043,SL,Walking ones through each source,,Bit-level routing verification,Rays-Chapter-5-944118-Steering.txt (pp. 2-4+),sl.vhd,sl_tb.vhd
+Test,ROM-T-001,ROM/Sequencer,Power-on reset,,micro_PC = 0; first instruction fetched,Rays-Chapter-6-944125-ROM.txt (pp. 2-4+),control_rom_sequencer.vhd,control_rom_sequencer_tb.vhd
+Test,ROM-T-002,ROM/Sequencer,Sequential advance,,micro_PC increments each cycle,Rays-Chapter-6-944125-ROM.txt (pp. 2-4+),control_rom_sequencer.vhd,control_rom_sequencer_tb.vhd
+Test,ROM-T-003,ROM/Sequencer,Multiple sequential instructions,,Correct instructions fetched in order,Rays-Chapter-6-944125-ROM.txt (pp. 2-4+),control_rom_sequencer.vhd,control_rom_sequencer_tb.vhd
+Test,ROM-T-010,ROM/Sequencer,Unconditional jump,,micro_PC = NEXTADR,CADC_Module_Specification.pdf (pp. 3-4),control_rom_sequencer.vhd,control_rom_sequencer_tb.vhd
+Test,ROM-T-011,ROM/Sequencer,Branch on Z taken,,Z=1; micro_PC = NEXTADR,CADC_Module_Specification.pdf (pp. 3-4),control_rom_sequencer.vhd,control_rom_sequencer_tb.vhd
+Test,ROM-T-012,ROM/Sequencer,Branch on Z not taken,,Z=0; micro_PC = PC+1,CADC_Module_Specification.pdf (pp. 3-4),control_rom_sequencer.vhd,control_rom_sequencer_tb.vhd
+Test,ROM-T-013,ROM/Sequencer,Branch on N taken,,N=1; micro_PC = NEXTADR,CADC_Module_Specification.pdf (pp. 3-4),control_rom_sequencer.vhd,control_rom_sequencer_tb.vhd
+Test,ROM-T-014,ROM/Sequencer,Branch on N not taken,,N=0; micro_PC = PC+1,CADC_Module_Specification.pdf (pp. 3-4),control_rom_sequencer.vhd,control_rom_sequencer_tb.vhd
+Test,ROM-T-015,ROM/Sequencer,Branch on C taken,,C=1; micro_PC = NEXTADR,CADC_Module_Specification.pdf (pp. 3-4),control_rom_sequencer.vhd,control_rom_sequencer_tb.vhd
+Test,ROM-T-016,ROM/Sequencer,Branch on C not taken,,C=0; micro_PC = PC+1,CADC_Module_Specification.pdf (pp. 3-4),control_rom_sequencer.vhd,control_rom_sequencer_tb.vhd
+Test,ROM-T-020,ROM/Sequencer,Wait PMU while busy,,micro_PC held; same instruction,CADC_Module_Specification.pdf (pp. 3-4),control_rom_sequencer.vhd,control_rom_sequencer_tb.vhd
+Test,ROM-T-021,ROM/Sequencer,Wait PMU when done,,micro_PC advances,CADC_Module_Specification.pdf (pp. 3-4),control_rom_sequencer.vhd,control_rom_sequencer_tb.vhd
+Test,ROM-T-022,ROM/Sequencer,Wait PDU while busy,,micro_PC held,CADC_Module_Specification.pdf (pp. 3-4),control_rom_sequencer.vhd,control_rom_sequencer_tb.vhd
+Test,ROM-T-023,ROM/Sequencer,Wait PDU when done,,micro_PC advances,CADC_Module_Specification.pdf (pp. 3-4),control_rom_sequencer.vhd,control_rom_sequencer_tb.vhd
+Test,ROM-T-024,ROM/Sequencer,Branch on PMU busy taken,,PMU busy; branch taken,CADC_Module_Specification.pdf (pp. 3-4),control_rom_sequencer.vhd,control_rom_sequencer_tb.vhd
+Test,ROM-T-025,ROM/Sequencer,Branch on PMU busy not taken,,PMU not busy; fall through,CADC_Module_Specification.pdf (pp. 3-4),control_rom_sequencer.vhd,control_rom_sequencer_tb.vhd
+Test,ROM-T-030,ROM/Sequencer,ALU_OP decode,,alu_op matches bits [31:28] of microword,CADC_Module_Specification.pdf (pp. 3-4),control_rom_sequencer.vhd,control_rom_sequencer_tb.vhd
+Test,ROM-T-031,ROM/Sequencer,ACC control decode,,Write enables match ACCCTL field,CADC_Module_Specification.pdf (pp. 3-4),control_rom_sequencer.vhd,control_rom_sequencer_tb.vhd
+Test,ROM-T-032,ROM/Sequencer,RAS control decode,,Address and enables match RASCTL field,CADC_Module_Specification.pdf (pp. 3-4),control_rom_sequencer.vhd,control_rom_sequencer_tb.vhd
+Test,ROM-T-033,ROM/Sequencer,Steering decode,,SL select signals match SL_ACC and SL_RAS fields,CADC_Module_Specification.pdf (pp. 3-4),control_rom_sequencer.vhd,control_rom_sequencer_tb.vhd
+Test,ROM-T-034,ROM/Sequencer,PMU control decode,,pmu_start matches PMUCTL field,CADC_Module_Specification.pdf (pp. 3-4),control_rom_sequencer.vhd,control_rom_sequencer_tb.vhd
+Test,ROM-T-035,ROM/Sequencer,PDU control decode,,pdu_start matches PDUCTL field,CADC_Module_Specification.pdf (pp. 3-4),control_rom_sequencer.vhd,control_rom_sequencer_tb.vhd
+Test,ROM-T-036,ROM/Sequencer,I/O control decode,,io_ctrl matches IOCTL field,CADC_Module_Specification.pdf (pp. 3-4),control_rom_sequencer.vhd,control_rom_sequencer_tb.vhd
+Test,ROM-T-040,ROM/Sequencer,Frame mark resets PC,,micro_PC = 0 after frame_mark,Rays-Chapter-6-944125-ROM.txt (pp. 2-4+),control_rom_sequencer.vhd,control_rom_sequencer_tb.vhd
+Test,ROM-T-041,ROM/Sequencer,Full frame execution,,512 operations complete then frame_mark,Rays-Chapter-6-944125-ROM.txt (pp. 2-4+); p1-4-to-p1-34-.txt,control_rom_sequencer.vhd,control_rom_sequencer_tb.vhd
+Test,ROM-T-042,ROM/Sequencer,Word mark timing,,Instructions execute on correct word boundaries,Rays-Chapter-6-944125-ROM.txt (pp. 2-4+),control_rom_sequencer.vhd,control_rom_sequencer_tb.vhd
+Test,ROM-T-050,ROM/Sequencer,Call and return,,Correct return address restored,CADC_Module_Specification.pdf (pp. 3-4),control_rom_sequencer.vhd,control_rom_sequencer_tb.vhd
+Test,ROM-T-051,ROM/Sequencer,Nested calls (2 deep),,Both return addresses correct,CADC_Module_Specification.pdf (pp. 3-4),control_rom_sequencer.vhd,control_rom_sequencer_tb.vhd
+Test,ROM-T-052,ROM/Sequencer,Stack overflow,,Defined behavior on overflow,CADC_Module_Specification.pdf (pp. 3-4),control_rom_sequencer.vhd,control_rom_sequencer_tb.vhd
+Test,IO-T-001,I/O Bridge,Read static pressure,,io_data_out = sensor_ps after READ_PS,p1-35-to-p2-28-.txt (pp. 2-9 to 2-20),io_bridge.vhd,io_bridge_tb.vhd
+Test,IO-T-002,I/O Bridge,Read dynamic pressure,,io_data_out = sensor_qc after READ_QC,p1-35-to-p2-28-.txt (pp. 2-9 to 2-20),io_bridge.vhd,io_bridge_tb.vhd
+Test,IO-T-003,I/O Bridge,Read temperature,,io_data_out = sensor_tat after READ_TAT,p1-35-to-p2-28-.txt (pp. 2-9 to 2-20),io_bridge.vhd,io_bridge_tb.vhd
+Test,IO-T-004,I/O Bridge,Read analog input,,io_data_out = sensor_analog after READ_ANALOG,p1-35-to-p2-28-.txt (pp. 2-9 to 2-20),io_bridge.vhd,io_bridge_tb.vhd
+Test,IO-T-005,I/O Bridge,Read digital switches,,io_data_out = sensor_digital after READ_DIGITAL,p1-35-to-p2-28-.txt (pp. 2-9 to 2-20),io_bridge.vhd,io_bridge_tb.vhd
+Test,IO-T-006,I/O Bridge,Sensor changes between reads,,Latched value reflects time of read,p1-35-to-p2-28-.txt (pp. 2-9 to 2-20),io_bridge.vhd,io_bridge_tb.vhd
+Test,IO-T-010,I/O Bridge,Write Mach display,,out_mach = written value; held until next write,p1-35-to-p2-28-.txt (pp. 2-9 to 2-20),io_bridge.vhd,io_bridge_tb.vhd
+Test,IO-T-011,I/O Bridge,Write altitude display,,out_alt = written value,p1-35-to-p2-28-.txt (pp. 2-9 to 2-20),io_bridge.vhd,io_bridge_tb.vhd
+Test,IO-T-012,I/O Bridge,Write airspeed display,,out_airspd = written value,p1-35-to-p2-28-.txt (pp. 2-9 to 2-20),io_bridge.vhd,io_bridge_tb.vhd
+Test,IO-T-013,I/O Bridge,Write vertical speed,,out_vspd = written value,p1-35-to-p2-28-.txt (pp. 2-9 to 2-20),io_bridge.vhd,io_bridge_tb.vhd
+Test,IO-T-014,I/O Bridge,Write wing sweep,,out_wing = written value,p2-29-to-p2-46-.txt (pp. 2-29 to 2-43),io_bridge.vhd,io_bridge_tb.vhd
+Test,IO-T-015,I/O Bridge,Write maneuver flaps,,out_flap = written value,p2-29-to-p2-46-.txt (pp. 2-29 to 2-43),io_bridge.vhd,io_bridge_tb.vhd
+Test,IO-T-016,I/O Bridge,Write glove vane,,out_glove = written value,p2-29-to-p2-46-.txt (pp. 2-29 to 2-43),io_bridge.vhd,io_bridge_tb.vhd
+Test,IO-T-017,I/O Bridge,Write BIT status,,out_bit_status = driven value,p2-29-to-p2-46-.txt (p. 2-46),io_bridge.vhd,io_bridge_tb.vhd
+Test,IO-T-020,I/O Bridge,NOP doesn't change outputs,,All outputs unchanged after NOP,CADC_Module_Specification.pdf (p. 4),io_bridge.vhd,io_bridge_tb.vhd
+Test,IO-T-021,I/O Bridge,Output holds after write,,Value persists through multiple cycles,CADC_Module_Specification.pdf (p. 4),io_bridge.vhd,io_bridge_tb.vhd
+Test,IO-T-022,I/O Bridge,Output persists through reads,,Writing to one channel doesn't affect others,CADC_Module_Specification.pdf (p. 4),io_bridge.vhd,io_bridge_tb.vhd
+Test,IO-T-030,I/O Bridge,Write to each output independently,,Only targeted output changes,CADC_Module_Specification.pdf (p. 4),io_bridge.vhd,io_bridge_tb.vhd
+Test,IO-T-031,I/O Bridge,Read from each input independently,,Only targeted input appears on io_data_out,CADC_Module_Specification.pdf (p. 4),io_bridge.vhd,io_bridge_tb.vhd
+Test,IO-T-040,I/O Bridge,Active channel drives outputs,,Outputs driven when channel_active=1,p2-29-to-p2-46-.txt (p. 2-46),io_bridge.vhd,io_bridge_tb.vhd
+Test,IO-T-041,I/O Bridge,Inactive channel tristates/zeroes outputs,,Outputs not driven when channel_active=0,p2-29-to-p2-46-.txt (p. 2-46),io_bridge.vhd,io_bridge_tb.vhd
+Test,IO-T-042,I/O Bridge,Failure detection,,fail_detect asserts on self-test mismatch,p2-29-to-p2-46-.txt (p. 2-46),io_bridge.vhd,io_bridge_tb.vhd
+Test,IO-T-050,I/O Bridge,Reset clears all outputs,,All output registers = 0 after reset,CADC_Module_Specification.pdf (p. 4),io_bridge.vhd,io_bridge_tb.vhd
+Test,IO-T-051,I/O Bridge,Reset clears BIT status,,out_bit_status = 0 after reset,CADC_Module_Specification.pdf (p. 4),io_bridge.vhd,io_bridge_tb.vhd
+Test,TOP-T-001,CADC Top Level,System reset,,All modules reach known state,CADC_Module_Specification.pdf (pp. 1-4),cadc_top.vhd,cadc_top_tb.vhd
+Test,TOP-T-002,CADC Top Level,First instruction fetch,,Sequencer fetches from ROM address 0,Rays-Chapter-6-944125-ROM.txt (pp. 2-4+),cadc_top.vhd,cadc_top_tb.vhd
+Test,TOP-T-003,CADC Top Level,Simple ADD operation,,Load ACC; add value; verify result,CADC_Module_Specification.pdf (pp. 1-4),cadc_top.vhd,cadc_top_tb.vhd
+Test,TOP-T-004,CADC Top Level,Multiply flow,,Load PMU operands via SL; start PMU; wait; read result,CADC_Module_Specification.pdf (pp. 1-4),cadc_top.vhd,cadc_top_tb.vhd
+Test,TOP-T-005,CADC Top Level,Divide flow,,Load PDU operands; start PDU; wait; read quotient,CADC_Module_Specification.pdf (pp. 1-4),cadc_top.vhd,cadc_top_tb.vhd
+Test,TOP-T-006,CADC Top Level,RAS store/load,,Write ACC to RAS; read back; compare,CADC_Module_Specification.pdf (pp. 1-4),cadc_top.vhd,cadc_top_tb.vhd
+Test,TOP-T-007,CADC Top Level,I/O read sensor,,Read sensor via I/O Bridge; route to ACC,CADC_Module_Specification.pdf (pp. 1-4),cadc_top.vhd,cadc_top_tb.vhd
+Test,TOP-T-008,CADC Top Level,I/O write display,,Compute result; route to display output,CADC_Module_Specification.pdf (pp. 1-4),cadc_top.vhd,cadc_top_tb.vhd
+Test,TOP-T-009,CADC Top Level,Full frame execution,,Run all 512 OPs; verify frame_mark generation,p1-4-to-p1-34-.txt; ap1-26-97.txt (p. 15),cadc_top.vhd,cadc_top_tb.vhd
+Test,TOP-T-020,CADC Top Level,Standard atmosphere altitude,,Known Ps value -> Correct altitude on display,p1-35-to-p2-28-.txt (pp. 2-23 to 2-28),cadc_top.vhd,cadc_top_tb.vhd
+Test,TOP-T-021,CADC Top Level,Sea level Mach number,,Known Qc and Ps -> Mach 0 on display,p1-35-to-p2-28-.txt (pp. 2-23 to 2-28),cadc_top.vhd,cadc_top_tb.vhd
+Test,TOP-T-022,CADC Top Level,Known airspeed,,Known Qc Ps TAT -> Correct airspeed,p1-35-to-p2-28-.txt (pp. 2-23 to 2-28),cadc_top.vhd,cadc_top_tb.vhd
+Test,TOP-T-023,CADC Top Level,Wing sweep schedule,,Known Mach/altitude -> Correct wing position,p2-29-to-p2-46-.txt (pp. 2-29 to 2-43),cadc_top.vhd,cadc_top_tb.vhd
+Test,TOP-T-030,CADC Top Level,BIT passes with healthy system,,bit_status = pass,p2-29-to-p2-46-.txt (p. 2-46),cadc_top.vhd,cadc_top_tb.vhd
+Test,TOP-T-031,CADC Top Level,BIT detects injected fault,,bit_status = fail; fail_detect asserts,p2-29-to-p2-46-.txt (p. 2-46),cadc_top.vhd,cadc_top_tb.vhd
+Test,TOP-T-032,CADC Top Level,Redundancy switchover,,Active channel fails; backup takes over,p2-29-to-p2-46-.txt (p. 2-46),cadc_top.vhd,cadc_top_tb.vhd
+Test,TOP-T-040,CADC Top Level,Frame timing,,Frame completes within spec (<= 60 ms),p1-35-to-p2-28-.txt (pp. 2-21 to 2-22),cadc_top.vhd,cadc_top_tb.vhd
+Test,TOP-T-041,CADC Top Level,Word timing,,WA/WO alternate correctly,p1-4-to-p1-34-.txt (pp. 1-4 to 1-6),cadc_top.vhd,cadc_top_tb.vhd
+Test,TOP-T-042,CADC Top Level,Phase clock generation,,Phi1 Phi2 non-overlapping at 375 kHz,p1-4-to-p1-34-.txt (pp. 1-4 to 1-6); Rays-Chapter-7-System-Info.txt,cadc_top.vhd,cadc_top_tb.vhd
+Test,TOP-T-043,CADC Top Level,Bit time accuracy,,20 bit times per word,p1-4-to-p1-34-.txt (pp. 1-4 to 1-6),cadc_top.vhd,cadc_top_tb.vhd

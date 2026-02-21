@@ -1,0 +1,16 @@
+C:\GIT\ip_axi_arp
+C:\GIT\ip_axi_i2c_controller
+C:\GIT\ip_axi_protocol
+C:\GIT\ip_axi_protocol_lite
+C:\GIT\ip_axi_pwm
+C:\GIT\ip_axi_sdram_controller
+C:\GIT\ip_axi_tse_mac
+C:\GIT\ip_axi_uart
+C:\GIT\ip_axi_udp
+C:\GIT\cl_axi_common
+C:\GIT\cl_axi_common_rh
+C:\GIT\cl_axi_pkgs
+C:\GIT\cl_cocotb
+C:\GIT\cl_common
+C:\GIT\cl_utilities
+C:\GIT\cl_ver_common

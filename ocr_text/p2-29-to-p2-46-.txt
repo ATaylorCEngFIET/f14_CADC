@@ -1,0 +1,382 @@
+--- Page 1 ---
+4
+Zone 4
+Temperature range T, 0R to T_ 'R 4 5 EPR range E4 to E5
+ES - E4 Slope = = T5 T4
+S4
+TS < 2 = Tt( X SL + EPR ( S4) at 00R input) 5 EPR STD = K5 Ti
+T5 4900 < 4900 ti 4900
+f "2 Kl
+4900 (SL Kl
+K5 + KI
+f2 3
+f2 (Zone Selected) 3 Kl 4 Ki
+Input from cus tomer (also input to computer with < in oR) _
+ZONE
+ZONE 2
+ZONE 3
+ZONE
+EV
+S
+E2
+E3
+EL
+2
+E5
+T 3
+T
+TOTAL TEMPERATURE
+5-66050
+T2' <11 T 4 are the zone select constants
+Garre
+AIRESEARCH MANUFACTURING COMPANY Los Angeles, California
+71-7266 Page 2-29
+S2'
+5+
+J_
+3
+3
+
+--- Page 2 ---
+8 {
+4 4 m T
+Tt $ T2 C = 0
+5
+1 = ) 1Y 4 < 1
+1
+1 1 8 11 47 6 1 L 3 7 
+0 5 T
+5 5 0
+Tt < 3 0
+3
+1
+SY < '1
+Ig
+{
+Tl 0 5 0
+T < T t 4 C = 0
+3
+J
+1
+1
+3
+8
+JNOZ
+3
+2x
+Y
+Rlx
+5 U)
+8
+8
+8 X
+1
+FF 8
+71-7266 Page 2-30
+carret
+AIRESEARCH MANUFACTURING COMPANY Los Angeles California
+
+--- Page 3 ---
+1
+&I
+2 2 L i L 3 Q 
+nlz
+sx_
+lx-
+3 5 Q 3
+Ylz-
+slz
+Yz-
+4
+0 3
+4
+J
+380
+4 F
+5
+71-7266 Page 2-31
+ARET
+AIRESEARCH MANUFACTURING COMPANY Los Angeles, California
+
+--- Page 4 ---
+G love Vane Schedule (M) Ts (M) (Figures 2-9 and 2-|0) 5
+Is (m)
+2 zone function
+Zone
+Mach range MI to M4
+AM
+74.096 M2 4.096
+5z
+M
+32
+4.096
+4.096( S1 )
+II; /
+2_
+Zone 2
+Mach range M4 to M6
+XAM2 14,096 M4 3,096
+3z
+M
+32
+4.096
+4,0967(s2)
+32 4.096
+7.812500 = scal ing factor
+M4
+Zone select constant
+AMI
+M3
+M2
+AM2
+M5
+ML
+Input from customer (also input to computer)
+ZONE
+ZONE 2
+2
++15
+2 Iti | 19 B IAS -|
+MT
+Mg no
+M
+TRUE MACH
+RoC
+AIRESEARCH MANUFACTURING COMPANY Los Angeles California
+71-7266 Page 2-32
+Mz nb
+
+--- Page 5 ---
+2 ~ F
+3
+0  0
+Mt < M4c = 0 1C = ) W < 4
+]
+8 2 ~t
+8 : 1 1 2 6 0 J 9 8
+M 3
+3
+1 5
+3 8
+2 8
+5 1
+4 4
+~ !
+5
+s 4
+{ 8
+8
+RRE
+AIRESEARCH MANUFACTURING COMPANY Los Angeles; California
+71-7266 Page 2-33
+
+--- Page 6 ---
+]
+1 L 2 0 0 j 9 3 2 
+2 4
+
+5 3 0
+2
+3
+~
+c
+~x
+2
+3
+{
+Arret
+AIRESEARCH MANUFACTURING COMPANY Los Angeles_ California
+71 -7266 Page 2-34
+
+--- Page 7 ---
+Glove Vane Limit Schedule_(^) (Figures 2-| and 2-12
+TLin() = 1 + I LIM A LIM B
+Wi TLIM A 26.46 Ap = # Si 26.46 26.46 0
+AWi 26.46 Ap W2 S2 26.46
+TLim B 26.46
+Awi = Ws ~ 42
+Input from customer (also input to computer)
+26.46
+8 3
+S
+S2
+W
+3 5 WING SWEEP STROKE , In_
+GarreT
+AIRESEARCH MANUFACTURING COMPANY Los Angeles, California
+71-7266 Page 2-35
+
+--- Page 8 ---
+WI 26_ 46
+LIMIT
+26.46
+~AW 26.46
+AW| 26_ 46
+2
+LIMIT
+LIM(A)
+S-66055
+Figure 2-| . Glove Vane Limit Schedu le I Mechanization LIM (4)
+CarrET
+AIRESEARCH MANUFACTURING COMPANY Los Angeles; California
+71-7266 Page 2-36
+
+--- Page 9 ---
+3
+1 5 1 J 3 2 8 ~ 
+3
+N
+71-7266 Page 2-37
+GaRreT
+AIRESEARCH MANUFACTURING COMPANY Los Angeles, California
+
+--- Page 10 ---
+Wing_Sweep Rate Limit Constants (Figures 2-13 and 2-14
+Automatic mode rate Timit
+inches per second from customer
+A
+29,4) ( 18, 310547_
++ 4 and
+go into the mechanization
+Maneuver Flap_System Deadband and Rate Limit Constant_(Figures 2-15 and 2-16)
+Lz
+S|
+TWO
+TW
+18.310547
+STw LI
+input thumbwhee 1 command
+TW
+output thumbwhee1 command
+TwO
+LI
+D2 / oTw max D l / &Tw max
+L2
+1 S| 7 S| 1 3 6Tw D2 Stw MAX x8tw MAX INPUT THUMBWHEEL COMMAND , DEGZSEC
+GANBEU
+AIRESEARCH MANUFACTURING COMPANY Los Angeles California
+71-7266 Page 2-38
+
+--- Page 11 ---
+COMPUTED WING SWEEP COMMAND (Aw)
+Aw- 1 29,4
+RATE LIMITED AUTO WS
+ACCUM
+LIMIT LL
+S-66057
+Figure 2-13 . Wing Sweep Rate Limit Mechanization
+Garret
+AIRESEARCH MANUFACTURING COMPANY Los Angeles California
+71-7266 Page 2-39
+
+--- Page 12 ---
+3 1 4 5 1 1 L 3 2 6 2 9 7 8 Z
+0
+71-7266 Page 2-40
+DADdeT
+AIRESEARCH MANUFACTURING COMPANY Los Angeles, California
+
+--- Page 13 ---
+S
+L2
+18.3/0547
+TW
+TWD
+LIMIT
+5-66059
+Figure 2-|5, Maneuver FTap Deadband Mechan izat ion
+Dlrre
+AIRESEARCH MANUFACTURING COMPANY Los Angeies, Catifornia
+71-7266 Page 2-41
+
+--- Page 14 ---
+]
+2 3 L ] 2 1 2 
+0 6l
+DarheT
+AIRESEARCH MANUFACTURING COMPANY Los Angeles; California
+71-7266 Page 2 _ 62
+;
+}
+
+--- Page 15 ---
+Switch_ Thresholds_(Figures_ 2-17 and 2-|8)
+Mach Switch_Qutput 31
+M
+A
+If < switch closed 4,096 4,096
+M
+If 4.096
+Swi tch 4,096 open
+=
+conversion constant from 'F to 'R
+2
+Mach Switch_Qutput_ 54
+M
+B
+If 4.096
+switch closed 4.096
+M
+If 2 4.096 4.096 swi tch open
+3_
+Mach Switch_Output 52
+M
+If 4.096
+switch closed 4.096
+M
+If 2 swi tch 4.096 4.096 open
+4
+Mach Switch Output 55
+M
+If 4.096
+switch closed 4.096
+M
+D
+If 4.096
+switch 4.096 open
+71-7266 Page 2-43
+GARRET AIRESEARCH MANUFACTURING COMPANY Los Angeles_ California
+
+--- Page 16 ---
+4.096
+4 096
+COMPARE
+OuTPuT 3 |
+B 4 096
+M r 4 _ 096
+COMPARE
+OUTPUT 5 |
+096
+M 4 096
+COMPARE
+OUTPUT 52
+4 096
+M
+OUTPUT 55
+4.096
+COMPARE
+S-6606 |
+Figure 2-|7. Switch Thresholds Mechanizat ion
+5ue
+AIRESEARCH MANUFACTURinG COMPANY Los Angeles California
+71-7266 Page 2-44
+
+--- Page 17 ---
+]
+2 3 L 2 1 { { 3 !
+3 s
+AIRCCCARCH MANUFACTURING COMPANY Los Angeles_ California
+71-7266 Page 2-45
+
+--- Page 18 ---
+INFLIGHT DIAGNOSTICS
+To detect failures of the processor circuits during the flight of the F-|4A airplane, an inflight diagnostic rout ine was programmed into the CADC, The ground rules for the diagnost ic routine were set up as being able to detect any s ing le failure due to the folowing:
+(a) Each interconnect failure
+(b) Greater than 95 percent arithmet ic unit failures
+(c) 100 percent failures of nonarithmet ic circuits
+(d) Timing and clock s i gna] failures
+To sat isfy this requirement , the fol owing procedures were fo] lowed. First, a comp lete sing Te fai lure analys i s was performed on the PMU and PDU. The result of this analys i s was 5 sets of operands   (m and R, D and 2;) for the PMU and PDU. Each set of 5 operands detected greater than 98 percent of all s ing le failures. (See Computer Aids, Sect ion 3 . )
+Next , these operands were programmed as test words into the program: The test words were initiated from ROM 5 and were transferred through various steering paths and RAS registers before they became operands for the PMU or PDU. The result (product or quot ient) was then again transferred through steering paths , RAS regi sters _ and SLF funct ions and combined with each other unti | a S ing le binary word was the result_ This binary word was then compared with a stored constant from the ROM. To ensure that the output of the did comparator not stick in the good" condition, a bad test was also performed to exercise the other state of the comparator_ The results of these tests were picked by the BITE c i rcuit ry. Drawing PA-|5409 shows the mechanizat ion arewckedfap the inflight diagnostic.
+Darret
+AIRESEARCH MANUFACTURING COMPANY Los Angeles, California
+71-7266 Page 2-46
