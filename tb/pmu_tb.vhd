@@ -16,7 +16,7 @@ END ENTITY pmu_tb;
 
 ARCHITECTURE bench OF pmu_tb IS
 
-  CONSTANT c_clk_period : TIME := 20 ns;
+  CONSTANT c_clk_period : TIME := 200 ns;  -- 5 MHz (original CADC)
 
   SIGNAL s_clk       : std_logic := '0';
   SIGNAL s_rst       : std_logic := '0';

@@ -16,7 +16,7 @@ END ENTITY control_rom_sequencer_tb;
 
 ARCHITECTURE bench OF control_rom_sequencer_tb IS
 
-    CONSTANT CLK_PERIOD  : TIME    := 20 ns;
+    CONSTANT CLK_PERIOD  : TIME    := 200 ns;  -- 5 MHz (original CADC)
     CONSTANT UWORD_WIDTH : NATURAL := 48;
 
     SIGNAL clk            : std_logic := '0';

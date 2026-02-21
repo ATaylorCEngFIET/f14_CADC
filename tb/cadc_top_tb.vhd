@@ -22,7 +22,7 @@ END ENTITY cadc_top_tb;
 
 ARCHITECTURE bench OF cadc_top_tb IS
 
-    CONSTANT CLK_PERIOD : TIME := 20 ns;  -- 50 MHz
+    CONSTANT CLK_PERIOD : TIME := 200 ns;  -- 5 MHz (matches original CADC)
 
     -- Testbench signals
     SIGNAL clk_master     : STD_LOGIC := '0';

@@ -15,7 +15,7 @@ END ENTITY pdu_tb;
 
 ARCHITECTURE bench OF pdu_tb IS
 
-    CONSTANT CLK_PERIOD : TIME := 20 ns;
+    CONSTANT CLK_PERIOD : TIME := 200 ns;  -- 5 MHz (original CADC)
 
     SIGNAL clk         : std_logic := '0';
     SIGNAL rst         : std_logic := '0';
