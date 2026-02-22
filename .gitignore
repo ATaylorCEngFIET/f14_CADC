@@ -1,0 +1,14 @@
+# QuestaSim/ModelSim work library
+work/
+
+# OCR source text (derived from original PDFs)
+ocr_text/
+
+# Simulation outputs
+*.wlf
+transcript
+vsim.wlf
+
+# Backup files
+*~
+*.bak
