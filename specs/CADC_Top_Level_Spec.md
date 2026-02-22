@@ -74,7 +74,7 @@ The CADC employs pipelining where:
 
 | Port | Direction | Width | Description |
 |------|-----------|-------|-------------|
-| `clk_master` | Input | 1 | 5 MHz master oscillator (or FPGA clock) |
+| `clk_master` | Input | 1 | 1.5 MHz master oscillator (or FPGA clock) |
 | `rst` | Input | 1 | System reset |
 | `phi1` | Output | 1 | Phase 1 clock (375 kHz) |
 | `phi2` | Output | 1 | Phase 2 clock (375 kHz) |
@@ -127,7 +127,7 @@ use IEEE.NUMERIC_STD.ALL;
 entity cadc_top is
     port (
         -- Clock and Reset
-        clk_master     : in  std_logic;          -- 5 MHz or FPGA clock
+        clk_master     : in  std_logic;          -- 1.5 MHz or FPGA clock
         rst            : in  std_logic;
         
         -- Sensor Inputs (from ADCs)
@@ -274,7 +274,7 @@ All requirements and design details in this specification are traceable to the f
 
 | Source Document | Pages / Sections | OCR Text File | Information Extracted |
 |----------------|-----------------|---------------|----------------------|
-| **p1-4-to-p1-34-.pdf** | Report pp. 1-4 to 1-6 | `ocr_text/p1-4-to-p1-34-.txt` | System timing architecture — 5 MHz master, Φ1/Φ2 at 375 kHz, bit time, word time (T0–T19), WA/WO alternation, word mark (T18), OP time, frame mark, 512 OPs/frame |
+| **p1-4-to-p1-34-.pdf** | Report pp. 1-4 to 1-6 | `ocr_text/p1-4-to-p1-34-.txt` | System timing architecture — 1.5 MHz master, Φ1/Φ2 at 375 kHz, bit time, word time (T0–T19), WA/WO alternation, word mark (T18), OP time, frame mark, 512 OPs/frame |
 | **p1-35-to-p2-28-.pdf** | Report pp. 1-40 to 1-42 | `ocr_text/p1-35-to-p2-28-.txt` | Module CW breakdown (5 bits→RAS, 15 bits→SL, SLF shares 4 RAS select bits), inter-module data flow walkthrough (frame mark → ROM reset → CW shift → SL routing → arithmetic → data transfer) |
 | **p1-35-to-p2-28-.pdf** | Report pp. 2-9 to 2-22 | `ocr_text/p1-35-to-p2-28-.txt` | Executive control (20-bit exec word): D/A updates, digital outputs, BITE, sensor memory, ROM enables, frame mark; software/hardware relationship; propagation delay considerations |
 | **ap1-26-97.pdf** | pp. 5–7, 15–17 | `ocr_text/ap1-26-97.txt` | Pipeline concurrency, module independence, expandability; system operation & instruction format; 28-circuit 3-module arrangement; data ROM/control ROM paths |

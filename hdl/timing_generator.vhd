@@ -3,7 +3,7 @@
 -- F-14A Central Air Data Computer - FPGA Implementation
 --
 -- Generates the CADC timing hierarchy from the master clock:
---   5 MHz master -> 375 kHz phase clocks (phi1, phi2 non-overlapping)
+--   1.5 MHz master -> 375 kHz phase clocks (phi1, phi2 non-overlapping)
 --   20 bit times per word, alternating WA/WO, 512 OPs per frame
 -------------------------------------------------------------------------------
 

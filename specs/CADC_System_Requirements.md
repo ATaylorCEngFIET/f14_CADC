@@ -19,9 +19,9 @@ The CADC is a **20-bit, fractional fixed-point, microprogrammed, pipelined, mult
 
 | Parameter | Value |
 |-----------|-------|
-| Word width | 20 bits (1 sign + 19 data) |
-| Number representation | 2's complement, fractional fixed-point |
-| Master clock | 5 MHz |
+| Word width | 20 bits (1 sign + 19 magnitude) |
+| Number representation | Sign-and-magnitude, fractional fixed-point |
+| Master clock | 1.5 MHz |
 | Phase clocks (Φ1, Φ2) | 375 kHz |
 | Bit time | 2.666 μsec (one Φ2-to-Φ2 period) |
 | Word time | 20 bit times = 53.33 μsec |
@@ -42,12 +42,12 @@ Bit:  S  | 1  | 2  | 3  | 4  | 5  | 6  | 7  | 8  | 9  | 10 | 11 | 12 | 13 | 14 |
 ```
 
 - **Sign bit (S):** 0 = positive, 1 = negative
-- **Data bits (1–19):** Fractional values from 2⁻¹ (0.5) to 2⁻¹⁹ (≈0.0000019)
-- **Negative numbers:** 2's complement notation
+- **Data bits (1–19):** Magnitude, fractional values from 2⁻¹ (0.5) to 2⁻¹⁹ (≈0.0000019)
+- **Representation:** Sign-and-magnitude notation
 
 ### 1.5 System Timing
 
-The 5 MHz master oscillator is divided to produce two non-overlapping phase clocks:
+The 1.5 MHz master oscillator is divided to produce two non-overlapping phase clocks:
 - **Φ1** and **Φ2** at 375 kHz
 - One **bit time** = Φ2 rising edge to next Φ2 rising edge = 2.666 μsec
 - **20 consecutive bit times** = one **word** (T0 through T19)
@@ -104,7 +104,7 @@ Each module is identified by its arithmetic unit. The system is divided into thr
 ## 2. FPGA Implementation Considerations
 
 ### 2.1 Clock Domain
-For FPGA implementation, the original 5 MHz master clock and derived 375 kHz phase clocks should be reconstructed. The FPGA clock can run at a higher frequency with clock enables generating the original timing.
+For FPGA implementation, the original 1.5 MHz master clock and derived 375 kHz phase clocks should be reconstructed. The FPGA clock can run at a higher frequency with clock enables generating the original timing.
 
 ### 2.2 Data Path Width
 All internal data paths are 20 bits wide. The FPGA implementation should use 20-bit signals throughout.
@@ -148,7 +148,7 @@ The multi-processor arrangement should be preserved in the FPGA, with multiple i
 ### 3.3 System Signals
 | Signal | Description |
 |--------|-------------|
-| Master Clock (5 MHz) | System master oscillator input |
+| Master Clock (1.5 MHz) | System master oscillator input |
 | Φ1, Φ2 (375 kHz) | Derived two-phase non-overlapping clocks |
 | Word Mark | T18 of every word time |
 | Frame Mark | T18 of final OP in frame |
@@ -207,7 +207,7 @@ All requirements in this specification are traceable to the following source doc
 
 | Source Document | Pages / Sections | OCR Text File | Information Extracted |
 |----------------|-----------------|---------------|----------------------|
-| **p1-4-to-p1-34-.pdf** | Report pp. 1-4 to 1-7 | `ocr_text/p1-4-to-p1-34-.txt` | Supply voltage, system timing (5 MHz → 375 kHz Φ1/Φ2, 2.666μs bit time, 20 bits/word, WA/WO, word mark T18, 512 OPs/frame), data format (20-bit fractional fixed-point, sign + 19 data, 2's complement, bit weights) |
+| **p1-4-to-p1-34-.pdf** | Report pp. 1-4 to 1-7 | `ocr_text/p1-4-to-p1-34-.txt` | Supply voltage, system timing (1.5 MHz → 375 kHz Φ1/Φ2, 2.666μs bit time, 20 bits/word, WA/WO, word mark T18, 512 OPs/frame), data format (20-bit fractional fixed-point, sign + 19 magnitude, sign-and-magnitude, bit weights) |
 | **p1-4-to-p1-34-.pdf** | Report pp. 1-7 to 1-34 | `ocr_text/p1-4-to-p1-34-.txt` | All 6 chip device counts & sizes: PMU=1063, PDU=1241 (141×157 mils), SLF=743 (120×130), RAS=2330 (115×130), SL=771 (128×133), ROM=1269–3268 (143×150); package types (24-pin DIP, 14-pin DIP) |
 | **p1-35-to-p2-28-.pdf** | Report pp. 1-35 to 1-42 | `ocr_text/p1-35-to-p2-28-.txt` | Module configuration (3 modules), ROM allocation, control word path, 20-bit CW breakdown, 512-OP frame cycle walkthrough |
 | **p1-35-to-p2-28-.pdf** | Report pp. 2-21 to 2-22 | `ocr_text/p1-35-to-p2-28-.txt` | Throughput statistics — 300 multiplies, 105 divides, 225 adds/subs, 75 limits, 4 square roots, 20 AND/OR, 55 IF transfers per frame (~50% capacity) |

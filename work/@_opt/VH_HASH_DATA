@@ -1,0 +1,109 @@
+[N
+11
+7
+16 g_ctrl_rom_depth
+3
+3 rtl
+4
+12 g_addr_width
+8
+16 g_data_rom_depth
+2
+3 ras
+10
+16 timing_generator
+6
+21 control_rom_sequencer
+1
+43 C:/Users/aptay/Dropbox/adiuvo/f14-CADC/work
+11
+9 g_clk_div
+9
+13 g_uword_width
+5
+12 g_data_width
+]
+[G
+1
+2
+3
+1
+4
+1
+0
+6
+0
+0 0
+0
+0
+]
+[G
+1
+6
+3
+1
+8
+0
+0
+512
+0
+0 0
+0
+0
+]
+[G
+1
+10
+3
+1
+11
+1
+0
+1
+0
+0 0
+0
+0
+]
+[G
+1
+2
+3
+1
+5
+1
+0
+20
+0
+0 0
+0
+0
+]
+[G
+1
+6
+3
+1
+9
+1
+0
+48
+0
+0 0
+0
+0
+]
+[G
+1
+6
+3
+1
+7
+1
+0
+1024
+0
+0 0
+0
+0
+]

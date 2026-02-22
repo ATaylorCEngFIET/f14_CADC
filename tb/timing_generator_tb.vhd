@@ -15,7 +15,7 @@ END ENTITY timing_generator_tb;
 
 ARCHITECTURE bench OF timing_generator_tb IS
 
-  CONSTANT c_clk_period : TIME := 200 ns;  -- 5 MHz (original CADC)
+  CONSTANT c_clk_period : TIME := 667 ns;  -- 1.5 MHz (original CADC)
 
   SIGNAL s_clk_master : std_logic := '0';
   SIGNAL s_rst        : std_logic := '0';

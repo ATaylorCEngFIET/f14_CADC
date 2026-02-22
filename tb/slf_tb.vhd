@@ -16,7 +16,7 @@ END ENTITY slf_tb;
 
 ARCHITECTURE bench OF slf_tb IS
 
-  CONSTANT c_clk_period : TIME := 200 ns;  -- 5 MHz (original CADC)
+  CONSTANT c_clk_period : TIME := 667 ns;  -- 1.5 MHz (original CADC)
 
   CONSTANT c_op_nop       : std_logic_vector(3 DOWNTO 0) := "0000";
   CONSTANT c_op_add       : std_logic_vector(3 DOWNTO 0) := "0001";
