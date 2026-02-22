@@ -12,8 +12,8 @@ The CADC computes real-time air data parameters for the F-14A fighter aircraft:
 
 | Parameter | Value |
 |-----------|-------|
-| Word Width | 20 bits (1 sign + 19 magnitude) |
-| Number Format | Sign-and-magnitude, fractional fixed-point |
+| Word Width | 20 bits (1 sign + 19 fractional) |
+| Number Format | 2's complement, fractional fixed-point |
 | Master Clock | 1.5 MHz |
 | Frame Time | ~54.6 ms (18.3 Hz update rate) |
 | Operations/Frame | 512 (multiplies, divides, adds, sqrt, I/O) |

@@ -19,8 +19,8 @@ The CADC is a **20-bit, fractional fixed-point, microprogrammed, pipelined, mult
 
 | Parameter | Value |
 |-----------|-------|
-| Word width | 20 bits (1 sign + 19 magnitude) |
-| Number representation | Sign-and-magnitude, fractional fixed-point |
+| Word width | 20 bits (1 sign + 19 data) |
+| Number representation | 2's complement, fractional fixed-point |
 | Master clock | 1.5 MHz |
 | Phase clocks (Φ1, Φ2) | 375 kHz |
 | Bit time | 2.666 μsec (one Φ2-to-Φ2 period) |
@@ -42,8 +42,8 @@ Bit:  S  | 1  | 2  | 3  | 4  | 5  | 6  | 7  | 8  | 9  | 10 | 11 | 12 | 13 | 14 |
 ```
 
 - **Sign bit (S):** 0 = positive, 1 = negative
-- **Data bits (1–19):** Magnitude, fractional values from 2⁻¹ (0.5) to 2⁻¹⁹ (≈0.0000019)
-- **Representation:** Sign-and-magnitude notation
+- **Data bits (1–19):** Fractional values from 2⁻¹ (0.5) to 2⁻¹⁹ (≈0.0000019)
+- **Negative numbers:** 2's complement notation
 
 ### 1.5 System Timing
 
@@ -207,7 +207,7 @@ All requirements in this specification are traceable to the following source doc
 
 | Source Document | Pages / Sections | OCR Text File | Information Extracted |
 |----------------|-----------------|---------------|----------------------|
-| **p1-4-to-p1-34-.pdf** | Report pp. 1-4 to 1-7 | `ocr_text/p1-4-to-p1-34-.txt` | Supply voltage, system timing (1.5 MHz → 375 kHz Φ1/Φ2, 2.666μs bit time, 20 bits/word, WA/WO, word mark T18, 512 OPs/frame), data format (20-bit fractional fixed-point, sign + 19 magnitude, sign-and-magnitude, bit weights) |
+| **p1-4-to-p1-34-.pdf** | Report pp. 1-4 to 1-7 | `ocr_text/p1-4-to-p1-34-.txt` | Supply voltage, system timing (1.5 MHz → 375 kHz Φ1/Φ2, 2.666μs bit time, 20 bits/word, WA/WO, word mark T18, 512 OPs/frame), data format (20-bit fractional fixed-point, sign + 19 data, 2's complement, bit weights) |
 | **p1-4-to-p1-34-.pdf** | Report pp. 1-7 to 1-34 | `ocr_text/p1-4-to-p1-34-.txt` | All 6 chip device counts & sizes: PMU=1063, PDU=1241 (141×157 mils), SLF=743 (120×130), RAS=2330 (115×130), SL=771 (128×133), ROM=1269–3268 (143×150); package types (24-pin DIP, 14-pin DIP) |
 | **p1-35-to-p2-28-.pdf** | Report pp. 1-35 to 1-42 | `ocr_text/p1-35-to-p2-28-.txt` | Module configuration (3 modules), ROM allocation, control word path, 20-bit CW breakdown, 512-OP frame cycle walkthrough |
 | **p1-35-to-p2-28-.pdf** | Report pp. 2-21 to 2-22 | `ocr_text/p1-35-to-p2-28-.txt` | Throughput statistics — 300 multiplies, 105 divides, 225 adds/subs, 75 limits, 4 square roots, 20 AND/OR, 55 IF transfers per frame (~50% capacity) |
