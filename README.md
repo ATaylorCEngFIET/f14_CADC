@@ -130,6 +130,43 @@ Master Clock: 1.5 MHz (667 ns period)
               ◄───────── One Bit Time (2.666 µs) ─────────►
 ```
 
+### Phase Clock Operation
+
+The CADC uses a **4-phase non-overlapping clock scheme** derived from the 1.5 MHz master clock. Each bit time consists of four sequential phases, ensuring proper setup/hold times and preventing race conditions in the bit-serial datapath:
+
+| Phase | Name | Function |
+|-------|------|----------|
+| **0** | Setup | `bit_clk` pulses high. Prepares data for the upcoming bit cycle. The bit counter increments on the rising edge of `bit_clk`. |
+| **1** | PHI1 | First clock phase active. Used by some modules for internal latching and pre-computation. Control signals stabilize during this phase. |
+| **2** | Hold | Transition period. `wr_addr_latch` and `rd_addr_latch` signals fire here to capture RAS addresses from the bit stream. Provides setup time before PHI2. |
+| **3** | PHI2 | Second clock phase active. **Primary data transfer phase** — shift registers advance, accumulators update, and serial data propagates between modules. |
+
+**Why 4 phases?**
+
+1. **Non-overlapping guarantee**: PHI1 and PHI2 never overlap, preventing through-current and ensuring clean handoffs
+2. **Setup time**: Phase 0 and 2 provide natural setup windows before active clock edges
+3. **Deterministic timing**: Every module knows exactly when data is valid vs. transitioning
+4. **Power efficiency**: Original PMOS logic required careful timing to minimize static current
+
+**Implementation in timing_generator.vhd:**
+
+```vhdl
+-- 2-bit phase counter cycles 0→1→2→3→0...
+PROCESS (i_clk, i_rst)
+BEGIN
+    IF i_rst = '1' THEN
+        phase_cnt <= (OTHERS => '0');
+    ELSIF rising_edge(i_clk) THEN
+        phase_cnt <= phase_cnt + 1;  -- Wraps at 4
+    END IF;
+END PROCESS;
+
+-- Decode phases
+o_phi1    <= '1' WHEN phase_cnt = "01" ELSE '0';
+o_phi2    <= '1' WHEN phase_cnt = "11" ELSE '0';
+o_bit_clk <= '1' WHEN phase_cnt = "00" ELSE '0';
+```
+
 ### Word Timing (WA/WO)
 
 Each operation consists of two 20-bit words:
