@@ -1,8 +1,10 @@
 -------------------------------------------------------------------------------
 -- Control ROM + Sequencer
--- F-14A Central Air Data Computer - FPGA Implementation
+-- F-14A Central Air Data Computer - FPGA Implementation (Bit-Serial)
 --
 -- Micro-programmed sequencer with 1024-deep control ROM.
+-- Outputs serial control word during WA phase for all modules.
+-- PC advances at start of each operation (WA T0).
 -------------------------------------------------------------------------------
 
 LIBRARY IEEE;
@@ -18,29 +20,25 @@ ENTITY control_rom_sequencer IS
   PORT (
     i_clk            : IN  STD_LOGIC;
     i_rst            : IN  STD_LOGIC;
+    -- Timing inputs
+    i_phi2           : IN  STD_LOGIC;
+    i_word_type      : IN  STD_LOGIC;  -- '0'=WA, '1'=WO
+    i_t0             : IN  STD_LOGIC;
+    i_t19            : IN  STD_LOGIC;
+    -- Flag inputs
     i_flag_z         : IN  STD_LOGIC;
     i_flag_n         : IN  STD_LOGIC;
     i_flag_c         : IN  STD_LOGIC;
     i_pmu_busy       : IN  STD_LOGIC;
     i_pdu_busy       : IN  STD_LOGIC;
     i_frame_mark     : IN  STD_LOGIC;
+    -- Serial control word output (during WA)
+    o_cw_bit         : OUT STD_LOGIC;   -- Serial control word 
+    -- Data ROM interface
+    o_const_bit      : OUT STD_LOGIC;   -- Serial constant output (during WO)
+    -- Debug outputs
     o_micro_addr     : OUT STD_LOGIC_VECTOR(9 DOWNTO 0);
-    o_micro_word     : OUT STD_LOGIC_VECTOR(g_uword_width-1 DOWNTO 0);
-    o_alu_op         : OUT STD_LOGIC_VECTOR(3 DOWNTO 0);
-    o_acc_write_en   : OUT STD_LOGIC;
-    o_tmp_write_en   : OUT STD_LOGIC;
-    o_flags_write_en : OUT STD_LOGIC;
-    o_ras_write_en   : OUT STD_LOGIC;
-    o_ras_read_addr  : OUT STD_LOGIC_VECTOR(5 DOWNTO 0);
-    o_ras_write_addr : OUT STD_LOGIC_VECTOR(5 DOWNTO 0);
-    o_sel_acc_src    : OUT STD_LOGIC_VECTOR(2 DOWNTO 0);
-    o_sel_ras_src    : OUT STD_LOGIC_VECTOR(1 DOWNTO 0);
-    o_sel_io_src     : OUT STD_LOGIC_VECTOR(1 DOWNTO 0);
-    o_pmu_start      : OUT STD_LOGIC;
-    o_pdu_start      : OUT STD_LOGIC;
-    o_io_ctrl        : OUT STD_LOGIC_VECTOR(3 DOWNTO 0);
-    o_data_rom_addr  : OUT STD_LOGIC_VECTOR(9 DOWNTO 0);
-    i_data_rom_data  : IN  STD_LOGIC_VECTOR(19 DOWNTO 0)
+    o_micro_word     : OUT STD_LOGIC_VECTOR(g_uword_width-1 DOWNTO 0)
   );
 END ENTITY control_rom_sequencer;
 
@@ -62,114 +60,112 @@ ARCHITECTURE rtl OF control_rom_sequencer IS
     OF STD_LOGIC_VECTOR(g_uword_width-1 DOWNTO 0);
 
   ---------------------------------------------------------------------------
-  -- Polynomial Microprogram: E = a3*X^3 + a2*X^2 + a1*X + a0
-  -- Implements Horner's method: E = ((a3*X + a2)*X + a1)*X + a0
-  -- Using sensor_ps as input X, writing result to MACH output
+  -- Polynomial Microprogram for E = a3*X^3 + a2*X^2 + a1*X + a0
+  -- Using Horner's method: E = ((a3*X + a2)*X + a1)*X + a0
   --
-  -- Microword format (48 bits):
-  --   [47:40] NEXTCTL  - Next address control (00=SEQ, 01=JMP, 07=WAIT_PMU)
-  --   [39:32] NEXTADR  - Branch target / Data ROM address
-  --   [31:28] ALU_OP   - ALU operation (D=LOAD, E=STORE_TMP, 1=ADD)
-  --   [27]    acc_wr   - Accumulator write enable
-  --   [26]    tmp_wr   - TMP register write enable
-  --   [25]    flags_wr - Flags write enable
-  --   [23]    ras_wr   - RAS write enable
-  --   [22:20] ras_addr - RAS address (3 bits)
-  --   [18:16] sel_acc  - ACC source (0=RAS,1=PMU,2=PDU_Q,4=IO,5=CONST,6=TMP,7=ACC)
-  --   [15:14] sel_ras  - RAS source (0=ACC, 1=PMU, 2=PDU_Q, 3=IO)
-  --   [13:12] sel_io   - IO source (0=ACC, 1=RAS, 2=PMU, 3=PDU_Q)
-  --   [11]    pmu_start- Start PMU multiplication
-  --   [7]     pdu_start- Start PDU division
-  --   [3:0]   io_ctrl  - I/O control (1=READ_PS, 6=WRITE_MACH)
+  -- Microword Bit Layout:
+  --   bits 0-3:   SLF ALU_OP (serial) / IO control (parallel) - SHARED!
+  --   bit 4:      acc_we (serial)
+  --   bit 5:      tmp_we (serial)
+  --   bit 6:      flags_we (serial)
+  --   bits 7-10:  SL ACC source (parallel)
+  --   bits 11-14: SL RAS source (parallel)
+  --   bits 15-17: SL IO source (parallel)
+  --   bits 18-23: RAS read address (parallel)
+  --   bits 24-29: RAS write address (parallel)
+  --   bit 30:     RAS write enable (parallel)
+  --   bits 32-35: Data ROM address (parallel)
+  --   bits 40-47: Sequencer nextctl (parallel)
   --
-  -- Key insight: TMP is loaded ONLY from current ACC (not mux input).
-  -- Keep TMP=X throughout and use ADD with sel_acc=5(CONST) to add
-  -- data ROM coefficients directly to ACC.
+  -- ALU_OP: 0=NOP,1=ADD,2=SUB,0xD=LOAD,0xE=STORE_TMP,0xF=PASS
+  -- ACC_SRC (bits 10-7): 0=RAS,1=PMU,2=PDUQ,3=PDUR,4=IO,5=CONST,6=TMP,7=ACC
+  -- IO_CTRL: 0=NOP,1=read_ps,2=read_qc,6=write_mach,...
   --
-  -- Data ROM addresses:
-  --   0: a3 coefficient (0x10000 = 0.125)
-  --   1: a2 coefficient (0x20000 = 0.25)
-  --   2: a1 coefficient (0x30000 = 0.375)
-  --   3: a0 constant    (0x08000 = 0.0625)
+  -- PIPELINE NOTE: ACC_SRC routes data during WO_N, ALU uses it during WA_(N+1)
+  -- So to "LOAD source to ACC": inst N sets ACC_SRC=source, inst N+1 does LOAD+acc_we
   ---------------------------------------------------------------------------
   SIGNAL s_ctrl_rom : t_ctrl_rom := (
-    -- Addr 0: Issue IO read for sensor Ps (latch data)
-    0  => x"000000000001",
+    -- Inst 0: Route IO to SLF, setup I/O read
+    -- ACC_SRC=IO(4)=0100 → bits 10-7: 0x200, io_ctrl=1 (read_ps)
+    0  => x"000000000201",  -- ACC_SRC=IO, io_ctrl=read_ps
+    
+    -- Inst 1: LOAD (uses IO from WO0), route doesn't matter for next
+    -- ALU=LOAD(D), acc_we=1 → 0x1D
+    1  => x"00000000001D",  -- LOAD IO to ACC, ACC = X
+    
+    -- Inst 2: Copy ACC to TMP via tmp_we
+    -- ALU=PASS(F), tmp_we=1, acc_we=0 → PASS doesn't write ACC when acc_we=1
+    -- Actually just tmp_we=1, ALU=NOP → bit5=1 = 0x20
+    2  => x"000000000020",  -- tmp_we=1, TMP = X
+    
+    -- Inst 3: Route CONST[0]=a3 to SLF for inst 4
+    -- ACC_SRC=CONST(5)=0101 → bits 10-7: 0x280, data_addr=0
+    3  => x"000000000280",  -- ACC_SRC=CONST, data_addr=0
+    
+    -- Inst 4: LOAD (uses a3 from WO3), ACC=a3
+    -- After WA4 T18: ACC=a3, s_acc_out_sr=a3, s_tmp_out_sr=X
+    -- During WO4: PMU receives (a3, X)
+    -- At WO4 T19: PMU latches, then starts computing at WA5 T0
+    4  => x"00000000001D",  -- LOAD to ACC, ACC = a3
+    
+    -- Inst 5: Route PMU to SLF (for inst 6), wait for PMU result
+    -- ACC_SRC=PMU(1)=0001 → bits 10-7: 0x80, nextctl=WAIT_PMU(07)
+    5  => x"070000000080",  -- ACC_SRC=PMU, WAIT_PMU
+    
+    -- Inst 6: LOAD PMU (uses a3*X from WO5), route CONST[1]=a2 for inst 7
+    -- ACC_SRC=CONST(5), data_addr=1, ALU=LOAD, acc_we=1
+    6  => x"00010000029D",  -- LOAD PMU to ACC (=a3*X), route a2
+    
+    -- Inst 7: ADD (uses a2 from WO6), ACC = a3*X + a2
+    -- After WA7: ACC = a3*X + a2
+    -- During WO7: PMU receives (a3*X+a2, X)
+    7  => x"000000000011",  -- ADD, acc_we=1, ACC = a3*X + a2
+    
+    -- Inst 8: Route PMU, wait for PMU
+    8  => x"070000000080",  -- ACC_SRC=PMU, WAIT_PMU
+    
+    -- Inst 9: LOAD PMU, route CONST[2]=a1
+    -- ACC = (a3*X + a2)*X
+    9  => x"00020000029D",  -- LOAD PMU, route a1
+    
+    -- Inst 10: ADD a1
+    -- ACC = (a3*X + a2)*X + a1
+    10 => x"000000000011",  -- ADD, acc_we=1
+    
+    -- Inst 11: Route PMU, wait
+    11 => x"070000000080",  -- ACC_SRC=PMU, WAIT_PMU
+    
+    -- Inst 12: LOAD PMU, route CONST[3]=a0
+    -- ACC = ((a3*X + a2)*X + a1)*X
+    12 => x"00030000029D",  -- LOAD PMU, route a0
+    
+    -- Inst 13: ADD a0, final result
+    -- ACC = E = ((a3*X + a2)*X + a1)*X + a0
+    13 => x"000000000011",  -- ADD, acc_we=1, ACC = E
+    
+    -- Inst 14: NOP - ACC data shifts out, io_sel=0 routes ACC in io_mux
+    14 => x"000000000000",  -- NOP, io_sel=0=ACC
+    
+    -- Inst 15: NOP - keep ACC routing for one more cycle  
+    15 => x"000000000000",  -- NOP, io_sel=0=ACC
+    
+    -- Inst 16: Output to MACH - captures data from WO15
+    -- io_sel=0=ACC for this WO, io_ctrl=write_mach triggers capture
+    16 => x"000000000006",  -- io_sel=0=ACC, io_ctrl=write_mach
+    
+    -- Inst 17: Halt
+    17 => x"011100000000",  -- JUMP to 17
+    
+    OTHERS => (OTHERS => '0')
+  );
 
-    -- Addr 1: Load latched IO data (X) into ACC
-    --         sel_acc=4(IO), ALU=D(LOAD), acc_wr=1
-    1  => x"0000D8040000",
-
-    -- Addr 2: Copy ACC (X) to TMP - TMP stays X throughout!
-    --         ALU=E(STORE_TMP), tmp_wr=1
-    2  => x"0000E4000000",
-
-    -- Addr 3: Store X in RAS[0] for backup
-    --         ras_addr=0, ras_wr=1, sel_ras=0(ACC)
-    3  => x"000000800000",
-
-    -- Addr 4: Load a3 coefficient from Data ROM[0] into ACC
-    --         data_addr=0, sel_acc=5(CONST), ALU=D(LOAD), acc_wr=1
-    4  => x"0000D8050000",
-
-    -- Addr 5: Start PMU: a3 * X (ACC=a3, TMP=X)
-    5  => x"000000000800",
-
-    -- Addr 6: Wait for PMU completion
-    6  => x"070000000000",
-
-    -- Addr 7: Load PMU result (a3*X) into ACC
-    --         sel_acc=1(PMU), ALU=D(LOAD), acc_wr=1
-    7  => x"0000D8010000",
-
-    -- Addr 8: ADD a2 directly from Data ROM[1] to ACC
-    --         data_addr=1, sel_acc=5(CONST), ALU=1(ADD), acc_wr=1
-    --         ACC = (a3*X) + a2
-    8  => x"000118050000",
-
-    -- Addr 9: Start PMU: (a3*X + a2) * X
-    9  => x"000000000800",
-
-    -- Addr 10: Wait for PMU
-    10 => x"070000000000",
-
-    -- Addr 11: Load PMU result into ACC
-    --          ACC = (a3*X + a2)*X
-    11 => x"0000D8010000",
-
-    -- Addr 12: ADD a1 directly from Data ROM[2] to ACC
-    --          data_addr=2, sel_acc=5(CONST), ALU=1(ADD), acc_wr=1
-    --          ACC = (a3*X + a2)*X + a1
-    12 => x"000218050000",
-
-    -- Addr 13: Start PMU: ((a3*X + a2)*X + a1) * X
-    13 => x"000000000800",
-
-    -- Addr 14: Wait for PMU
-    14 => x"070000000000",
-
-    -- Addr 15: Load PMU result into ACC
-    --          ACC = ((a3*X + a2)*X + a1)*X
-    15 => x"0000D8010000",
-
-    -- Addr 16: ADD a0 directly from Data ROM[3] to ACC
-    --          data_addr=3, sel_acc=5(CONST), ALU=1(ADD), acc_wr=1
-    --          ACC = E = full polynomial result
-    16 => x"000318050000",
-
-    -- Addr 17: Store result in RAS[1] for reference
-    --          ras_addr=1, ras_wr=1, sel_ras=0(ACC)
-    17 => x"000000900000",
-
-    -- Addr 18: Write result to MACH output
-    --          io_ctrl=6(WRITE_MACH), sel_io=0(ACC)
-    18 => x"000000000006",
-
-    -- Addr 19: Halt (jump to self)
-    --          NEXTCTL=01(JUMP), NEXTADR=19
-    19 => x"011300000000",
-
-    -- Remaining addresses: NOP
+  -- Data ROM for constants (20-bit values)
+  TYPE t_data_rom IS ARRAY(0 TO 15) OF STD_LOGIC_VECTOR(19 DOWNTO 0);
+  SIGNAL s_data_rom : t_data_rom := (
+    0 => x"10000",  -- a3 = 0.125
+    1 => x"20000",  -- a2 = 0.25
+    2 => x"30000",  -- a1 = 0.375
+    3 => x"08000",  -- a0 = 0.0625
     OTHERS => (OTHERS => '0')
   );
 
@@ -183,7 +179,11 @@ ARCHITECTURE rtl OF control_rom_sequencer IS
   SIGNAL s_current_uword : STD_LOGIC_VECTOR(g_uword_width-1 DOWNTO 0);
   SIGNAL s_nextctl_field : UNSIGNED(7 DOWNTO 0);
   SIGNAL s_nextadr_field : UNSIGNED(7 DOWNTO 0);
-  SIGNAL s_ras_addr_3bit : STD_LOGIC_VECTOR(2 DOWNTO 0);
+
+  -- Shift registers for serial output
+  SIGNAL s_cw_sr    : STD_LOGIC_VECTOR(g_uword_width-1 DOWNTO 0) := (OTHERS => '0');
+  SIGNAL s_const_sr : STD_LOGIC_VECTOR(19 DOWNTO 0) := (OTHERS => '0');
+  SIGNAL s_data_addr: UNSIGNED(3 DOWNTO 0) := (OTHERS => '0');
 
 BEGIN
 
@@ -194,22 +194,54 @@ BEGIN
   s_nextctl_field <= UNSIGNED(s_current_uword(47 DOWNTO 40));
   s_nextadr_field <= UNSIGNED(s_current_uword(39 DOWNTO 32));
 
-  o_alu_op         <= s_current_uword(31 DOWNTO 28);
-  o_acc_write_en   <= s_current_uword(27);
-  o_tmp_write_en   <= s_current_uword(26);
-  o_flags_write_en <= s_current_uword(25);
-  o_ras_write_en   <= s_current_uword(23);
-  s_ras_addr_3bit  <= s_current_uword(22 DOWNTO 20);
-  o_ras_read_addr  <= "000" & s_ras_addr_3bit;
-  o_ras_write_addr <= "000" & s_ras_addr_3bit;
-  o_sel_acc_src    <= s_current_uword(18 DOWNTO 16);
-  o_sel_ras_src    <= s_current_uword(15 DOWNTO 14);
-  o_sel_io_src     <= s_current_uword(13 DOWNTO 12);
-  o_pmu_start      <= s_current_uword(11);
-  o_pdu_start      <= s_current_uword(7);
-  o_io_ctrl        <= s_current_uword(3 DOWNTO 0);
-  o_data_rom_addr  <= "00" & STD_LOGIC_VECTOR(s_nextadr_field);
+  -- CW output: T0 outputs bit 0, T1+ outputs bit 1 for same-edge timing
+  o_cw_bit    <= s_cw_sr(0) WHEN i_t0 = '1' ELSE s_cw_sr(1);
+  -- Constant output: same timing compensation
+  o_const_bit <= s_const_sr(0) WHEN i_t0 = '1' ELSE s_const_sr(1);
 
+  -----------------------------------------------------------------------------
+  -- Control word shift process
+  -- Pre-load CW at end of WO (T19) so it's ready for next WA T0
+  -- This avoids timing race where SLF samples before CW is loaded
+  -----------------------------------------------------------------------------
+  cw_shift_proc: PROCESS(i_clk)
+  BEGIN
+    IF RISING_EDGE(i_clk) THEN
+      IF i_rst = '1' THEN
+        s_cw_sr    <= s_ctrl_rom(0);  -- Pre-load first instruction
+        s_const_sr <= (OTHERS => '0');
+        s_data_addr<= (OTHERS => '0');
+      ELSIF i_phi2 = '1' THEN
+        IF i_word_type = '0' THEN
+          -- WA phase: shift out (CW was pre-loaded at previous WO T19)
+          IF i_t0 = '1' THEN
+            -- Latch data address for constant output
+            s_data_addr <= UNSIGNED(s_current_uword(35 DOWNTO 32));
+          ELSIF i_t19 = '1' THEN
+            -- Pre-load constant at end of WA (ready for WO T0)
+            s_const_sr <= s_data_rom(TO_INTEGER(UNSIGNED(s_current_uword(35 DOWNTO 32))));
+          ELSE
+            -- Shift out during WA
+            s_cw_sr <= '0' & s_cw_sr(g_uword_width-1 DOWNTO 1);
+          END IF;
+        ELSE
+          -- WO phase
+          IF i_t0 = '0' AND i_t19 = '0' THEN
+            -- Shift out constant during WO T1-T18
+            s_const_sr <= '0' & s_const_sr(19 DOWNTO 1);
+          ELSIF i_t19 = '1' THEN
+            -- Pre-load NEXT instruction's CW at end of WO
+            -- (PC will update to s_next_pc on this same edge)
+            s_cw_sr <= s_ctrl_rom(TO_INTEGER(s_next_pc));
+          END IF;
+        END IF;
+      END IF;
+    END IF;
+  END PROCESS cw_shift_proc;
+
+  -----------------------------------------------------------------------------
+  -- Next PC computation
+  -----------------------------------------------------------------------------
   next_pc_proc: PROCESS(s_micro_pc, s_nextctl_field, s_nextadr_field,
                         i_flag_z, i_flag_n, i_flag_c, i_pmu_busy, i_pdu_busy,
                         i_frame_mark, s_ret_stack, s_stack_ptr)
@@ -279,6 +311,9 @@ BEGIN
     END IF;
   END PROCESS next_pc_proc;
 
+  -----------------------------------------------------------------------------
+  -- PC update process - advance at end of WO (completion of operation)
+  -----------------------------------------------------------------------------
   pc_proc: PROCESS(i_clk)
   BEGIN
     IF RISING_EDGE(i_clk) THEN
@@ -286,7 +321,8 @@ BEGIN
         s_micro_pc  <= (OTHERS => '0');
         s_stack_ptr <= (OTHERS => '0');
         s_ret_stack <= (OTHERS => (OTHERS => '0'));
-      ELSE
+      ELSIF i_phi2 = '1' AND i_word_type = '1' AND i_t19 = '1' THEN
+        -- Advance PC at end of WO
         s_micro_pc <= s_next_pc;
         IF i_frame_mark = '0' THEN
           IF s_nextctl_field = c_nc_call THEN

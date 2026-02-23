@@ -136,10 +136,11 @@ BEGIN
 
         sensor_ps <= x"40000";  -- X = 0.5
 
-        -- Wait for microprogram to execute (24 instructions + PMU cycles)
-        -- PMU takes ~22 cycles per multiply, 3 multiplies total
-        -- Allow 200 cycles total for safe margin
-        FOR i IN 0 TO 199 LOOP
+        -- Wait for microprogram to execute
+        -- Each instruction takes: 4 phases * 20 bits * 2 words = 160 clocks
+        -- 15 instructions = 2400 clocks minimum
+        -- Plus PMU computation time: allow 4000 clocks for safety
+        FOR i IN 0 TO 3999 LOOP
             WAIT UNTIL rising_edge(clk_master);
         END LOOP;
         WAIT FOR 1 ns;
@@ -191,8 +192,8 @@ BEGIN
         rst <= '0';
         WAIT FOR 2 * CLK_PERIOD;
 
-        -- Wait for computation
-        FOR i IN 0 TO 199 LOOP
+        -- Wait for computation (4000 clocks for full microprogram)
+        FOR i IN 0 TO 3999 LOOP
             WAIT UNTIL rising_edge(clk_master);
         END LOOP;
         WAIT FOR 1 ns;
@@ -223,7 +224,8 @@ BEGIN
         rst <= '0';
         WAIT FOR 2 * CLK_PERIOD;
 
-        FOR i IN 0 TO 199 LOOP
+        -- Wait for computation (4000 clocks for full microprogram)
+        FOR i IN 0 TO 3999 LOOP
             WAIT UNTIL rising_edge(clk_master);
         END LOOP;
         WAIT FOR 1 ns;
