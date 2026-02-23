@@ -16,13 +16,19 @@ set_property -dict { PACKAGE_PIN A18   IOSTANDARD LVCMOS33 } [get_ports { sys_rs
 
 #-------------------------------------------------------------------------------
 # Clock Domain Crossing Constraints
-# The design has two clock domains:
+# The design has three clock domains:
 #   - 100 MHz AXI clock (clk_out1 from clk_wiz)
-#   - 1.5 MHz CADC clock (clk_out2 from clk_wiz)
+#   - 6 MHz intermediate clock (clk_out2 from clk_wiz)
+#   - 1.5 MHz CADC clock (from clock_divider)
 #-------------------------------------------------------------------------------
 
-# The clocking wizard generates these clocks - they are related (same MMCM)
-# so Vivado handles timing automatically
+# The clocking wizard generates 100 MHz and 6 MHz - they are related (same MMCM)
+# The 1.5 MHz is generated from 6 MHz by the clock divider module
+# Create generated clock for 1.5 MHz
+create_generated_clock -name clk_cadc_1p5mhz \
+    -source [get_pins cadc_system_i/clk_wiz_0/clk_out2] \
+    -divide_by 4 \
+    [get_pins cadc_system_i/clock_divider_0/inst/clk_reg_reg/Q]
 
 # False path for reset synchronizer (proc_sys_reset handles this)
 # set_false_path -from [get_pins proc_sys_reset_0/*/rst_reg/C] -to [all_registers]

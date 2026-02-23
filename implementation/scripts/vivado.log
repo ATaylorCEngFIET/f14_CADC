@@ -1,0 +1,335 @@
+#-----------------------------------------------------------
+# Vivado v2025.1 (64-bit)
+# SW Build 6140274 on Thu May 22 00:12:29 MDT 2025
+# IP Build 6138677 on Thu May 22 03:10:11 MDT 2025
+# SharedData Build 6139179 on Tue May 20 17:58:58 MDT 2025
+# Start of session at: Sun Feb 22 20:57:17 2026
+# Process ID         : 36888
+# Current directory  : C:/Users/aptay/Dropbox/adiuvo/f14-CADC/implementation/scripts
+# Command line       : vivado.exe -mode batch -source create_project.tcl
+# Log file           : C:/Users/aptay/Dropbox/adiuvo/f14-CADC/implementation/scripts/vivado.log
+# Journal file       : C:/Users/aptay/Dropbox/adiuvo/f14-CADC/implementation/scripts\vivado.jou
+# Running On         : Adiuvo_Adam
+# Platform           : Windows Server 2016 or Windows 10
+# Operating System   : 26100
+# Processor Detail   : Intel(R) Core(TM) Ultra 9 285H
+# CPU Frequency      : 3686 MHz
+# CPU Physical cores : 16
+# CPU Logical cores  : 16
+# Host memory        : 33777 MB
+# Swap memory        : 27917 MB
+# Total Virtual      : 61694 MB
+# Available Virtual  : 22057 MB
+#-----------------------------------------------------------
+source create_project.tcl
+# set script_dir [file dirname [info script]]
+# set proj_dir [file normalize "$script_dir/../vivado_proj"]
+# set hdl_dir [file normalize "$script_dir/../../hdl"]
+# set constraints_dir [file normalize "$script_dir/../constraints"]
+# set proj_name "cadc_cmoda7"
+# create_project $proj_name $proj_dir -part xc7a35tcpg236-1 -force
+# set_property target_language VHDL [current_project]
+# set_property simulator_language Mixed [current_project]
+# add_files -norecurse [glob $hdl_dir/*.vhd]
+# update_compile_order -fileset sources_1
+# set_property is_enabled true [get_files *cadc_top.vhd]
+# add_files -fileset constrs_1 -norecurse $constraints_dir/cadc_cmoda7.xdc
+# source $script_dir/create_bd.tcl
+## create_bd_design cadc_system
+Wrote  : <C:\Users\aptay\Dropbox\adiuvo\f14-CADC\implementation\vivado_proj\cadc_cmoda7.srcs\sources_1\bd\cadc_system\cadc_system.bd> 
+## create_bd_port -dir I -type clk -freq_hz 12000000 sys_clk
+## set_property CONFIG.FREQ_HZ 12000000 [get_bd_ports sys_clk]
+## create_bd_port -dir I -type rst sys_rst_n
+## set_property CONFIG.POLARITY ACTIVE_LOW [get_bd_ports sys_rst_n]
+## create_bd_cell -type ip -vlnv xilinx.com:ip:clk_wiz:6.0 clk_wiz_0
+INFO: [Device 21-403] Loading part xc7a35tcpg236-1
+## set_property -dict [list \
+##     CONFIG.PRIM_IN_FREQ {12.000} \
+##     CONFIG.CLKOUT1_REQUESTED_OUT_FREQ {100.000} \
+##     CONFIG.CLKOUT2_USED {true} \
+##     CONFIG.CLKOUT2_REQUESTED_OUT_FREQ {6.000} \
+##     CONFIG.USE_LOCKED {true} \
+##     CONFIG.USE_RESET {true} \
+##     CONFIG.RESET_TYPE {ACTIVE_LOW} \
+## ] [get_bd_cells clk_wiz_0]
+## create_bd_cell -type ip -vlnv xilinx.com:ip:proc_sys_reset:5.0 proc_sys_reset_0
+## create_bd_cell -type ip -vlnv xilinx.com:ip:jtag_axi:1.2 jtag_axi_0
+## set_property -dict [list \
+##     CONFIG.PROTOCOL {2} \
+## ] [get_bd_cells jtag_axi_0]
+## create_bd_cell -type ip -vlnv xilinx.com:ip:axi_interconnect:2.1 axi_interconnect_0
+## set_property -dict [list \
+##     CONFIG.NUM_MI {5} \
+##     CONFIG.NUM_SI {1} \
+## ] [get_bd_cells axi_interconnect_0]
+## create_bd_cell -type ip -vlnv xilinx.com:ip:axi_gpio:2.0 axi_gpio_ps
+## set_property -dict [list \
+##     CONFIG.C_GPIO_WIDTH {20} \
+##     CONFIG.C_ALL_OUTPUTS {1} \
+##     CONFIG.C_DOUT_DEFAULT {0x00000000} \
+## ] [get_bd_cells axi_gpio_ps]
+## create_bd_cell -type ip -vlnv xilinx.com:ip:axi_gpio:2.0 axi_gpio_qc
+## set_property -dict [list \
+##     CONFIG.C_GPIO_WIDTH {20} \
+##     CONFIG.C_ALL_OUTPUTS {1} \
+##     CONFIG.C_DOUT_DEFAULT {0x00000000} \
+## ] [get_bd_cells axi_gpio_qc]
+## create_bd_cell -type ip -vlnv xilinx.com:ip:axi_gpio:2.0 axi_gpio_tat
+## set_property -dict [list \
+##     CONFIG.C_GPIO_WIDTH {20} \
+##     CONFIG.C_ALL_OUTPUTS {1} \
+##     CONFIG.C_DOUT_DEFAULT {0x00000000} \
+## ] [get_bd_cells axi_gpio_tat]
+## create_bd_cell -type ip -vlnv xilinx.com:ip:axi_gpio:2.0 axi_gpio_analog
+## set_property -dict [list \
+##     CONFIG.C_GPIO_WIDTH {20} \
+##     CONFIG.C_ALL_OUTPUTS {1} \
+##     CONFIG.C_DOUT_DEFAULT {0x00000000} \
+## ] [get_bd_cells axi_gpio_analog]
+## create_bd_cell -type ip -vlnv xilinx.com:ip:axi_gpio:2.0 axi_gpio_digital
+## set_property -dict [list \
+##     CONFIG.C_GPIO_WIDTH {20} \
+##     CONFIG.C_ALL_OUTPUTS {1} \
+##     CONFIG.C_GPIO2_WIDTH {1} \
+##     CONFIG.C_IS_DUAL {1} \
+##     CONFIG.C_ALL_OUTPUTS_2 {1} \
+##     CONFIG.C_DOUT_DEFAULT {0x00000000} \
+##     CONFIG.C_DOUT_DEFAULT_2 {0x00000001} \
+## ] [get_bd_cells axi_gpio_digital]
+## create_bd_cell -type module -reference clock_divider clock_divider_0
+INFO: [IP_Flow 19-5107] Inferred bus interface 'i_rst_n' of definition 'xilinx.com:signal:reset:1.0' (from Xilinx Repository).
+INFO: [IP_Flow 19-5107] Inferred bus interface 'i_clk' of definition 'xilinx.com:signal:clock:1.0' (from Xilinx Repository).
+INFO: [IP_Flow 19-4728] Bus Interface 'i_rst_n': Added interface parameter 'POLARITY' with value 'ACTIVE_LOW'.
+INFO: [IP_Flow 19-4728] Bus Interface 'i_clk': Added interface parameter 'ASSOCIATED_RESET' with value 'i_rst_n'.
+WARNING: [IP_Flow 19-5661] Bus Interface 'i_clk' does not have any bus interfaces associated with it.
+WARNING: [IP_Flow 19-11770] Clock interface 'i_clk' has no FREQ_HZ parameter.
+## create_bd_cell -type module -reference cadc_top cadc_top_0
+INFO: [IP_Flow 19-5107] Inferred bus interface 'i_rst' of definition 'xilinx.com:signal:reset:1.0' (from Xilinx Repository).
+## create_bd_cell -type ip -vlnv xilinx.com:ip:ila:6.2 ila_0
+INFO: [xilinx.com:ip:ila:6.2-6] /ila_0: AMD recommends using the System ILA IP in IP Integrator. The System ILA IP is functionally equivalent to an ILA and offers additional benefits in debugging interfaces both within IP Integrator and the Hardware Manager. Consult the Programming and Debug User Guide UG908 for further details.
+## set_property -dict [list \
+##     CONFIG.C_PROBE0_WIDTH {20} \
+##     CONFIG.C_PROBE1_WIDTH {20} \
+##     CONFIG.C_PROBE2_WIDTH {20} \
+##     CONFIG.C_PROBE3_WIDTH {20} \
+##     CONFIG.C_PROBE4_WIDTH {20} \
+##     CONFIG.C_PROBE5_WIDTH {20} \
+##     CONFIG.C_PROBE6_WIDTH {20} \
+##     CONFIG.C_PROBE7_WIDTH {1} \
+##     CONFIG.C_PROBE8_WIDTH {1} \
+##     CONFIG.C_NUM_OF_PROBES {9} \
+##     CONFIG.C_DATA_DEPTH {4096} \
+##     CONFIG.C_EN_STRG_QUAL {1} \
+##     CONFIG.C_TRIGIN_EN {false} \
+##     CONFIG.C_TRIGOUT_EN {false} \
+## ] [get_bd_cells ila_0]
+## connect_bd_net [get_bd_ports sys_clk] [get_bd_pins clk_wiz_0/clk_in1]
+## connect_bd_net [get_bd_ports sys_rst_n] [get_bd_pins clk_wiz_0/resetn]
+## connect_bd_net [get_bd_pins clk_wiz_0/clk_out1] [get_bd_pins proc_sys_reset_0/slowest_sync_clk]
+## connect_bd_net [get_bd_pins clk_wiz_0/locked] [get_bd_pins proc_sys_reset_0/dcm_locked]
+## connect_bd_net [get_bd_ports sys_rst_n] [get_bd_pins proc_sys_reset_0/ext_reset_in]
+## connect_bd_net [get_bd_pins clk_wiz_0/clk_out1] [get_bd_pins jtag_axi_0/aclk]
+## connect_bd_net [get_bd_pins clk_wiz_0/clk_out1] [get_bd_pins axi_interconnect_0/ACLK]
+## connect_bd_net [get_bd_pins clk_wiz_0/clk_out1] [get_bd_pins axi_interconnect_0/S00_ACLK]
+## connect_bd_net [get_bd_pins clk_wiz_0/clk_out1] [get_bd_pins axi_interconnect_0/M00_ACLK]
+## connect_bd_net [get_bd_pins clk_wiz_0/clk_out1] [get_bd_pins axi_interconnect_0/M01_ACLK]
+## connect_bd_net [get_bd_pins clk_wiz_0/clk_out1] [get_bd_pins axi_interconnect_0/M02_ACLK]
+## connect_bd_net [get_bd_pins clk_wiz_0/clk_out1] [get_bd_pins axi_interconnect_0/M03_ACLK]
+## connect_bd_net [get_bd_pins clk_wiz_0/clk_out1] [get_bd_pins axi_interconnect_0/M04_ACLK]
+## connect_bd_net [get_bd_pins clk_wiz_0/clk_out1] [get_bd_pins axi_gpio_ps/s_axi_aclk]
+## connect_bd_net [get_bd_pins clk_wiz_0/clk_out1] [get_bd_pins axi_gpio_qc/s_axi_aclk]
+## connect_bd_net [get_bd_pins clk_wiz_0/clk_out1] [get_bd_pins axi_gpio_tat/s_axi_aclk]
+## connect_bd_net [get_bd_pins clk_wiz_0/clk_out1] [get_bd_pins axi_gpio_analog/s_axi_aclk]
+## connect_bd_net [get_bd_pins clk_wiz_0/clk_out1] [get_bd_pins axi_gpio_digital/s_axi_aclk]
+## connect_bd_net [get_bd_pins clk_wiz_0/clk_out1] [get_bd_pins ila_0/clk]
+## connect_bd_net [get_bd_pins clk_wiz_0/clk_out2] [get_bd_pins clock_divider_0/i_clk]
+## connect_bd_net [get_bd_pins proc_sys_reset_0/peripheral_aresetn] [get_bd_pins clock_divider_0/i_rst_n]
+## connect_bd_net [get_bd_pins clock_divider_0/o_clk_div] [get_bd_pins cadc_top_0/i_clk_master]
+## connect_bd_net [get_bd_pins proc_sys_reset_0/peripheral_aresetn] [get_bd_pins jtag_axi_0/aresetn]
+## connect_bd_net [get_bd_pins proc_sys_reset_0/interconnect_aresetn] [get_bd_pins axi_interconnect_0/ARESETN]
+## connect_bd_net [get_bd_pins proc_sys_reset_0/peripheral_aresetn] [get_bd_pins axi_interconnect_0/S00_ARESETN]
+## connect_bd_net [get_bd_pins proc_sys_reset_0/peripheral_aresetn] [get_bd_pins axi_interconnect_0/M00_ARESETN]
+## connect_bd_net [get_bd_pins proc_sys_reset_0/peripheral_aresetn] [get_bd_pins axi_interconnect_0/M01_ARESETN]
+## connect_bd_net [get_bd_pins proc_sys_reset_0/peripheral_aresetn] [get_bd_pins axi_interconnect_0/M02_ARESETN]
+## connect_bd_net [get_bd_pins proc_sys_reset_0/peripheral_aresetn] [get_bd_pins axi_interconnect_0/M03_ARESETN]
+## connect_bd_net [get_bd_pins proc_sys_reset_0/peripheral_aresetn] [get_bd_pins axi_interconnect_0/M04_ARESETN]
+## connect_bd_net [get_bd_pins proc_sys_reset_0/peripheral_aresetn] [get_bd_pins axi_gpio_ps/s_axi_aresetn]
+## connect_bd_net [get_bd_pins proc_sys_reset_0/peripheral_aresetn] [get_bd_pins axi_gpio_qc/s_axi_aresetn]
+## connect_bd_net [get_bd_pins proc_sys_reset_0/peripheral_aresetn] [get_bd_pins axi_gpio_tat/s_axi_aresetn]
+## connect_bd_net [get_bd_pins proc_sys_reset_0/peripheral_aresetn] [get_bd_pins axi_gpio_analog/s_axi_aresetn]
+## connect_bd_net [get_bd_pins proc_sys_reset_0/peripheral_aresetn] [get_bd_pins axi_gpio_digital/s_axi_aresetn]
+## create_bd_cell -type ip -vlnv xilinx.com:ip:util_vector_logic:2.0 util_vector_logic_0
+INFO: [BD 5-1043] It is recommended to use inline hdl version xilinx.com:inline_hdl:ilvector_logic:1.0 for the IP type xilinx.com:ip:util_vector_logic:2.0 for improved performance and reduced disk space. IPs with VLNV xilinx.com:ip:util_vector_logic:2.0 will not be supported from release 2025.2. More information on inline hdl IP is available in UG994 
+## set_property -dict [list \
+##     CONFIG.C_SIZE {1} \
+##     CONFIG.C_OPERATION {not} \
+## ] [get_bd_cells util_vector_logic_0]
+## connect_bd_net [get_bd_pins proc_sys_reset_0/peripheral_aresetn] [get_bd_pins util_vector_logic_0/Op1]
+## connect_bd_net [get_bd_pins util_vector_logic_0/Res] [get_bd_pins cadc_top_0/i_rst]
+## connect_bd_intf_net [get_bd_intf_pins jtag_axi_0/M_AXI] [get_bd_intf_pins axi_interconnect_0/S00_AXI]
+## connect_bd_intf_net [get_bd_intf_pins axi_interconnect_0/M00_AXI] [get_bd_intf_pins axi_gpio_ps/S_AXI]
+## connect_bd_intf_net [get_bd_intf_pins axi_interconnect_0/M01_AXI] [get_bd_intf_pins axi_gpio_qc/S_AXI]
+## connect_bd_intf_net [get_bd_intf_pins axi_interconnect_0/M02_AXI] [get_bd_intf_pins axi_gpio_tat/S_AXI]
+## connect_bd_intf_net [get_bd_intf_pins axi_interconnect_0/M03_AXI] [get_bd_intf_pins axi_gpio_analog/S_AXI]
+## connect_bd_intf_net [get_bd_intf_pins axi_interconnect_0/M04_AXI] [get_bd_intf_pins axi_gpio_digital/S_AXI]
+## connect_bd_net [get_bd_pins axi_gpio_ps/gpio_io_o] [get_bd_pins cadc_top_0/i_sensor_ps]
+WARNING: [BD 41-1306] The connection to interface pin </axi_gpio_ps/gpio_io_o> is being overridden by the user with net <axi_gpio_ps_gpio_io_o>. This pin will not be connected as a part of interface connection <GPIO>, and might not recreate the connectivity as expected using the writ_bd_tcl command.
+## connect_bd_net [get_bd_pins axi_gpio_qc/gpio_io_o] [get_bd_pins cadc_top_0/i_sensor_qc]
+WARNING: [BD 41-1306] The connection to interface pin </axi_gpio_qc/gpio_io_o> is being overridden by the user with net <axi_gpio_qc_gpio_io_o>. This pin will not be connected as a part of interface connection <GPIO>, and might not recreate the connectivity as expected using the writ_bd_tcl command.
+## connect_bd_net [get_bd_pins axi_gpio_tat/gpio_io_o] [get_bd_pins cadc_top_0/i_sensor_tat]
+WARNING: [BD 41-1306] The connection to interface pin </axi_gpio_tat/gpio_io_o> is being overridden by the user with net <axi_gpio_tat_gpio_io_o>. This pin will not be connected as a part of interface connection <GPIO>, and might not recreate the connectivity as expected using the writ_bd_tcl command.
+## connect_bd_net [get_bd_pins axi_gpio_analog/gpio_io_o] [get_bd_pins cadc_top_0/i_sensor_analog]
+WARNING: [BD 41-1306] The connection to interface pin </axi_gpio_analog/gpio_io_o> is being overridden by the user with net <axi_gpio_analog_gpio_io_o>. This pin will not be connected as a part of interface connection <GPIO>, and might not recreate the connectivity as expected using the writ_bd_tcl command.
+## connect_bd_net [get_bd_pins axi_gpio_digital/gpio_io_o] [get_bd_pins cadc_top_0/i_sensor_digital]
+WARNING: [BD 41-1306] The connection to interface pin </axi_gpio_digital/gpio_io_o> is being overridden by the user with net <axi_gpio_digital_gpio_io_o>. This pin will not be connected as a part of interface connection <GPIO>, and might not recreate the connectivity as expected using the writ_bd_tcl command.
+## connect_bd_net [get_bd_pins axi_gpio_digital/gpio2_io_o] [get_bd_pins cadc_top_0/i_channel_active]
+WARNING: [BD 41-1306] The connection to interface pin </axi_gpio_digital/gpio2_io_o> is being overridden by the user with net <axi_gpio_digital_gpio2_io_o>. This pin will not be connected as a part of interface connection <GPIO2>, and might not recreate the connectivity as expected using the writ_bd_tcl command.
+## connect_bd_net [get_bd_pins cadc_top_0/o_out_mach] [get_bd_pins ila_0/probe0]
+WARNING: [BD 41-1306] The connection to interface pin </ila_0/probe0> is being overridden by the user with net <cadc_top_0_o_out_mach>. This pin will not be connected as a part of interface connection <SLOT_0_AXI>, and might not recreate the connectivity as expected using the writ_bd_tcl command.
+## connect_bd_net [get_bd_pins cadc_top_0/o_out_alt] [get_bd_pins ila_0/probe1]
+WARNING: [BD 41-1306] The connection to interface pin </ila_0/probe1> is being overridden by the user with net <cadc_top_0_o_out_alt>. This pin will not be connected as a part of interface connection <SLOT_0_AXI>, and might not recreate the connectivity as expected using the writ_bd_tcl command.
+## connect_bd_net [get_bd_pins cadc_top_0/o_out_airspd] [get_bd_pins ila_0/probe2]
+WARNING: [BD 41-1306] The connection to interface pin </ila_0/probe2> is being overridden by the user with net <cadc_top_0_o_out_airspd>. This pin will not be connected as a part of interface connection <SLOT_0_AXI>, and might not recreate the connectivity as expected using the writ_bd_tcl command.
+## connect_bd_net [get_bd_pins cadc_top_0/o_out_vspd] [get_bd_pins ila_0/probe3]
+WARNING: [BD 41-1306] The connection to interface pin </ila_0/probe3> is being overridden by the user with net <cadc_top_0_o_out_vspd>. This pin will not be connected as a part of interface connection <SLOT_0_AXI>, and might not recreate the connectivity as expected using the writ_bd_tcl command.
+## connect_bd_net [get_bd_pins cadc_top_0/o_out_wing] [get_bd_pins ila_0/probe4]
+WARNING: [BD 41-1306] The connection to interface pin </ila_0/probe4> is being overridden by the user with net <cadc_top_0_o_out_wing>. This pin will not be connected as a part of interface connection <SLOT_0_AXI>, and might not recreate the connectivity as expected using the writ_bd_tcl command.
+## connect_bd_net [get_bd_pins cadc_top_0/o_out_flap] [get_bd_pins ila_0/probe5]
+WARNING: [BD 41-1306] The connection to interface pin </ila_0/probe5> is being overridden by the user with net <cadc_top_0_o_out_flap>. This pin will not be connected as a part of interface connection <SLOT_0_AXI>, and might not recreate the connectivity as expected using the writ_bd_tcl command.
+## connect_bd_net [get_bd_pins cadc_top_0/o_out_glove] [get_bd_pins ila_0/probe6]
+WARNING: [BD 41-1306] The connection to interface pin </ila_0/probe6> is being overridden by the user with net <cadc_top_0_o_out_glove>. This pin will not be connected as a part of interface connection <SLOT_0_AXI>, and might not recreate the connectivity as expected using the writ_bd_tcl command.
+## connect_bd_net [get_bd_pins cadc_top_0/o_bit_status] [get_bd_pins ila_0/probe7]
+WARNING: [BD 41-1306] The connection to interface pin </ila_0/probe7> is being overridden by the user with net <cadc_top_0_o_bit_status>. This pin will not be connected as a part of interface connection <SLOT_0_AXI>, and might not recreate the connectivity as expected using the writ_bd_tcl command.
+## connect_bd_net [get_bd_pins cadc_top_0/o_fail_detect] [get_bd_pins ila_0/probe8]
+WARNING: [BD 41-1306] The connection to interface pin </ila_0/probe8> is being overridden by the user with net <cadc_top_0_o_fail_detect>. This pin will not be connected as a part of interface connection <SLOT_0_AXI>, and might not recreate the connectivity as expected using the writ_bd_tcl command.
+## assign_bd_address -target_address_space /jtag_axi_0/Data [get_bd_addr_segs axi_gpio_ps/S_AXI/Reg] -force
+Slave segment '/axi_gpio_ps/S_AXI/Reg' is being assigned into address space '/jtag_axi_0/Data' at <0x4000_0000 [ 64K ]>.
+## assign_bd_address -target_address_space /jtag_axi_0/Data [get_bd_addr_segs axi_gpio_qc/S_AXI/Reg] -force
+Slave segment '/axi_gpio_qc/S_AXI/Reg' is being assigned into address space '/jtag_axi_0/Data' at <0x4001_0000 [ 64K ]>.
+## assign_bd_address -target_address_space /jtag_axi_0/Data [get_bd_addr_segs axi_gpio_tat/S_AXI/Reg] -force
+Slave segment '/axi_gpio_tat/S_AXI/Reg' is being assigned into address space '/jtag_axi_0/Data' at <0x4002_0000 [ 64K ]>.
+## assign_bd_address -target_address_space /jtag_axi_0/Data [get_bd_addr_segs axi_gpio_analog/S_AXI/Reg] -force
+Slave segment '/axi_gpio_analog/S_AXI/Reg' is being assigned into address space '/jtag_axi_0/Data' at <0x4003_0000 [ 64K ]>.
+## assign_bd_address -target_address_space /jtag_axi_0/Data [get_bd_addr_segs axi_gpio_digital/S_AXI/Reg] -force
+Slave segment '/axi_gpio_digital/S_AXI/Reg' is being assigned into address space '/jtag_axi_0/Data' at <0x4004_0000 [ 64K ]>.
+## set_property offset 0x40000000 [get_bd_addr_segs {jtag_axi_0/Data/SEG_axi_gpio_ps_Reg}]
+## set_property offset 0x40010000 [get_bd_addr_segs {jtag_axi_0/Data/SEG_axi_gpio_qc_Reg}]
+## set_property offset 0x40020000 [get_bd_addr_segs {jtag_axi_0/Data/SEG_axi_gpio_tat_Reg}]
+## set_property offset 0x40030000 [get_bd_addr_segs {jtag_axi_0/Data/SEG_axi_gpio_analog_Reg}]
+## set_property offset 0x40040000 [get_bd_addr_segs {jtag_axi_0/Data/SEG_axi_gpio_digital_Reg}]
+## regenerate_bd_layout
+## validate_bd_design
+CRITICAL WARNING: [BD 41-1343] Reset pin /clock_divider_0/i_rst_n (associated clock /clock_divider_0/i_clk) is connected to reset source /proc_sys_reset_0/peripheral_aresetn (synchronous to clock source /clk_wiz_0/clk_out1).
+This may prevent design from meeting timing. Please add Processor System Reset module to create a reset that is synchronous to the associated clock source /clk_wiz_0/clk_out2.
+INFO: [xilinx.com:ip:clk_wiz:6.0-1] /clk_wiz_0 clk_wiz propagate
+## save_bd_design
+Wrote  : <C:\Users\aptay\Dropbox\adiuvo\f14-CADC\implementation\vivado_proj\cadc_cmoda7.srcs\sources_1\bd\cadc_system\cadc_system.bd> 
+## puts "=========================================="
+==========================================
+## puts "Block design created successfully!"
+Block design created successfully!
+## puts ""
+
+## puts "AXI GPIO Address Map:"
+AXI GPIO Address Map:
+## puts "  GPIO_PS      (i_sensor_ps)      : 0x40000000"
+  GPIO_PS      (i_sensor_ps)      : 0x40000000
+## puts "  GPIO_QC      (i_sensor_qc)      : 0x40010000"
+  GPIO_QC      (i_sensor_qc)      : 0x40010000
+## puts "  GPIO_TAT     (i_sensor_tat)     : 0x40020000"
+  GPIO_TAT     (i_sensor_tat)     : 0x40020000
+## puts "  GPIO_ANALOG  (i_sensor_analog)  : 0x40030000"
+  GPIO_ANALOG  (i_sensor_analog)  : 0x40030000
+## puts "  GPIO_DIGITAL (i_sensor_digital) : 0x40040000"
+  GPIO_DIGITAL (i_sensor_digital) : 0x40040000
+## puts "    Channel 1: sensor_digital[19:0]"
+    Channel 1: sensor_digital[19:0]
+## puts "    Channel 2: channel_active[0]"
+    Channel 2: channel_active[0]
+## puts ""
+
+## puts "ILA Probes:"
+ILA Probes:
+## puts "  probe0: o_out_mach[19:0]"
+  probe0: o_out_mach[19:0]
+## puts "  probe1: o_out_alt[19:0]"
+  probe1: o_out_alt[19:0]
+## puts "  probe2: o_out_airspd[19:0]"
+  probe2: o_out_airspd[19:0]
+## puts "  probe3: o_out_vspd[19:0]"
+  probe3: o_out_vspd[19:0]
+## puts "  probe4: o_out_wing[19:0]"
+  probe4: o_out_wing[19:0]
+## puts "  probe5: o_out_flap[19:0]"
+  probe5: o_out_flap[19:0]
+## puts "  probe6: o_out_glove[19:0]"
+  probe6: o_out_glove[19:0]
+## puts "  probe7: o_bit_status"
+  probe7: o_bit_status
+## puts "  probe8: o_fail_detect"
+  probe8: o_fail_detect
+## puts "=========================================="
+==========================================
+# make_wrapper -files [get_files $proj_dir/$proj_name.srcs/sources_1/bd/cadc_system/cadc_system.bd] -top
+INFO: [BD 41-1662] The design 'cadc_system.bd' is already validated. Therefore parameter propagation will not be re-run.
+CRITICAL WARNING: [BD 41-2383] Width mismatch when connecting input pin '/ila_0/probe1'(32) to pin '/cadc_top_0/o_out_alt'(20) - Only lower order bits will be connected, and other input bits of this pin will be left unconnected.
+CRITICAL WARNING: [BD 41-2383] Width mismatch when connecting input pin '/ila_0/probe2'(2) to pin '/cadc_top_0/o_out_airspd'(20) - Only lower order bits will be connected, and other input bits of this pin will be left unconnected.
+CRITICAL WARNING: [BD 41-2383] Width mismatch when connecting input pin '/ila_0/probe5'(32) to pin '/cadc_top_0/o_out_flap'(20) - Only lower order bits will be connected, and other input bits of this pin will be left unconnected.
+VHDL Output written to : C:/Users/aptay/Dropbox/adiuvo/f14-CADC/implementation/vivado_proj/cadc_cmoda7.gen/sources_1/bd/cadc_system/synth/cadc_system.vhd
+CRITICAL WARNING: [BD 41-2383] Width mismatch when connecting input pin '/ila_0/probe1'(32) to pin '/cadc_top_0/o_out_alt'(20) - Only lower order bits will be connected, and other input bits of this pin will be left unconnected.
+CRITICAL WARNING: [BD 41-2383] Width mismatch when connecting input pin '/ila_0/probe2'(2) to pin '/cadc_top_0/o_out_airspd'(20) - Only lower order bits will be connected, and other input bits of this pin will be left unconnected.
+CRITICAL WARNING: [BD 41-2383] Width mismatch when connecting input pin '/ila_0/probe5'(32) to pin '/cadc_top_0/o_out_flap'(20) - Only lower order bits will be connected, and other input bits of this pin will be left unconnected.
+VHDL Output written to : C:/Users/aptay/Dropbox/adiuvo/f14-CADC/implementation/vivado_proj/cadc_cmoda7.gen/sources_1/bd/cadc_system/sim/cadc_system.vhd
+VHDL Output written to : C:/Users/aptay/Dropbox/adiuvo/f14-CADC/implementation/vivado_proj/cadc_cmoda7.gen/sources_1/bd/cadc_system/hdl/cadc_system_wrapper.vhd
+# add_files -norecurse $proj_dir/$proj_name.gen/sources_1/bd/cadc_system/hdl/cadc_system_wrapper.vhd
+# update_compile_order -fileset sources_1
+# set_property top cadc_system_wrapper [current_fileset]
+# update_compile_order -fileset sources_1
+# generate_target all [get_files $proj_dir/$proj_name.srcs/sources_1/bd/cadc_system/cadc_system.bd]
+INFO: [BD 41-1662] The design 'cadc_system.bd' is already validated. Therefore parameter propagation will not be re-run.
+CRITICAL WARNING: [BD 41-2383] Width mismatch when connecting input pin '/ila_0/probe1'(32) to pin '/cadc_top_0/o_out_alt'(20) - Only lower order bits will be connected, and other input bits of this pin will be left unconnected.
+CRITICAL WARNING: [BD 41-2383] Width mismatch when connecting input pin '/ila_0/probe2'(2) to pin '/cadc_top_0/o_out_airspd'(20) - Only lower order bits will be connected, and other input bits of this pin will be left unconnected.
+CRITICAL WARNING: [BD 41-2383] Width mismatch when connecting input pin '/ila_0/probe5'(32) to pin '/cadc_top_0/o_out_flap'(20) - Only lower order bits will be connected, and other input bits of this pin will be left unconnected.
+VHDL Output written to : C:/Users/aptay/Dropbox/adiuvo/f14-CADC/implementation/vivado_proj/cadc_cmoda7.gen/sources_1/bd/cadc_system/synth/cadc_system.vhd
+CRITICAL WARNING: [BD 41-2383] Width mismatch when connecting input pin '/ila_0/probe1'(32) to pin '/cadc_top_0/o_out_alt'(20) - Only lower order bits will be connected, and other input bits of this pin will be left unconnected.
+CRITICAL WARNING: [BD 41-2383] Width mismatch when connecting input pin '/ila_0/probe2'(2) to pin '/cadc_top_0/o_out_airspd'(20) - Only lower order bits will be connected, and other input bits of this pin will be left unconnected.
+CRITICAL WARNING: [BD 41-2383] Width mismatch when connecting input pin '/ila_0/probe5'(32) to pin '/cadc_top_0/o_out_flap'(20) - Only lower order bits will be connected, and other input bits of this pin will be left unconnected.
+VHDL Output written to : C:/Users/aptay/Dropbox/adiuvo/f14-CADC/implementation/vivado_proj/cadc_cmoda7.gen/sources_1/bd/cadc_system/sim/cadc_system.vhd
+VHDL Output written to : C:/Users/aptay/Dropbox/adiuvo/f14-CADC/implementation/vivado_proj/cadc_cmoda7.gen/sources_1/bd/cadc_system/hdl/cadc_system_wrapper.vhd
+INFO: [BD 41-1029] Generation completed for the IP Integrator block clk_wiz_0 .
+INFO: [BD 41-1029] Generation completed for the IP Integrator block proc_sys_reset_0 .
+INFO: [BD 41-1029] Generation completed for the IP Integrator block jtag_axi_0 .
+INFO: [BD 41-1029] Generation completed for the IP Integrator block axi_interconnect_0/xbar .
+INFO: [BD 41-1029] Generation completed for the IP Integrator block axi_gpio_ps .
+INFO: [BD 41-1029] Generation completed for the IP Integrator block axi_gpio_qc .
+INFO: [BD 41-1029] Generation completed for the IP Integrator block axi_gpio_tat .
+INFO: [BD 41-1029] Generation completed for the IP Integrator block axi_gpio_analog .
+INFO: [BD 41-1029] Generation completed for the IP Integrator block axi_gpio_digital .
+INFO: [BD 41-1029] Generation completed for the IP Integrator block clock_divider_0 .
+INFO: [BD 41-1029] Generation completed for the IP Integrator block cadc_top_0 .
+WARNING: [IP_Flow 19-4994] Overwriting existing constraint file 'c:/Users/aptay/Dropbox/adiuvo/f14-CADC/implementation/vivado_proj/cadc_cmoda7.gen/sources_1/bd/cadc_system/ip/cadc_system_ila_0_0/cadc_system_ila_0_0_ooc.xdc'
+INFO: [BD 41-1029] Generation completed for the IP Integrator block ila_0 .
+INFO: [BD 41-1029] Generation completed for the IP Integrator block util_vector_logic_0 .
+Exporting to file C:/Users/aptay/Dropbox/adiuvo/f14-CADC/implementation/vivado_proj/cadc_cmoda7.gen/sources_1/bd/cadc_system/hw_handoff/cadc_system.hwh
+Generated Hardware Definition File C:/Users/aptay/Dropbox/adiuvo/f14-CADC/implementation/vivado_proj/cadc_cmoda7.gen/sources_1/bd/cadc_system/synth/cadc_system.hwdef
+# puts "=========================================="
+==========================================
+# puts "Project created successfully!"
+Project created successfully!
+# puts "Project location: $proj_dir"
+Project location: C:/Users/aptay/Dropbox/adiuvo/f14-CADC/implementation/vivado_proj
+# puts "=========================================="
+==========================================
+# puts ""
+
+# puts "Next steps:"
+Next steps:
+# puts "  1. Open Vivado GUI: start_gui"
+  1. Open Vivado GUI: start_gui
+# puts "  2. Run Synthesis: launch_runs synth_1 -jobs 8"
+  2. Run Synthesis: launch_runs synth_1 -jobs 8
+# puts "  3. Run Implementation: launch_runs impl_1 -jobs 8"
+  3. Run Implementation: launch_runs impl_1 -jobs 8
+# puts "  4. Generate Bitstream: launch_runs impl_1 -to_step write_bitstream -jobs 8"
+  4. Generate Bitstream: launch_runs impl_1 -to_step write_bitstream -jobs 8
+INFO: [Common 17-206] Exiting Vivado at Sun Feb 22 20:57:45 2026...

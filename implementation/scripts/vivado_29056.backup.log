@@ -1,0 +1,91 @@
+#-----------------------------------------------------------
+# Vivado v2025.1 (64-bit)
+# SW Build 6140274 on Thu May 22 00:12:29 MDT 2025
+# IP Build 6138677 on Thu May 22 03:10:11 MDT 2025
+# SharedData Build 6139179 on Tue May 20 17:58:58 MDT 2025
+# Start of session at: Sun Feb 22 20:55:28 2026
+# Process ID         : 29056
+# Current directory  : C:/Users/aptay/Dropbox/adiuvo/f14-CADC/implementation/scripts
+# Command line       : vivado.exe -mode batch -source create_project.tcl
+# Log file           : C:/Users/aptay/Dropbox/adiuvo/f14-CADC/implementation/scripts/vivado.log
+# Journal file       : C:/Users/aptay/Dropbox/adiuvo/f14-CADC/implementation/scripts\vivado.jou
+# Running On         : Adiuvo_Adam
+# Platform           : Windows Server 2016 or Windows 10
+# Operating System   : 26100
+# Processor Detail   : Intel(R) Core(TM) Ultra 9 285H
+# CPU Frequency      : 3686 MHz
+# CPU Physical cores : 16
+# CPU Logical cores  : 16
+# Host memory        : 33777 MB
+# Swap memory        : 27917 MB
+# Total Virtual      : 61694 MB
+# Available Virtual  : 22753 MB
+#-----------------------------------------------------------
+source create_project.tcl
+# set script_dir [file dirname [info script]]
+# set proj_dir [file normalize "$script_dir/../vivado_proj"]
+# set hdl_dir [file normalize "$script_dir/../../hdl"]
+# set constraints_dir [file normalize "$script_dir/../constraints"]
+# set proj_name "cadc_cmoda7"
+# create_project $proj_name $proj_dir -part xc7a35tcpg236-1 -force
+create_project: Time (s): cpu = 00:00:05 ; elapsed = 00:00:06 . Memory (MB): peak = 651.035 ; gain = 208.984
+# set_property target_language VHDL [current_project]
+# set_property simulator_language Mixed [current_project]
+# add_files -norecurse [glob $hdl_dir/*.vhd]
+# update_compile_order -fileset sources_1
+# set_property is_enabled true [get_files *cadc_top.vhd]
+# add_files -fileset constrs_1 -norecurse $constraints_dir/cadc_cmoda7.xdc
+# source $script_dir/create_bd.tcl
+## create_bd_design cadc_system
+Wrote  : <C:\Users\aptay\Dropbox\adiuvo\f14-CADC\implementation\vivado_proj\cadc_cmoda7.srcs\sources_1\bd\cadc_system\cadc_system.bd> 
+## create_bd_port -dir I -type clk -freq_hz 12000000 sys_clk
+## set_property CONFIG.FREQ_HZ 12000000 [get_bd_ports sys_clk]
+## create_bd_port -dir I -type rst sys_rst_n
+## set_property CONFIG.POLARITY ACTIVE_LOW [get_bd_ports sys_rst_n]
+## create_bd_cell -type ip -vlnv xilinx.com:ip:clk_wiz:6.0 clk_wiz_0
+INFO: [Device 21-403] Loading part xc7a35tcpg236-1
+create_bd_cell: Time (s): cpu = 00:00:02 ; elapsed = 00:00:14 . Memory (MB): peak = 907.184 ; gain = 214.602
+## set_property -dict [list \
+##     CONFIG.PRIM_IN_FREQ {12.000} \
+##     CONFIG.CLKOUT1_REQUESTED_OUT_FREQ {100.000} \
+##     CONFIG.CLKOUT2_USED {true} \
+##     CONFIG.CLKOUT2_REQUESTED_OUT_FREQ {1.500} \
+##     CONFIG.USE_LOCKED {true} \
+##     CONFIG.USE_RESET {true} \
+##     CONFIG.RESET_TYPE {ACTIVE_LOW} \
+##     CONFIG.CLKIN1_JITTER_PS {833.33} \
+##     CONFIG.MMCM_CLKFBOUT_MULT_F {62.500} \
+##     CONFIG.MMCM_CLKIN1_PERIOD {83.333} \
+##     CONFIG.MMCM_CLKOUT0_DIVIDE_F {7.500} \
+##     CONFIG.MMCM_CLKOUT1_DIVIDE {500} \
+##     CONFIG.NUM_OUT_CLKS {2} \
+##     CONFIG.CLKOUT1_JITTER {181.828} \
+##     CONFIG.CLKOUT1_PHASE_ERROR {168.059} \
+##     CONFIG.CLKOUT2_JITTER {374.718} \
+##     CONFIG.CLKOUT2_PHASE_ERROR {168.059} \
+## ] [get_bd_cells clk_wiz_0]
+FALSE
+WARNING: [IP_Flow 19-3374] An attempt to modify the value of disabled parameter 'MMCM_CLKFBOUT_MULT_F' from '50.000' to '62.500' has been ignored for IP 'clk_wiz_0'
+WARNING: [IP_Flow 19-3374] An attempt to modify the value of disabled parameter 'MMCM_CLKOUT0_DIVIDE_F' from '6.000' to '7.500' has been ignored for IP 'clk_wiz_0'
+WARNING: [IP_Flow 19-3374] An attempt to modify the value of disabled parameter 'MMCM_CLKOUT1_DIVIDE' from '6' to '500' has been ignored for IP 'clk_wiz_0'
+ERROR: [IP_Flow 19-3460] Validation failed on parameter 'CLKOUT2 REQUESTED OUT FREQ(CLKOUT2_REQUESTED_OUT_FREQ)' for Please enter valid freq in range (4.687 - 800.000)
+. BD Cell 'clk_wiz_0'
+INFO: [IP_Flow 19-3438] Customization errors found on 'clk_wiz_0'. Restoring to previous valid configuration.
+ERROR: [IP_Flow 19-3439] Failed to restore IP 'clk_wiz_0' customization to its previous valid configuration.
+INFO: [Common 17-17] undo 'set_property'
+ERROR: [Common 17-39] 'set_property' failed due to earlier errors.
+
+    while executing
+"rdi::add_properties -dict {CONFIG.PRIM_IN_FREQ 12.000 CONFIG.CLKOUT1_REQUESTED_OUT_FREQ 100.000 CONFIG.CLKOUT2_USED true CONFIG.CLKOUT2_REQUESTED_OUT_..."
+    invoked from within
+"set_property -dict [list \
+    CONFIG.PRIM_IN_FREQ {12.000} \
+    CONFIG.CLKOUT1_REQUESTED_OUT_FREQ {100.000} \
+    CONFIG.CLKOUT2_USED {true} \
+    C..."
+    (file "./create_bd.tcl" line 27)
+
+    while executing
+"source $script_dir/create_bd.tcl"
+    (file "create_project.tcl" line 37)
+INFO: [Common 17-206] Exiting Vivado at Sun Feb 22 20:56:09 2026...

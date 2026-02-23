@@ -21,27 +21,17 @@ set_property CONFIG.POLARITY ACTIVE_LOW [get_bd_ports sys_rst_n]
 
 #-------------------------------------------------------------------------------
 # Add Clocking Wizard
-# Generate 100MHz for AXI logic and 1.5MHz for CADC
+# Generate 100MHz for AXI logic and 6MHz for clock divider (divide by 4 = 1.5MHz)
 #-------------------------------------------------------------------------------
 create_bd_cell -type ip -vlnv xilinx.com:ip:clk_wiz:6.0 clk_wiz_0
 set_property -dict [list \
     CONFIG.PRIM_IN_FREQ {12.000} \
     CONFIG.CLKOUT1_REQUESTED_OUT_FREQ {100.000} \
     CONFIG.CLKOUT2_USED {true} \
-    CONFIG.CLKOUT2_REQUESTED_OUT_FREQ {1.500} \
+    CONFIG.CLKOUT2_REQUESTED_OUT_FREQ {6.000} \
     CONFIG.USE_LOCKED {true} \
     CONFIG.USE_RESET {true} \
     CONFIG.RESET_TYPE {ACTIVE_LOW} \
-    CONFIG.CLKIN1_JITTER_PS {833.33} \
-    CONFIG.MMCM_CLKFBOUT_MULT_F {62.500} \
-    CONFIG.MMCM_CLKIN1_PERIOD {83.333} \
-    CONFIG.MMCM_CLKOUT0_DIVIDE_F {7.500} \
-    CONFIG.MMCM_CLKOUT1_DIVIDE {500} \
-    CONFIG.NUM_OUT_CLKS {2} \
-    CONFIG.CLKOUT1_JITTER {181.828} \
-    CONFIG.CLKOUT1_PHASE_ERROR {168.059} \
-    CONFIG.CLKOUT2_JITTER {374.718} \
-    CONFIG.CLKOUT2_PHASE_ERROR {168.059} \
 ] [get_bd_cells clk_wiz_0]
 
 #-------------------------------------------------------------------------------
@@ -116,6 +106,11 @@ set_property -dict [list \
 ] [get_bd_cells axi_gpio_digital]
 
 #-------------------------------------------------------------------------------
+# Add Clock Divider (6MHz -> 1.5MHz)
+#-------------------------------------------------------------------------------
+create_bd_cell -type module -reference clock_divider clock_divider_0
+
+#-------------------------------------------------------------------------------
 # Add CADC Top Level as RTL module
 #-------------------------------------------------------------------------------
 create_bd_cell -type module -reference cadc_top cadc_top_0
@@ -171,8 +166,10 @@ connect_bd_net [get_bd_pins clk_wiz_0/clk_out1] [get_bd_pins axi_gpio_analog/s_a
 connect_bd_net [get_bd_pins clk_wiz_0/clk_out1] [get_bd_pins axi_gpio_digital/s_axi_aclk]
 connect_bd_net [get_bd_pins clk_wiz_0/clk_out1] [get_bd_pins ila_0/clk]
 
-# 1.5MHz clock to CADC
-connect_bd_net [get_bd_pins clk_wiz_0/clk_out2] [get_bd_pins cadc_top_0/i_clk_master]
+# 6MHz clock to divider, 1.5MHz to CADC
+connect_bd_net [get_bd_pins clk_wiz_0/clk_out2] [get_bd_pins clock_divider_0/i_clk]
+connect_bd_net [get_bd_pins proc_sys_reset_0/peripheral_aresetn] [get_bd_pins clock_divider_0/i_rst_n]
+connect_bd_net [get_bd_pins clock_divider_0/o_clk_div] [get_bd_pins cadc_top_0/i_clk_master]
 
 # Resets
 connect_bd_net [get_bd_pins proc_sys_reset_0/peripheral_aresetn] [get_bd_pins jtag_axi_0/aresetn]

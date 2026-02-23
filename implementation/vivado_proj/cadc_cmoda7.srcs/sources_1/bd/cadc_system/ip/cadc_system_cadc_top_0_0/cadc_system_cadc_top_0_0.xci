@@ -1,0 +1,73 @@
+{
+  "schema": "xilinx.com:schema:json_instance:1.0",
+  "ip_inst": {
+    "xci_name": "cadc_system_cadc_top_0_0",
+    "cell_name": "cadc_top_0",
+    "component_reference": "xilinx.com:module_ref:cadc_top:1.0",
+    "ip_revision": "1",
+    "gen_directory": "../../../../../../cadc_cmoda7.gen/sources_1/bd/cadc_system/ip/cadc_system_cadc_top_0_0",
+    "parameters": {
+      "component_parameters": {
+        "Component_Name": [ { "value": "cadc_system_cadc_top_0_0", "resolve_type": "user", "usage": "all" } ]
+      },
+      "project_parameters": {
+        "ARCHITECTURE": [ { "value": "artix7" } ],
+        "BASE_BOARD_PART": [ { "value": "" } ],
+        "BOARD_CONNECTIONS": [ { "value": "" } ],
+        "DEVICE": [ { "value": "xc7a35t" } ],
+        "PACKAGE": [ { "value": "cpg236" } ],
+        "PREFHDL": [ { "value": "VHDL" } ],
+        "SILICON_REVISION": [ { "value": "" } ],
+        "SIMULATOR_LANGUAGE": [ { "value": "MIXED" } ],
+        "SPEEDGRADE": [ { "value": "-1" } ],
+        "STATIC_POWER": [ { "value": "" } ],
+        "TEMPERATURE_GRADE": [ { "value": "" } ]
+      },
+      "runtime_parameters": {
+        "IPCONTEXT": [ { "value": "IP_Integrator" } ],
+        "IPREVISION": [ { "value": "1" } ],
+        "MANAGED": [ { "value": "TRUE" } ],
+        "OUTPUTDIR": [ { "value": "../../../../../../cadc_cmoda7.gen/sources_1/bd/cadc_system/ip/cadc_system_cadc_top_0_0" } ],
+        "SELECTEDSIMMODEL": [ { "value": "" } ],
+        "SHAREDDIR": [ { "value": "../../ipshared" } ],
+        "SWVERSION": [ { "value": "2025.1" } ],
+        "SYNTHESISFLOW": [ { "value": "OOC_HIERARCHICAL" } ]
+      }
+    },
+    "boundary": {
+      "ports": {
+        "i_clk_master": [ { "direction": "in" } ],
+        "i_rst": [ { "direction": "in" } ],
+        "i_sensor_ps": [ { "direction": "in", "size_left": "19", "size_right": "0" } ],
+        "i_sensor_qc": [ { "direction": "in", "size_left": "19", "size_right": "0" } ],
+        "i_sensor_tat": [ { "direction": "in", "size_left": "19", "size_right": "0" } ],
+        "i_sensor_analog": [ { "direction": "in", "size_left": "19", "size_right": "0" } ],
+        "i_sensor_digital": [ { "direction": "in", "size_left": "19", "size_right": "0" } ],
+        "o_out_mach": [ { "direction": "out", "size_left": "19", "size_right": "0" } ],
+        "o_out_alt": [ { "direction": "out", "size_left": "19", "size_right": "0" } ],
+        "o_out_airspd": [ { "direction": "out", "size_left": "19", "size_right": "0" } ],
+        "o_out_vspd": [ { "direction": "out", "size_left": "19", "size_right": "0" } ],
+        "o_out_wing": [ { "direction": "out", "size_left": "19", "size_right": "0" } ],
+        "o_out_flap": [ { "direction": "out", "size_left": "19", "size_right": "0" } ],
+        "o_out_glove": [ { "direction": "out", "size_left": "19", "size_right": "0" } ],
+        "o_bit_status": [ { "direction": "out" } ],
+        "i_channel_active": [ { "direction": "in" } ],
+        "o_fail_detect": [ { "direction": "out" } ]
+      },
+      "interfaces": {
+        "i_rst": {
+          "vlnv": "xilinx.com:signal:reset:1.0",
+          "abstraction_type": "xilinx.com:signal:reset_rtl:1.0",
+          "mode": "slave",
+          "parameters": {
+            "POLARITY": [ { "value": "ACTIVE_HIGH", "value_permission": "bd_and_user", "resolve_type": "generated", "is_ips_inferred": true, "is_static_object": false } ],
+            "INSERT_VIP": [ { "value": "0", "resolve_type": "user", "format": "long", "usage": "simulation.rtl", "is_ips_inferred": true, "is_static_object": false } ]
+          },
+          "port_maps": {
+            "RST": [ { "physical_name": "i_rst" } ]
+          }
+        }
+      }
+    }
+  }
+}
