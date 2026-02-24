@@ -111,9 +111,9 @@ set_property -dict [list \
 create_bd_cell -type module -reference clock_divider clock_divider_0
 
 #-------------------------------------------------------------------------------
-# Add CADC Top Level as RTL module
+# Add CADC Wrapper as RTL module (VHDL-93 wrapper for IP Integrator)
 #-------------------------------------------------------------------------------
-create_bd_cell -type module -reference cadc_top cadc_top_0
+create_bd_cell -type module -reference cadc_wrapper cadc_top_0
 
 #-------------------------------------------------------------------------------
 # Add ILA for output monitoring (142 bits total for all outputs)
